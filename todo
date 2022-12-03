@@ -1,0 +1,67 @@
+Parted:
+
+Credit calculator + Login/Create account Page (50$)
+
+Login/Createaccount backend work (100$)
+
+Upload lead info (includes page design too) + Lead status (150$)
+
+Admin Credit/Debit check + Upload receipts to each transaction (100$)
+
+Show number of transactions (LOGS 50$)
+
+Admin Panel (100$)
+
+
+Front end:
+1. credit calculator - check credit by loan amount similar to mortgage calculator
+2. Login/ create account
+2a. Sign agreement
+
+
+Back end:
+1. Upload lead info
+2. Lead status
+3. Credit/ debit check
+4. Upload receipts to each transaction
+5. Show number of transactions
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDP-mziH1Jl8Ok3NmH9xHVDek3YZ9GXlH8",
+    authDomain: "teamagentadvantage-c3e2d.firebaseapp.com",
+    projectId: "teamagentadvantage-c3e2d",
+    storageBucket: "teamagentadvantage-c3e2d.appspot.com",
+    messagingSenderId: "396700019737",
+    appId: "1:396700019737:web:7103e68d712c59710f8e88"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDP-mziH1Jl8Ok3NmH9xHVDek3YZ9GXlH8",
+  authDomain: "teamagentadvantage-c3e2d.firebaseapp.com",
+  projectId: "teamagentadvantage-c3e2d",
+  storageBucket: "teamagentadvantage-c3e2d.appspot.com",
+  messagingSenderId: "396700019737",
+  appId: "1:396700019737:web:7103e68d712c59710f8e88"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+Stack: Python + Firebase
