@@ -12,9 +12,10 @@
 }
 
 .wpcf7 form .wpcf7-response-output {
-	margin: 2em 0.5em 1em;
+	/* margin: 2em 0.5em 1em; */
+	margin-bottom: 10px;
 	padding: 0.2em 1em;
-	border: 2px solid #00a0d2; /* Blue */
+	color: red;
 }
 
 .wpcf7 form.init .wpcf7-response-output,

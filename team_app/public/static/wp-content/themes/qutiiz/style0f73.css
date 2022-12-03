@@ -10484,6 +10484,8 @@ input[type="search"]::placeholder {
 }
 
 .comment-form__input-box input[type="text"],
+.comment-form__input-box input[type="password"],
+.comment-form__input-box input[type="number"],
 .comment-form__input-box select,
 .comment-form__input-box input[type="email"] {
 	height: 68px;

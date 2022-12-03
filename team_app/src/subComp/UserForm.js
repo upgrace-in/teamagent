@@ -1,7 +1,50 @@
+import $ from 'jquery'
+import { useState } from 'react';
+
 export default function UserForm() {
+
+    const [error, setError] = useState('');
+
+    const [formSwitch, setformSwitch] = useState(0);
+
+    const registerForm = (e) => {
+        e.preventDefault()
+        let userEmail = $('#useremail').val()
+        let userPhone = $('#userphone').val()
+        let userName = $('#username').val()
+        let password = $('#password').val()
+        let confirmPassword = $('#confirmPassword').val()
+
+        if ((userEmail !== '') && (userPhone !== '') && (userName !== '') && (password !== '') && (confirmPassword !== '')) {
+            if (password == confirmPassword) {
+                // Send to backend
+                setError("You are registered !!!")
+            } else {
+                setError("Password unmatched !!!")
+            }
+
+        } else {
+            setError("Please enter valid data !!!")
+        }
+    }
+
+    const loginForm = (e) => {
+        e.preventDefault()
+        let userEmail = $('#loginEmail').val()
+        let password = $('#loginPassword').val()
+
+        if ((userEmail !== '') && (password !== '')) {
+            // Send to backend and wait for approval and create session
+            setError("You are Logged In !!!")
+
+        } else {
+            setError("Please enter valid data !!!")
+        }
+    }
+
     return (
         <>
-            <section
+            <section id="registernow"
                 className="elementor-section elementor-top-section elementor-element elementor-element-e1f49b6 elementor-section-height-min-height elementor-section-boxed elementor-section-height-default elementor-section-items-middle"
                 data-id="e1f49b6" data-element_type="section"
                 data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
@@ -96,64 +139,92 @@ export default function UserForm() {
                                                                 </p>
                                                                 <ul></ul>
                                                             </div>
-                                                            <form action="#" method="post"
-                                                                className="wpcf7-form init" novalidate="novalidate" data-status="init">
-                                                                <div style={{"display": "none"}}>
-                                                                    <input type="hidden" name="_wpcf7" value="169" />
-                                                                    <input type="hidden" name="_wpcf7_version" value="5.6.4" />
-                                                                    <input type="hidden" name="_wpcf7_locale" value="en_US" />
-                                                                    <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f169-p592-o1" />
-                                                                    <input type="hidden" name="_wpcf7_container_post" value="592" />
-                                                                    <input type="hidden" name="_wpcf7_posted_data_hash" value="" />
-                                                                </div>
+                                                            {formSwitch == 1 ? <form className="wpcf7-form init">
                                                                 <div className="comment-one__form ">
-                                                                    <div className="row">
+                                                                    <div className='row'>
                                                                         <div className="col-xl-6">
                                                                             <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                data-name="your-name"><input type="text" name="your-name" value="" size="40"
-                                                                                    className="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
+                                                                                data-name="your-name"><input id="username" type="text" name="your-name" size="40"
+                                                                                    className="wpcf7-form-control wpcf7-text"
                                                                                     aria-required="true" aria-invalid="false" placeholder="Your Name" /></span>
                                                                             </div>
                                                                         </div>
                                                                         <div className="col-xl-6">
                                                                             <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                data-name="your-email"><input type="email" name="your-email" value=""
-                                                                                    size="40"
-                                                                                    className="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email"
-                                                                                    aria-required="true" aria-invalid="false"
-                                                                                    placeholder="Email Address" /></span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="col-xl-6">
-                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                data-name="your-phone"><input type="text" name="your-phone" value="" size="40"
+                                                                                data-name="your-phone"><input id="userphone" type="number" name="your-phone" size="40"
                                                                                     className="wpcf7-form-control wpcf7-text" aria-invalid="false"
                                                                                     placeholder="Phone number" /></span>
                                                                             </div>
                                                                         </div>
+                                                                    </div>
+                                                                    <div className="col-xl-12">
+                                                                        <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
+                                                                            data-name="your-email"><input id="useremail" type="email" name="your-email"
+                                                                                size="40"
+                                                                                className="wpcf7-form-control wpcf7-text"
+                                                                                aria-required="true" aria-invalid="false"
+                                                                                placeholder="Email Address" /></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className='row'>
                                                                         <div className="col-xl-6">
                                                                             <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                data-name="your-subject"><input type="text" name="your-subject" value=""
-                                                                                    size="40" className="wpcf7-form-control wpcf7-text" aria-invalid="false"
-                                                                                    placeholder="Subject" /></span>
+                                                                                data-name="your-name"><input id="password" type="password" size="40"
+                                                                                    className="wpcf7-form-control wpcf7-text"
+                                                                                    aria-required="true" aria-invalid="false" placeholder="Password" /></span>
                                                                             </div>
                                                                         </div>
+                                                                        <div className="col-xl-6">
+                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
+                                                                                data-name="your-phone"><input id="confirmPassword" type="password" size="40"
+                                                                                    className="wpcf7-form-control wpcf7-text" aria-invalid="false"
+                                                                                    placeholder="Confirm Password" /></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="wpcf7-response-output" style={{ display: 'block' }}>
+                                                                        {error}
                                                                     </div>
                                                                     <div className="row">
-                                                                        <div className="col-xl-12">
-                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                data-name="your-message"><textarea name="your-message" cols="40" rows="10"
-                                                                                    className="wpcf7-form-control wpcf7-textarea" aria-invalid="false"
-                                                                                    placeholder="Write a message"></textarea></span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <button type="submit" className="thm-btn comment-form__btn">send a
-                                                                            message</button>
+                                                                        <button onClick={registerForm} type="submit" className="thm-btn comment-form__btn">Register Now</button>
+                                                                    </div>
+                                                                    <div className="row text-center mx-auto mt-4">
+                                                                        <a className='cr' onClick={() => setformSwitch(() => !formSwitch)}>Login Here</a>
                                                                     </div>
                                                                 </div>
-                                                                <div className="wpcf7-response-output" aria-hidden="true">
-                                                                </div>
-                                                            </form>
+
+                                                            </form> :
+                                                                <form className="wpcf7-form init">
+                                                                    <div className="comment-one__form ">
+                                                                        <div className="col-xl-12">
+                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
+                                                                                data-name="your-email"><input id="loginEmail" type="email" name="your-email"
+                                                                                    size="40"
+                                                                                    className="wpcf7-form-control wpcf7-text"
+                                                                                    aria-required="true" aria-invalid="false"
+                                                                                    placeholder="Email Address" /></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="col-xl-12">
+                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
+                                                                                data-name="your-name"><input id="loginPassword" type="password" size="40"
+                                                                                    className="wpcf7-form-control wpcf7-text"
+                                                                                    aria-required="true" aria-invalid="false" placeholder="Password" /></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="wpcf7-response-output" style={{ display: 'block' }}>
+                                                                            {error}
+                                                                        </div>
+                                                                        <div className="row">
+                                                                            <button onClick={loginForm} type="submit" className="thm-btn comment-form__btn">Login Now</button>
+                                                                        </div>
+                                                                        <div className="row text-center mx-auto mt-4">
+                                                                            <a className='cr' onClick={() => setformSwitch(() => !formSwitch)}>Register Here</a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </form>}
+
                                                         </div>
                                                     </div>
                                                 </div>
