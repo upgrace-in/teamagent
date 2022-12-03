@@ -10478,12 +10478,12 @@ input[type="search"]::placeholder {
 	margin-bottom: 0;
 }
 
-.comment-form__input-box {
+input, .comment-form__input-box {
 	position: relative;
 	display: block;
 }
 
-.comment-form__input-box input[type="text"],
+input, .comment-form__input-box input[type="text"],
 .comment-form__input-box input[type="password"],
 .comment-form__input-box input[type="number"],
 .comment-form__input-box select,

@@ -66,10 +66,7 @@ const app = initializeApp(firebaseConfig);
 
 Credit Calcultor + Login System
 
-1) Create a login/register page design
 2) Save the inputs for the register to backend
 3) Function to check for the logged in people
-3) Create login session when someone logs in
-5) Redirect thme to dashboard
+3) Create login session when someone logs in and Redirect thme to dashboard
 6) Credit calculator
-7) Image not available at the carousel

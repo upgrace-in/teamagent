@@ -5,7 +5,7 @@ export default function UserForm() {
 
     const [error, setError] = useState('');
 
-    const [formSwitch, setformSwitch] = useState(0);
+    const [formSwitch, setformSwitch] = useState(1);
 
     const registerForm = (e) => {
         e.preventDefault()
