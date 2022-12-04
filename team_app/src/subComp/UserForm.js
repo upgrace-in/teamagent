@@ -7,8 +7,10 @@ export default function UserForm() {
 
     const [formSwitch, setformSwitch] = useState(1);
 
-    const loginUser = (userEmail) => {
+    const loginUser = (session) => {
         // create session and push to dashboard
+        localStorage.setItem("session", JSON.stringify(session))
+        window.location.href = '/dashboard'
     }
 
     const registerForm = (e) => {
@@ -21,6 +23,7 @@ export default function UserForm() {
 
         if ((userEmail !== '') && (userPhone !== '') && (userName !== '') && (password !== '') && (confirmPassword !== '')) {
             if (password == confirmPassword) {
+                setMsg("Processing...")
                 // Send to backend
                 fetch('/createuser', {
                     method: 'POST',
@@ -34,13 +37,26 @@ export default function UserForm() {
                 }).then(function (response) {
                     return response.json()
                 }).then(function (val) {
-                    console.log(val);
-                    !val ? setMsg("User registered !!!") : setMsg("User Exists !!!")
-                    // Login User
-                    loginUser(userEmail)
+                    if (val['msg']) {
+                        setMsg("User Already Exists Logging in...")
+                        // user exists logged him in
+                        loginUser(val['session'])
+                    } else {
+                        // if val is false thier may be two cases
+                        if (val['session'] != null) {
+                            setMsg("User Registered Logging in...")
+                            // user registered logged him in
+                            loginUser(val['session'])
+                        } else {
+                            setMsg("Something went wrong !!!")
+                        }
+                    }
+                    // localStorage.setItem("session", JSON.stringify(val['session']))
+                    // localStorage.removeItem("session")
+                    // JSON.parse(localStorage.getItem("session")
                 });
 
-                
+
             } else {
                 setMsg("Password unmatched !!!")
             }
@@ -67,10 +83,18 @@ export default function UserForm() {
             }).then(function (response) {
                 return response.json()
             }).then(function (val) {
-                console.log(val);
-                !val ? setMsg("Invalid Credentials!") : setMsg("Logging In...")
-                // Login User
-                loginUser(userEmail)
+                if (val['msg']) {
+                    setMsg("Logging in...")
+                    // logged him in
+                    loginUser(val['session'])
+                } else {
+                    // if val is false thier may be two cases
+                    if (val['session'] != null) {
+                        setMsg("Invalid Credentials !!!")
+                    } else {
+                        setMsg("Something went wrong !!!")
+                    }
+                }
             });
         } else {
             setMsg("Please enter valid data !!!")
@@ -224,7 +248,7 @@ export default function UserForm() {
                                                                         <button onClick={registerForm} type="submit" className="thm-btn comment-form__btn">Register Now</button>
                                                                     </div>
                                                                     <div className="row text-center mx-auto mt-4">
-                                                                        <a className='cr' onClick={() => {setformSwitch(() => !formSwitch); setMsg('')}}>Login Here</a>
+                                                                        <a className='cr' onClick={() => { setformSwitch(() => !formSwitch); setMsg('') }}>Login Here</a>
                                                                     </div>
                                                                 </div>
 
@@ -254,7 +278,7 @@ export default function UserForm() {
                                                                             <button onClick={loginForm} type="submit" className="thm-btn comment-form__btn">Login Now</button>
                                                                         </div>
                                                                         <div className="row text-center mx-auto mt-4">
-                                                                            <a className='cr' onClick={() => {setformSwitch(() => !formSwitch); setMsg('')}}>Register Here</a>
+                                                                            <a className='cr' onClick={() => { setformSwitch(() => !formSwitch); setMsg('') }}>Register Here</a>
                                                                         </div>
                                                                     </div>
 
