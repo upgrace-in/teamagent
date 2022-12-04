@@ -1,15 +1,8 @@
-Parted:
-
 Credit calculator + Login/Create account Page (50$)
-
 Login/Createaccount backend work (100$)
-
 Upload lead info (includes page design too) + Lead status (150$)
-
 Admin Credit/Debit check + Upload receipts to each transaction (100$)
-
 Show number of transactions (LOGS 50$)
-
 Admin Panel (100$)
 
 
@@ -18,7 +11,6 @@ Front end:
 2. Login/ create account
 2a. Sign agreement
 
-
 Back end:
 1. Upload lead info
 2. Lead status
@@ -26,47 +18,14 @@ Back end:
 4. Upload receipts to each transaction
 5. Show number of transactions
 
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyDP-mziH1Jl8Ok3NmH9xHVDek3YZ9GXlH8",
-    authDomain: "teamagentadvantage-c3e2d.firebaseapp.com",
-    projectId: "teamagentadvantage-c3e2d",
-    storageBucket: "teamagentadvantage-c3e2d.appspot.com",
-    messagingSenderId: "396700019737",
-    appId: "1:396700019737:web:7103e68d712c59710f8e88"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-</script>
-
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDP-mziH1Jl8Ok3NmH9xHVDek3YZ9GXlH8",
-  authDomain: "teamagentadvantage-c3e2d.firebaseapp.com",
-  projectId: "teamagentadvantage-c3e2d",
-  storageBucket: "teamagentadvantage-c3e2d.appspot.com",
-  messagingSenderId: "396700019737",
-  appId: "1:396700019737:web:7103e68d712c59710f8e88"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
+Milestone 1:
 Credit Calcultor + Login System
 
-2) Save the inputs for the register to backend
-3) Function to check for the logged in people
-3) Create login session when someone logs in and Redirect thme to dashboard
-6) Credit calculator
+- a func to save the inputs for the register to backend
+- a func to fetch the data with the exact username and match and retunr true or false
+- a func to create login session and redirect them to dashboard
+- one video missing in betweent he page
+
+ssh root@167.86.127.254
+wJ3aJedHbSQqc

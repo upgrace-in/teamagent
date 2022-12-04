@@ -3,9 +3,13 @@ import { useState } from 'react';
 
 export default function UserForm() {
 
-    const [error, setError] = useState('');
+    const [Msg, setMsg] = useState('');
 
     const [formSwitch, setformSwitch] = useState(1);
+
+    const loginUser = (userEmail) => {
+        // create session and push to dashboard
+    }
 
     const registerForm = (e) => {
         e.preventDefault()
@@ -18,13 +22,31 @@ export default function UserForm() {
         if ((userEmail !== '') && (userPhone !== '') && (userName !== '') && (password !== '') && (confirmPassword !== '')) {
             if (password == confirmPassword) {
                 // Send to backend
-                setError("You are registered !!!")
+                fetch('/createuser', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        "name": userName,
+                        "phoneNumber": userPhone,
+                        "emailAddress": userEmail,
+                        "password": password
+                    }),
+                    headers: { "Content-Type": "application/json" }
+                }).then(function (response) {
+                    return response.json()
+                }).then(function (val) {
+                    console.log(val);
+                    !val ? setMsg("User registered !!!") : setMsg("User Exists !!!")
+                    // Login User
+                    loginUser(userEmail)
+                });
+
+                
             } else {
-                setError("Password unmatched !!!")
+                setMsg("Password unmatched !!!")
             }
 
         } else {
-            setError("Please enter valid data !!!")
+            setMsg("Please enter valid data !!!")
         }
     }
 
@@ -35,10 +57,23 @@ export default function UserForm() {
 
         if ((userEmail !== '') && (password !== '')) {
             // Send to backend and wait for approval and create session
-            setError("You are Logged In !!!")
-
+            fetch('/loginuser', {
+                method: 'POST',
+                body: JSON.stringify({
+                    "emailAddress": userEmail,
+                    "password": password
+                }),
+                headers: { "Content-Type": "application/json" }
+            }).then(function (response) {
+                return response.json()
+            }).then(function (val) {
+                console.log(val);
+                !val ? setMsg("Invalid Credentials!") : setMsg("Logging In...")
+                // Login User
+                loginUser(userEmail)
+            });
         } else {
-            setError("Please enter valid data !!!")
+            setMsg("Please enter valid data !!!")
         }
     }
 
@@ -183,13 +218,13 @@ export default function UserForm() {
                                                                         </div>
                                                                     </div>
                                                                     <div className="wpcf7-response-output" style={{ display: 'block' }}>
-                                                                        {error}
+                                                                        {Msg}
                                                                     </div>
                                                                     <div className="row">
                                                                         <button onClick={registerForm} type="submit" className="thm-btn comment-form__btn">Register Now</button>
                                                                     </div>
                                                                     <div className="row text-center mx-auto mt-4">
-                                                                        <a className='cr' onClick={() => setformSwitch(() => !formSwitch)}>Login Here</a>
+                                                                        <a className='cr' onClick={() => {setformSwitch(() => !formSwitch); setMsg('')}}>Login Here</a>
                                                                     </div>
                                                                 </div>
 
@@ -213,13 +248,13 @@ export default function UserForm() {
                                                                             </div>
                                                                         </div>
                                                                         <div className="wpcf7-response-output" style={{ display: 'block' }}>
-                                                                            {error}
+                                                                            {Msg}
                                                                         </div>
                                                                         <div className="row">
                                                                             <button onClick={loginForm} type="submit" className="thm-btn comment-form__btn">Login Now</button>
                                                                         </div>
                                                                         <div className="row text-center mx-auto mt-4">
-                                                                            <a className='cr' onClick={() => setformSwitch(() => !formSwitch)}>Register Here</a>
+                                                                            <a className='cr' onClick={() => {setformSwitch(() => !formSwitch); setMsg('')}}>Register Here</a>
                                                                         </div>
                                                                     </div>
 
