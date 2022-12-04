@@ -19,13 +19,10 @@ Back end:
 5. Show number of transactions
 
 
-Milestone 1:
-Credit Calcultor + Login System
+#Milestone 1:
+#Credit Calcultor + Login System
 
-- a func to save the inputs for the register to backend
-- a func to fetch the data with the exact username and match and retunr true or false
-- a func to create login session and redirect them to dashboard
-- one video missing in betweent he page
+
 
 ssh root@167.86.127.254
 wJ3aJedHbSQqc

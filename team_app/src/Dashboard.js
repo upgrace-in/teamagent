@@ -1,5 +1,22 @@
-export default function Dashboard(){
+import { useEffect } from "react"
+import $ from 'jquery'
+
+export default function Dashboard() {
+
+    useEffect(() => {
+        let sessionData = localStorage.getItem('session')
+        if (sessionData == null) {
+            window.location.href = '/'
+        } else {
+            alert("Welcome " + JSON.parse(sessionData)['emailAddress'])
+        }
+        $('.hide_it').hide()
+    }, [''])
+
     return (
-        <h1>Hari Bol</h1>
+        <>
+            <h1>Dashboard Coming Soon...</h1>
+        </>
+
     )
 }

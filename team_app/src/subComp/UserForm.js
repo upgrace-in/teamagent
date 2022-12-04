@@ -5,7 +5,7 @@ export default function UserForm() {
 
     const [Msg, setMsg] = useState('');
 
-    const [formSwitch, setformSwitch] = useState(1);
+    const [formSwitch, setformSwitch] = useState(0);
 
     const loginUser = (session) => {
         // create session and push to dashboard

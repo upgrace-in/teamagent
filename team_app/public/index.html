@@ -662,12 +662,11 @@
   <!-- /.preloader -->
 
   <div id="page" class="site page-wrapper">
-    <a class="skip-link screen-reader-text" href="#primary">Skip to content</a>
 
 
 
     <!-- the loop -->
-    <div data-elementor-type="wp-post" data-elementor-id="647" class="elementor elementor-647">
+    <div data-elementor-type="wp-post" data-elementor-id="647" class="hide_it elementor elementor-647">
       <section
         class="elementor-section elementor-top-section elementor-element elementor-element-cf4fe30 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
         data-id="cf4fe30" data-element_type="section"
@@ -714,11 +713,16 @@
                                   class="menu-item menu-item-type-custom menu-item-object-custom menu-item-816">
                                   <a href="#step">QUESTION</a>
                                 </li>
+                                <li id="menu-item-816"
+                                  class="menu-item menu-item-type-custom menu-item-object-custom menu-item-816">
+                                  <a class="loggedIn" href="#step"><p style="margin: 0px !important;">Login/Register</p></a>
+                                </li>
                               </ul>
                             </div>
                           </div>
                         </div>
-                        <div class="main-menu-wrapper__right">
+                        
+                        <div class="main-menu-wrapper__right" >
                           <div class="main-menu-wrapper__search-box">
                             <a href="#" class="main-menu-wrapper__search search-toggler icon-magnifying-glass"></a>
 
@@ -728,7 +732,7 @@
                               <span aria-hidden="true" class="  far fa-comment-dots"></span>
                             </div>
                             <div class="main-menu-wrapper__call-number">
-                              <a href="#registernow">
+                              <a class="loggedIn" href="/user">
                                 <p>Login/Register</p>
                               </a>
                             </div>
@@ -742,7 +746,7 @@
                     <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
                   </div><!-- /.stricky-header -->
 
-                  <div class="mobile-nav__wrapper">
+                  <div class="mobile-nav__wrapper" >
                     <div class="mobile-nav__overlay mobile-nav__toggler"></div>
                     <!-- /.mobile-nav__overlay -->
                     <div class="mobile-nav__content">
@@ -751,7 +755,7 @@
                       <div class="logo-box">
                         <a href="index.html">
                           <img decoding="async" loading="lazy" width="100" height="25"
-                            src="/static//madina.kbbodysolutions.com/wp-content/uploads/2022/11/aa-horizontal-logo-175x40-1.webp"
+                            src="/static/wp-content/uploads/2022/11/aa-horizontal-logo-175x40-1.webp"
                             id="mobile-thm-logo" alt="">
                         </a>
                       </div>
@@ -759,7 +763,7 @@
                       <div class="mobile-nav__container"></div>
                       <!-- /.mobile-nav__container -->
                       </ul><!-- /.mobile-nav__contact -->
-                      <div class="mobile-nav__top">
+                      <div class="mobile-nav__top" style="margin-top: 20px;">
                         <div class="mobile-nav__social">
                           <a href="#" class="fab fa-twitter"></a>
                           <a href="#" class="fab fa-facebook"></a>
@@ -770,27 +774,6 @@
                     </div>
                     <!-- /.mobile-nav__content -->
                   </div>
-
-
-
-                  <div class="search-popup">
-                    <div class="search-popup__overlay search-toggler"></div>
-                    <!-- /.search-popup__overlay -->
-                    <div class="search-popup__content">
-                      <form action="/static/">
-                        <label for="search" class="sr-only">search here</label>
-                        <!-- /.sr-only -->
-                        <input type="text" id="search" name="s" placeholder="Search Here..." />
-                        <button type="submit" aria-label="search submit" class="thm-btn">
-                          <i class="icon-magnifying-glass"></i>
-                        </button>
-                      </form>
-                    </div>
-                    <!-- /.search-popup__content -->
-                  </div>
-
-
-
 
                   <span data-target="html" class="scroll-to-target scroll-to-top">
                     <span class="bar-inner"></span><!-- /.bar-inner --><i class="fa fa-angle-up"></i>
@@ -804,7 +787,7 @@
       </section>
     </div>
     <!-- end of the loop -->
-    <div data-elementor-type="wp-page" data-elementor-id="592" class="elementor elementor-592">
+    <div data-elementor-type="wp-page" data-elementor-id="592" class="hide_it elementor elementor-592">
       <section
         class="elementor-section elementor-top-section elementor-element elementor-element-157f012 elementor-section-full_width elementor-section-stretched elementor-section-height-default elementor-section-height-default"
         data-id="157f012" data-element_type="section"
@@ -875,7 +858,7 @@
                                   No More Low-Cost Clients! Leverage Social Media to
                                   Boost <br>Your Sales While Saving You Time, Money,
                                   and Hassle.<br> </h2>
-                                <a target=_blank href="#registernow" class="thm-btn">Sign Me
+                                <a target=_blank href="/user" class="loginBtn thm-btn">Sign Me
                                   Up</a>
 
                               </div>
@@ -909,7 +892,7 @@
                                   No More Low-Cost Clients! Leverage Social Media to
                                   Boost <br>Your Sales While Saving You Time, Money,
                                   and Hassle.<br> </h2>
-                                <a target=_blank href="#registernow" class="thm-btn">Sign Me
+                                <a target=_blank href="/user" class="loginBtn thm-btn">Sign Me
                                   Up</a>
 
                               </div>
@@ -1211,7 +1194,7 @@
                 data-id="3d70863" data-element_type="widget" data-widget_type="button.default">
                 <div class="elementor-widget-container">
                   <div class="elementor-button-wrapper">
-                    <a href="#registernow" class="elementor-button-link elementor-button elementor-size-md"
+                    <a href="/user" class="loginBtn elementor-button-link elementor-button elementor-size-md"
                       role="button">
                       <span class="elementor-button-content-wrapper">
                         <span class="elementor-button-text">Sign Me Up</span>
@@ -2209,14 +2192,14 @@
                       </div>
                     </div>
                   </div>
-                  
+
                 </div>
               </section>
               <section
                 class="elementor-section elementor-inner-section elementor-element elementor-element-e79d5bf elementor-section-content-middle elementor-section-boxed elementor-section-height-default elementor-section-height-default"
                 data-id="e79d5bf" data-element_type="section">
                 <h1 style="color: #fff;">Enter Your Own Loan Amount (in $):</h1>
-                <Br/>
+                <Br />
                 <div class="elementor-container elementor-column-gap-default">
                   <div
                     class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-fd87b77"
@@ -2225,7 +2208,9 @@
                       <div class="elementor-element elementor-element-9fae750 elementor-widget elementor-widget-heading"
                         data-id="9fae750" data-element_type="widget" data-widget_type="heading.default">
                         <div class="elementor-widget-container">
-                          <input id="loanAmount" style="font-size: 1.5rem; border-radius: 10px; padding: 10px; color: #000;" type="number" value="100000" placeholder="Enter Amount">
+                          <input id="loanAmount"
+                            style="font-size: 1.5rem; border-radius: 10px; padding: 10px; color: #000;" type="number"
+                            value="100000" placeholder="Enter Amount">
                         </div>
                       </div>
                     </div>
@@ -2257,7 +2242,7 @@
                       </div>
                     </div>
                   </div>
-                  
+
                 </div>
               </section>
               <section
@@ -2273,10 +2258,11 @@
                         data-id="6bc9a20" data-element_type="widget" data-widget_type="button.default">
                         <div class="elementor-widget-container">
                           <div class="elementor-button-wrapper text-center mx-auto">
-                            <a href="#registernow" class="elementor-button-link elementor-button elementor-size-md"
+                            <a href="/user" class="loginBtn elementor-button-link elementor-button elementor-size-md"
                               role="button">
                               <span class="elementor-button-content-wrapper ">
-                                <span style="color: rgb(39, 39, 39) !important; font-size: 1.3rem;" class="elementor-button-text">Get Started</span>
+                                <span style="color: rgb(39, 39, 39) !important; font-size: 1.3rem;"
+                                  class="elementor-button-text">Get Started</span>
                               </span>
                             </a>
                           </div>
@@ -2345,13 +2331,17 @@
             </div>
           </div>
       </section>
+
+    </div>
+
+    
+    <div data-elementor-type="wp-page" data-elementor-id="592" class="elementor elementor-592">
       <div id="APP"></div>
     </div>
 
 
-
     <!-- the loop -->
-    <div data-elementor-type="wp-post" data-elementor-id="97" class="elementor elementor-97">
+    <div data-elementor-type="wp-post" data-elementor-id="97" class="hide_it elementor elementor-97">
       <section
         class="elementor-section elementor-top-section elementor-element elementor-element-e3f597f elementor-section-full_width elementor-section-height-default elementor-section-height-default"
         data-id="e3f597f" data-element_type="section">
