@@ -4,9 +4,9 @@ const User = require('./config')
 const app = express()
 
 // Static works
-const path = require('path')
-const staticPath = path.join(__dirname, './build')
-app.use(express.static(staticPath))
+// const path = require('path')
+// const staticPath = path.join(__dirname, './build')
+// app.use(express.static(staticPath))
 
 // Sessions
 const cookieParser = require("cookie-parser");
@@ -33,9 +33,6 @@ function loginSession(req, res, msg) {
     }
 }
 
-app.use('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build/index.html'));
-});
 
 app.get('/logout', (req, res) => {
     req.session.destroy();

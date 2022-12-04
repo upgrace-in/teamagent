@@ -33,7 +33,7 @@ export default function UserForm() {
                         "emailAddress": userEmail,
                         "password": password
                     }),
-                    headers: { "Content-Type": "application/json" }
+                    headers: { "Content-Type": "json/application" }
                 }).then(function (response) {
                     return response.json()
                 }).then(function (val) {
@@ -79,7 +79,7 @@ export default function UserForm() {
                     "emailAddress": userEmail,
                     "password": password
                 }),
-                headers: { "Content-Type": "application/json" }
+                headers: { "Content-Type": "json/application" }
             }).then(function (response) {
                 return response.json()
             }).then(function (val) {
