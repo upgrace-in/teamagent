@@ -3,11 +3,6 @@ const cors = require('cors')
 const User = require('./config')
 const app = express()
 
-// Static works
-// const path = require('path')
-// const staticPath = path.join(__dirname, './build')
-// app.use(express.static(staticPath))
-
 // Sessions
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
@@ -32,12 +27,6 @@ function loginSession(req, res, msg) {
         res.send({ session: null, msg: false })
     }
 }
-
-
-app.get('/logout', (req, res) => {
-    req.session.destroy();
-    res.redirect('/');
-});
 
 async function getUsers(emailAddress, password) {
     const snapshot = await User.get();
@@ -89,12 +78,4 @@ app.post('/loginuser', async (req, res) => {
     })
 })
 
-app.post('/post', async (req, res) => {
-    console.log("Hari Bol")
-    // res.redirect("/");
-    res.send("Hari Bol")
-})
-
-const PORT = process.env.PORT || 8080;
-
-app.listen(PORT, () => console.log("Running"))
+app.listen(9000, () => console.log("Running"))

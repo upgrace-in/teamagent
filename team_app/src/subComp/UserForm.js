@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import { useState } from 'react';
 
-export default function UserForm() {
+export default function UserForm(props) {
 
     const [Msg, setMsg] = useState('');
 
@@ -25,7 +25,7 @@ export default function UserForm() {
             if (password == confirmPassword) {
                 setMsg("Processing...")
                 // Send to backend
-                fetch('/createuser', {
+                fetch(props.endpoint+'/createuser', {
                     method: 'POST',
                     body: JSON.stringify({
                         "name": userName,
@@ -33,7 +33,7 @@ export default function UserForm() {
                         "emailAddress": userEmail,
                         "password": password
                     }),
-                    headers: { "Content-Type": "json/application" }
+                    headers: { "Content-Type": "application/json" }
                 }).then(function (response) {
                     return response.json()
                 }).then(function (val) {
@@ -73,13 +73,13 @@ export default function UserForm() {
 
         if ((userEmail !== '') && (password !== '')) {
             // Send to backend and wait for approval and create session
-            fetch('/loginuser', {
+            fetch(props.endpoint+'/loginuser', {
                 method: 'POST',
                 body: JSON.stringify({
                     "emailAddress": userEmail,
                     "password": password
                 }),
-                headers: { "Content-Type": "json/application" }
+                headers: { "Content-Type": "application/json" }
             }).then(function (response) {
                 return response.json()
             }).then(function (val) {

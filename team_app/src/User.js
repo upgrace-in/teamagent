@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import UserForm from "./subComp/UserForm";
 import $ from 'jquery'
 
-export default function User() {
+export default function User(props) {
 
     useEffect(() => {
 
@@ -15,6 +15,6 @@ export default function User() {
     })
 
     return (
-        <UserForm />
+        <UserForm endpoint={props.endpoint} />
     )
 }

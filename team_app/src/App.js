@@ -11,6 +11,8 @@ import {
 
 function App() {
 
+  const ENDPOINT = "http://localhost:9000"
+
   useEffect(() => {
 
     let sessionData = localStorage.getItem('session')
@@ -42,7 +44,7 @@ function App() {
       </div>
       <Routes>
         <Route exact path='/Logout' element={<Logout />}></Route>
-        <Route exact path='/user' element={<User />}></Route>
+        <Route exact path='/user' element={<User endpoint={ENDPOINT} />}></Route>
         <Route exact path='/dashboard' element={<Dashboard />}></Route>
       </Routes>
     </Router>
