@@ -3,6 +3,11 @@ const cors = require('cors')
 const User = require('./config')
 const app = express()
 
+// Static works
+const path = require('path')
+const staticPath = path.join(__dirname, './build')
+app.use(express.static(staticPath))
+
 // Sessions
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
@@ -28,6 +33,10 @@ function loginSession(req, res, msg) {
     }
 }
 
+app.use('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build/index.html'));
+});
+
 app.get('/logout', (req, res) => {
     req.session.destroy();
     res.redirect('/');
@@ -39,18 +48,18 @@ async function getUsers(emailAddress, password) {
     snapshot.forEach((doc) => {
         if (doc.data()['emailAddress'] == emailAddress) {
             // Login purpose
-            if(password != null){
+            if (password != null) {
                 if (doc.data()['password'] == password) {
                     // Logged in user
                     isValid = true
                     return true
-                }else{
+                } else {
                     // Password unmatched !!!
                     isValid = false
                     return false
                 }
-            // Registration return
-            }else{
+                // Registration return
+            } else {
                 // User exists
                 isValid = true
                 return isValid;
