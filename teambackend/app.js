@@ -1,7 +1,10 @@
 const express = require('express')
 const cors = require('cors')
-const User = require('./config')
+const db = require('./config')
 const app = express()
+
+const User = db.collection('Users')
+const Lead = db.collection('Leads')
 
 // Sessions
 const cookieParser = require("cookie-parser");
@@ -22,6 +25,8 @@ function loginSession(req, res, msg) {
     try {
         session = req.session;
         session.emailAddress = req.body.emailAddress;
+        // Session admin
+        session.admin = false;
         res.send({ session: session, msg: msg })
     } catch (e) {
         res.send({ session: null, msg: false })
@@ -66,6 +71,23 @@ app.post('/createuser', async (req, res) => {
         }
         // Login user
         loginSession(req, res, val)
+    })
+})
+
+app.post('/addLead', async (req, res) => {
+    const data = req.body
+    console.log(data)
+    // Matching if the user exists
+    await getUsers(data['emailAddress'], null).then(async (val) => {
+        console.log(val)
+        if (val) {
+            // Save lead
+            const docRef = Lead.doc(data['emailAddress']);
+            await docRef.set(data)
+            res.send({msg: true})
+        }else{
+            res.send({msg: false})
+        }
     })
 })
 
