@@ -21,7 +21,13 @@ Back end:
 
 #Milestone 1:
 #Credit Calcultor + Login System
-
+#Milestone 2:
+#Lead Page
 
 ssh root@167.86.127.254
 wJ3aJedHbSQqc
+
+
+Admin page to approve them
+A function to return the values
+Dashboard table to show lead status

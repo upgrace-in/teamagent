@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const db = require('./config')
 const app = express()
+const crypto = require("crypto");
 
 const User = db.collection('Users')
 const Lead = db.collection('Leads')
@@ -9,11 +10,11 @@ const Lead = db.collection('Leads')
 // Sessions
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
+const { read } = require('fs');
 const sevenDay = 1000 * 60 * 60 * 24 * 7;
 app.use(sessions({
-    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    secret: crypto.randomBytes(16).toString("hex"),
     saveUninitialized: true,
-    cookie: { maxAge: sevenDay },
     resave: false
 }));
 app.use(cookieParser());
@@ -34,29 +35,33 @@ function loginSession(req, res, msg) {
 }
 
 async function getUsers(emailAddress, password) {
-    const snapshot = await User.get();
+    const snapshot = await User.where('emailAddress', '==', emailAddress).get();
     let isValid = false;
-    snapshot.forEach((doc) => {
-        if (doc.data()['emailAddress'] == emailAddress) {
-            // Login purpose
-            if (password != null) {
-                if (doc.data()['password'] == password) {
-                    // Logged in user
-                    isValid = true
-                    return true
+    if (snapshot.empty) {
+        return isValid
+    } else {
+        snapshot.forEach((doc) => {
+            if (doc.data()['emailAddress'] == emailAddress) {
+                // Login purpose
+                if (password != null) {
+                    if (doc.data()['password'] == password) {
+                        // Login user
+                        isValid = true
+                        return true
+                    } else {
+                        // Password unmatched !!!
+                        isValid = false
+                        return false
+                    }
+                    // Registration return
                 } else {
-                    // Password unmatched !!!
-                    isValid = false
-                    return false
+                    // User exists
+                    isValid = true
+                    return isValid;
                 }
-                // Registration return
-            } else {
-                // User exists
-                isValid = true
-                return isValid;
             }
-        }
-    });
+        });
+    }
     return isValid;
 }
 
@@ -76,19 +81,42 @@ app.post('/createuser', async (req, res) => {
 
 app.post('/addLead', async (req, res) => {
     const data = req.body
-    console.log(data)
     // Matching if the user exists
-    await getUsers(data['emailAddress'], null).then(async (val) => {
-        console.log(val)
-        if (val) {
-            // Save lead
-            const docRef = Lead.doc(data['emailAddress']);
-            await docRef.set(data)
-            res.send({msg: true})
-        }else{
-            res.send({msg: false})
-        }
-    })
+    const snapshot = await User.where('emailAddress', '==', data['emailAddress']).get();
+    if (snapshot.empty) {
+        res.send({ msg: false })
+    } else {
+        // Save lead
+        User.doc(data['emailAddress']).collection('Leads')
+        .add({
+            name: req.body.name,
+            loadAmt: req.body.loadAmt,
+            inputAddress: req.body.inputAddress,
+            selectedloadOfficer: req.body.selectedloadOfficer,
+            approved: false
+        })
+        res.send({ msg: true })
+    }
+})
+
+app.get('/addLead', async (req, res) => {
+    const data = req.body
+    // Matching if the user exists
+    const snapshot = await User.where('emailAddress', '==', data['emailAddress']).get();
+    if (snapshot.empty) {
+        res.send({ msg: false })
+    } else {
+        // Save lead
+        User.doc(data['emailAddress']).collection('Leads')
+        .add({
+            name: req.body.name,
+            loadAmt: req.body.loadAmt,
+            inputAddress: req.body.inputAddress,
+            selectedloadOfficer: req.body.selectedloadOfficer,
+            approved: false
+        })
+        res.send({ msg: true })
+    }
 })
 
 app.post('/loginuser', async (req, res) => {
