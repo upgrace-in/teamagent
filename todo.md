@@ -18,7 +18,3 @@ Back end:
 
 ssh root@167.86.127.254
 wJ3aJedHbSQqc
-
-1) Think about design
-2) Function to fill table to show leads
-3) Create full lead view

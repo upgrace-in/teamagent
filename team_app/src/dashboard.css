@@ -1,18 +1,57 @@
-.sideCon{
-    position: absolute;
+.sideCon {
+    position: fixed;
     right: 0;
+    top: 0;
     margin: 5px;
     padding: 10px;
 }
 
-.sp{
+.sp {
+    padding: 0 10px 0px 10px !important;
     margin: 5px;
 }
 
-.hide{
+.popup {
+    height: 100%;
+    display: block;
+    overflow: auto;
+    margin-top: 100px !important;
+    align-items: center;
+}
+
+.popDiv {
+    height: 100%;
+    border-radius: 10px;
+    padding: 0px 50px 0px 50px !important;
+    background: rgb(237, 237, 237);
+}
+
+@media (max-width: 767px) {
+    .popDiv {
+        margin: 20px !important;
+        border-radius: 10px;
+        padding: 0px 10px 0px 10px !important;
+        background: rgb(237, 237, 237);
+    }
+    .contact-page{
+        padding: 30px 0px 50px 0px !important;
+    }
+    .tb{
+        margin: 5px !important;
+    }
+    #leadTableCon{
+        padding: 40% 5% 5% 5% !important;
+    }
+}
+
+.contact-page {
+    padding: 30px 0px 50px 0px !important;
+}
+
+.hide {
     display: none;
 }
 
-.show{
+.show {
     display: block;
 }
