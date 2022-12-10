@@ -10,8 +10,6 @@ const Lead = db.collection('Leads')
 // Sessions
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
-const { read } = require('fs');
-const sevenDay = 1000 * 60 * 60 * 24 * 7;
 app.use(sessions({
     secret: crypto.randomBytes(16).toString("hex"),
     saveUninitialized: true,
@@ -99,23 +97,14 @@ app.post('/addLead', async (req, res) => {
     }
 })
 
-app.get('/addLead', async (req, res) => {
-    const data = req.body
-    // Matching if the user exists
-    const snapshot = await User.where('emailAddress', '==', data['emailAddress']).get();
+app.get('/fetchLeads', async (req, res) => {
+    const data = req.query
+    const snapshot = await User.doc(data['emailAddress']).collection('Leads').get()
     if (snapshot.empty) {
         res.send({ msg: false })
     } else {
-        // Save lead
-        User.doc(data['emailAddress']).collection('Leads')
-        .add({
-            name: req.body.name,
-            loadAmt: req.body.loadAmt,
-            inputAddress: req.body.inputAddress,
-            selectedloadOfficer: req.body.selectedloadOfficer,
-            approved: false
-        })
-        res.send({ msg: true })
+        let leadData = snapshot.docs.map(doc => doc.data());
+        res.send({ msg: true, data: leadData })
     }
 })
 
