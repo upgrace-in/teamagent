@@ -24,7 +24,6 @@ function loginSession(req, res, msg) {
     try {
         session = req.session;
         session.emailAddress = req.body.emailAddress;
-        session.name = req.body.name;
         // Session admin
         session.admin = false;
         res.send({ session: session, msg: msg })

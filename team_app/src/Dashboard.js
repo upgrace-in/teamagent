@@ -14,7 +14,8 @@ export default function Dashboard(props) {
         window.location.href = '/'
     } else {
         session = JSON.parse(props.session);
-        $('.username').html(session['name']);
+        let uname = (session['emailAddress']).split('@')[0]
+        $('.username').html(uname);
     }
     $('.hide_it').hide()
 
