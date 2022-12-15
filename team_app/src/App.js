@@ -11,7 +11,7 @@ import {
 
 function App() {
 
-  const ENDPOINT = "http://localhost:9000"
+  const ENDPOINT = "http://localhost:7070"
   let sessionData = localStorage.getItem('session')
   if (sessionData != null) {
     // Clear the clicks
