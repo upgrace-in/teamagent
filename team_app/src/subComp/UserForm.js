@@ -128,7 +128,7 @@ export default function UserForm(props) {
             <section
                 className="elementor-section elementor-top-section elementor-element elementor-element-45be0c4 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
                 data-id="45be0c4" data-element_type="section" id="contact"
-                data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+                data-settings="{&quot;background_background&quot;:&quot;classic&quot;}" >
                 <div className="elementor-container elementor-column-gap-default">
                     <div
                         className="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-651cec2"

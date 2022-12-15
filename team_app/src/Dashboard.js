@@ -100,7 +100,7 @@ export default function Dashboard(props) {
                                     data-id="9aa5474" data-element_type="widget" data-widget_type="qutiiz-contact-form.default">
                                     <div className="elementor-widget-container">
 
-                                        <section className='contact-page contact-page-two'>
+                                        <section className='contact-page contact-page-two cpa'>
                                             <div className="container">
                                                 <div className="row">
                                                     <div className="col-xl-12">
