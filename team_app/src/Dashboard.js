@@ -7,13 +7,14 @@ export default function Dashboard(props) {
 
     const [formState, setformState] = useState(0)
     const [leadData, setleadData] = useState('')
-    const [Msg, setMsg] = useState('');
+    const [Msg, setMsg] = useState('')
     let session
 
     if (props.session == null) {
         window.location.href = '/'
     } else {
-        session = JSON.parse(props.session)
+        session = JSON.parse(props.session);
+        $('.username').html(session['name']);
     }
     $('.hide_it').hide()
 
@@ -82,11 +83,12 @@ export default function Dashboard(props) {
     return (
         <>
 
-
+            <div className="sideCon">
+                <button className="thm-btn sp">Welcome: <span className="username"></span></button>
+                <button className="thm-btn sp"><a href="#" style={{ color: 'white' }}>Credits: $2.750</a></button>
+            </div>
 
             <main>
-                <h1 className="visually-hidden">Sidebars examples</h1>
-
 
                 <div className="flex-shrink-0 p-3 bg-white" style={{ "width": 220 + "px" }}>
                     <a href="/" className="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom"
@@ -131,6 +133,7 @@ export default function Dashboard(props) {
                             </button>
                             <div className="collapse show" id="orders-collapse">
                                 <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li><a href="/logout" className="link-dark rounded">Logout</a></li>
                                     <li><a href="#" className="link-dark rounded">Contact Us</a></li>
                                     <li><a href="#" className="link-dark rounded">FAQ</a></li>
                                 </ul>

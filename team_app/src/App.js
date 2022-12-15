@@ -15,6 +15,7 @@ function App() {
   let sessionData = localStorage.getItem('session')
   if (sessionData != null) {
     // Clear the clicks
+
     $('.loggedIn').attr('href', '/dashboard')
     $('.loggedIn > p').html("Dashboard")
 

@@ -3,6 +3,8 @@ import { useState } from 'react';
 
 export default function UserForm(props) {
 
+    // $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1"/>');
+
     const [Msg, setMsg] = useState('');
 
     const [formSwitch, setformSwitch] = useState(0);
