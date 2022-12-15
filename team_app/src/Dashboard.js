@@ -82,119 +82,66 @@ export default function Dashboard(props) {
     return (
         <>
 
-            <div className="sideCon">
-                <button onClick={() => setformState(1)} className="thm-btn sp">+ Add Lead</button>
-                <button className="thm-btn sp"><a href="/logout" style={{ color: 'white' }}>Logout</a></button>
-            </div>
 
-            <div className={formState == 1 ? "show popup col-md-12" : "hide"}>
-                <section className='popDiv col-md-6 mx-auto elementor-section elementor-top-section elementor-element elementor-element-9c276d4 elementor-section-full_width elementor-section-height-default elementor-section-height-default'
-                    data-id="9c276d4" data-element_type="section" style={{ marginTop: 0 + 'px' }}>
-                    <div className="elementor-container elementor-column-gap-no">
-                        <div
-                            className="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-a3457b0"
-                            data-id="a3457b0" data-element_type="column">
-                            <div className="elementor-widget-wrap elementor-element-populated">
-                                <div
-                                    className="elementor-element elementor-element-9aa5474 elementor-widget elementor-widget-qutiiz-contact-form"
-                                    data-id="9aa5474" data-element_type="widget" data-widget_type="qutiiz-contact-form.default">
-                                    <div className="elementor-widget-container">
 
-                                        <section className='contact-page contact-page-two cpa'>
-                                            <div className="container">
-                                                <div className="row">
-                                                    <div className="col-xl-12">
-                                                        <div className="contact-page__form">
-                                                            <div role="form" className="wpcf7" id="wpcf7-f169-p592-o1" lang="en-US" dir="ltr">
-                                                                <div className="mx-auto text-center">
-                                                                    <h1>Create Lead</h1>
-                                                                    <br />
-                                                                </div>
-                                                                <form className="wpcf7-form init">
-                                                                    <div className="comment-one__form ">
-                                                                        <div className='row'>
-                                                                            <div className="col-xl-6">
-                                                                                <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                    data-name="your-name"><input id="inputName" type="text" size="40"
-                                                                                        className="wpcf7-form-control wpcf7-text"
-                                                                                        aria-required="true" aria-invalid="false" placeholder="Lead Name" /></span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className="col-xl-6">
-                                                                                <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                    data-name="your-phone"><input id="inputloadAmt" type="number" size="40"
-                                                                                        className="wpcf7-form-control wpcf7-text" aria-invalid="false"
-                                                                                        placeholder="Loan Amount" /></span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="col-xl-12">
-                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                data-name="your-email"><input id="inputAddress" type="text"
-                                                                                    size="40"
-                                                                                    className="wpcf7-form-control wpcf7-text"
-                                                                                    aria-required="true" aria-invalid="false"
+            <main>
+                <h1 className="visually-hidden">Sidebars examples</h1>
 
-                                                                                    placeholder="Address" /></span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="col-xl-12">
-                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                data-name="your-name">
-                                                                                <select className="form-select" id="selectedloadOfficer">
-                                                                                    <option value="0" defaultValue>Select your LEAD Officer</option>
-                                                                                    <option value="Victor MacCliff">Victor MacCliff</option>
-                                                                                    <option value="Sam Zepeda">Sam Zepeda</option>
-                                                                                    <option value="Gabe Lozano">Gabe Lozano</option>
-                                                                                </select>
-                                                                            </span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="wpcf7-response-output" style={{ display: 'block', color: 'red' }}>
-                                                                            {Msg}
-                                                                        </div>
-                                                                        <div className="row mx-auto text-center">
-                                                                            <div className="col-md-6">
-                                                                                <button onClick={submitLeadData} type="submit" className="tb thm-btn">Add Lead</button>
-                                                                            </div>
-                                                                            <div className="col-md-6">
-                                                                                <button type="button" onClick={() => setformState(0)} className="tb thm-btn">Go Back</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </section>
-                                    </div>
-                                </div>
+
+                <div className="flex-shrink-0 p-3 bg-white" style={{ "width": 220 + "px" }}>
+                    <a href="/" className="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom"
+                        style={{
+                            background: '#000',
+                            padding: '10px'
+                        }}>
+
+                        <img src="/static/wp-content/uploads/2022/11/aa-horizontal-logo-175x40-1.webp" />
+
+                    </a>
+                    <ul className="list-unstyled ps-0">
+                        <li className="mb-1">
+                            <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#home-collapse" aria-expanded="true">
+                                Main
+                            </button>
+                            <div className="collapse show" id="home-collapse">
+                                <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li><a href="/" className="link-dark rounded">Home</a></li>
+                                    <li><a href="#" className="link-dark rounded">Leads</a></li>
+                                    <li><a href="#" className="link-dark rounded">Account</a></li>
+                                    <li><a href="/#calculator" className="link-dark rounded">Calculator</a></li>
+                                </ul>
                             </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
+                        </li>
+                        <li className="mb-1">
+                            <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#dashboard-collapse" aria-expanded="true">
+                                Reciepts
+                            </button>
+                            <div className="collapse show" id="dashboard-collapse">
+                                <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li><a href="#" className="link-dark rounded">Upload</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="mb-1">
+                            <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#orders-collapse" aria-expanded="false">
+                                Support
+                            </button>
+                            <div className="collapse show" id="orders-collapse">
+                                <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li><a href="#" className="link-dark rounded">Contact Us</a></li>
+                                    <li><a href="#" className="link-dark rounded">FAQ</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 
-            {/* Leads Table */}
-            <div id="leadTableCon" className={formState == 0 ? 'show mx-auto col-md-10' : 'hide'} style={{ paddingTop: 7 + '%' }}>
-                <h1>Your Leads</h1>
-                <br />
-                <table className="table table-stripe">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Lead Name</th>
-                            <th scope="col">Load Amount</th>
-                            <th scope="col">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="leadData">
-                        {leadData}
-                    </tbody>
-                </table>
-            </div>
+                <div className="b-example-divider"></div>
+
+            </main>
 
         </>
     )
