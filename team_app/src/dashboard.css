@@ -1,9 +1,30 @@
+.creditText {
+    padding: 5px;
+    margin-top: 5px;
+    color: #6222cc;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.calculatedCredit {
+    color: #6222cc;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.creditText>h6 {
+    padding-left: 2px;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: black;
+}
+
 .sideCon {
     position: fixed;
     right: 0;
     top: 0;
     margin: 5px;
-    padding: 10px;
+    padding: 20px;
 }
 
 .sp {
@@ -15,14 +36,14 @@
     height: 100%;
     display: block;
     overflow: auto;
-    margin-top: 100px !important;
+    margin-top: 10px !important;
     align-items: center;
 }
 
 .popDiv {
     height: 100%;
     border-radius: 10px;
-    padding: 0px 50px 0px 50px !important;
+    /* padding: 0px 50px 0px 50px !important; */
     background: rgb(237, 237, 237);
 }
 
@@ -48,8 +69,14 @@
 }
 
 
-.cpa {
+/* .cpa {
     padding: 30px 0px 50px 0px !important;
+} */
+
+
+.contact-page-two,
+.contact-page {
+    padding: 0 !important;
 }
 
 .hide {
@@ -96,7 +123,8 @@ main {
     border-radius: 0;
 }
 
-ul, ol{
+ul,
+ol {
     margin: 0 0 0.5rem 1.0rem !important;
 }
 
@@ -170,4 +198,28 @@ ul, ol{
     .bd-placeholder-img-lg {
         font-size: 3.5rem;
     }
+}
+
+/* Right content */
+
+body {
+    background-color: #ededed;
+}
+
+.padTop {
+    padding: 5% 2% 0% 2%;
+}
+
+.input2 {
+    width: auto !important;
+    display: inline !important;
+    height: auto !important;
+}
+
+.custom-control>label {
+    padding-left: 10px;
+}
+
+.pd-left {
+    padding: 10px;
 }

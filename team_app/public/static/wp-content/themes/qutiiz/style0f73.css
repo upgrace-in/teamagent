@@ -10485,6 +10485,7 @@ input, .comment-form__input-box {
 	display: block;
 }
 
+
 input, .comment-form__input-box input[type="text"],
 .comment-form__input-box input[type="password"],
 .comment-form__input-box input[type="number"],
@@ -11860,9 +11861,9 @@ input, .comment-form__input-box input[type="text"],
 /*--------------------------------------------------------------
 ## Contact Info
 --------------------------------------------------------------*/
-.contact-page-two {
+/* .contact-page-two {
 	padding-top: 90px;
-}
+} */
 
 /* custom animation */
 @keyframes rectMove {
