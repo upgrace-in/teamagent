@@ -11,7 +11,7 @@ import {
 
 function App() {
 
-  const ENDPOINT = "http://localhost:7070"
+  const ENDPOINT = "https://teamapi.upgrace.in"
   let sessionData = localStorage.getItem('session')
   if (sessionData != null) {
     // Clear the clicks

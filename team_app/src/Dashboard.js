@@ -437,8 +437,7 @@ export default function Dashboard(props) {
                                                                                 </div>
                                                                                 <div className="row mx-auto text-left" style={{ marginBottom: 20 + 'px' }}>
                                                                                     <div className="col-md-12">
-                                                                                        {/* <button onClick={submitLeadData} type="submit" disabled={disableBtn == true ? true : false} className="tb thm-btn">Add Lead</button> */}
-                                                                                        <button onClick={submitLeadData} type="submit" className="tb thm-btn">Add Lead</button>
+                                                                                        <button onClick={submitLeadData} type="submit" disabled={disableBtn == true ? true : false} className="tb thm-btn">Add Lead</button>
                                                                                     </div>
                                                                                     {/* <div className="col-md-6">
                                                                                         <button type="button" onClick={() => setformState(0)} className="tb thm-btn">Go Back</button>
