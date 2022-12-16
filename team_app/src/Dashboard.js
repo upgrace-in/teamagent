@@ -5,7 +5,7 @@ import './dashboard.css'
 
 export default function Dashboard(props) {
 
-    const [formState, setformState] = useState(1)
+    const [formState, setformState] = useState(0)
 
     const [clientReadyMsg, setclientReadyMsg] = useState(0)
 
@@ -25,9 +25,6 @@ export default function Dashboard(props) {
         window.location.href = '/'
     } else {
         session = JSON.parse(props.session);
-        let uname = (session['emailAddress']).split('@')[0]
-        $('.username').text(uname);
-        props.calculator($('.loanAmount2'), $('.credits'))
     }
     $('.hide_it').hide()
 
@@ -44,7 +41,7 @@ export default function Dashboard(props) {
                 let count = 0
                 val['data'].map(data => {
                     ++count
-                    leadData.push(<LeadTable count={count} leadname={data['name']} leadamt={data['loanAmt']} leadstatus={data['approved'] === false ? "Waiting" : "Approved"} />);
+                    leadData.push(<LeadTable count={count} leadname={data['fname']} mail={data['inputEmail']} phone={data['inputPhone']} leadamt={data['loanAmt']} leadstatus={data['offerAcceptedStatus'] === false ? "Not Yet" : "Approved"} />);
                 });
                 setleadData(leadData)
 
@@ -59,6 +56,8 @@ export default function Dashboard(props) {
         let uname = (session['emailAddress']).split('@')[0]
         $('.username').text(uname);
         props.calculator($('.loanAmount2'), $('.credits'))
+
+        fetchLeads()
     }, [''])
 
     function submitIt(leadInfo) {
@@ -71,9 +70,9 @@ export default function Dashboard(props) {
         }).then(function (val) {
             if (val['msg']) {
                 setMsg("Awesome! You are all set. See you at closing!")
-                // setTimeout(() => {
-                //     window.location.reload()
-                // }, 1000)
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1000)
             } else {
                 setMsg("Something went wrong...")
             }
@@ -148,12 +147,10 @@ export default function Dashboard(props) {
                         throw new Error;
                     }
                 } else if (offerAcceptedStatus === 0) {
-                    leadInfo.offerAccepted = false
+                    leadInfo.offerAcceptedStatus = false
                 } else {
                     throw new Error;
                 }
-
-                console.log(leadInfo)
 
                 submitIt(leadInfo)
 
@@ -195,7 +192,8 @@ export default function Dashboard(props) {
                             <div className="collapse show" id="home-collapse">
                                 <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                     <li><a href="/" className="link-dark rounded">Home</a></li>
-                                    <li><a href="#" className="link-dark rounded">Leads</a></li>
+                                    <li><a onClick={() => setformState(0)} className="cur link-dark rounded">Your Leads</a></li>
+                                    <li><a onClick={() => setformState(1)} className="cur link-dark rounded">Add Lead</a></li>
                                     <li><a href="#" className="link-dark rounded">Account</a></li>
                                     <li><a href="/#calculator" className="link-dark rounded">Calculator</a></li>
                                 </ul>
@@ -228,8 +226,8 @@ export default function Dashboard(props) {
                     </ul>
                 </div>
 
-                <div className="padTop">
-                    <div className={formState === 1 ? "show popup col-md-12" : "hide"}>
+                <div className={formState === 1 ? "show padTop" : "hide"}>
+                    <div className="popup col-md-12">
                         <section className='popDiv col-md-12 elementor-section elementor-top-section elementor-element elementor-element-9c276d4 elementor-section-full_width elementor-section-height-default elementor-section-height-default'
                             data-id="9c276d4" data-element_type="section" style={{ marginTop: 0 + 'px' }}>
                             <div className="elementor-container elementor-column-gap-no">
@@ -463,6 +461,29 @@ export default function Dashboard(props) {
                     </div>
                 </div>
 
+                <div className="padTop">
+                    {/* Leads Table */}
+                    <div id="leadTableCon" className={formState == 0 ? 'show mx-auto col-md-12' : 'hide'}>
+                        <h1>Your Leads</h1>
+                        <br />
+                        <table className="table table-stripe">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Lead Name</th>
+                                    <th scope="col">Lead Email</th>
+                                    <th scope="col">Lead Phone</th>
+                                    <th scope="col">Loan Amount</th>
+                                    <th scope="col">Credits</th>
+                                    <th scope="col">Offer Accepted</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leadData">
+                                {leadData}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </main>
 
         </>

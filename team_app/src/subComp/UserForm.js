@@ -3,11 +3,9 @@ import { useState } from 'react';
 
 export default function UserForm(props) {
 
-    // $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1"/>');
-
     const [Msg, setMsg] = useState('');
 
-    const [formSwitch, setformSwitch] = useState(0);
+    const [formSwitch, setformSwitch] = useState(false);
 
     const loginUser = (session) => {
         // create session and push to dashboard
@@ -200,7 +198,7 @@ export default function UserForm(props) {
                                                                 </p>
                                                                 <ul></ul>
                                                             </div>
-                                                            {formSwitch === 1 ? <form className="wpcf7-form init">
+                                                            {formSwitch === true ? <form className="wpcf7-form init">
                                                                 <div className="comment-one__form ">
                                                                     <div className='row'>
                                                                         <div className="col-xl-6">
