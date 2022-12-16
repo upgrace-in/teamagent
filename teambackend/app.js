@@ -5,7 +5,6 @@ const app = express()
 const crypto = require("crypto");
 
 const User = db.collection('Users')
-const Lead = db.collection('Leads')
 
 // Sessions
 const cookieParser = require("cookie-parser");
@@ -79,7 +78,6 @@ app.post('/createuser', async (req, res) => {
 
 app.post('/addLead', async (req, res) => {
     const data = req.body
-    console.log(data)
     // Matching if the user exists
     const snapshot = await User.where('emailAddress', '==', data['emailAddress']).get();
     if (snapshot.empty) {

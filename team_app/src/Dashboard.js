@@ -20,39 +20,41 @@ export default function Dashboard(props) {
 
     let session, leadInfo;
 
-    if (props.session === null) {
-        window.location.href = '/'
-    } else {
-        session = JSON.parse(props.session);
-        let uname = (session['emailAddress']).split('@')[0]
-        $('.username').html(uname);
-        props.calculator($('.loanAmount2'), $('.credits'))
+    function fetchLeads() {
+        fetch(props.endpoint + '/fetchLeads?emailAddress=' + session['emailAddress'], {
+            method: 'GET',
+            headers: { "Content-Type": "application/json" }
+        }).then(function (response) {
+            return response.json()
+        }).then(function (val) {
+            if (val['msg']) {
+                // Fill leads
+                let leadData = []
+                let count = 0
+                val['data'].map(data => {
+                    ++count
+                    leadData.push(<LeadTable count={count} leadname={data['name']} leadamt={data['loanAmt']} leadstatus={data['approved'] === false ? "Waiting" : "Approved"} />);
+                });
+                setleadData(leadData)
+
+            } else {
+                // No Leads
+                setleadData(<LeadTable leadname='...' leadamt='...' leadstatus='...' />)
+            }
+        });
     }
-    $('.hide_it').hide()
 
-    // useEffect(() => {
-    //     fetch(props.endpoint + '/fetchLeads?emailAddress=' + session['emailAddress'], {
-    //         method: 'GET',
-    //         headers: { "Content-Type": "application/json" }
-    //     }).then(function (response) {
-    //         return response.json()
-    //     }).then(function (val) {
-    //         if (val['msg']) {
-    //             // Fill leads
-    //             let leadData = []
-    //             let count = 0
-    //             val['data'].map(data => {
-    //                 ++count
-    //                 leadData.push(<LeadTable count={count} leadname={data['name']} leadamt={data['loanAmt']} leadstatus={data['approved'] === false ? "Waiting" : "Approved"} />);
-    //             });
-    //             setleadData(leadData)
-
-    //         } else {
-    //             // No Leads
-    //             setleadData(<LeadTable leadname='...' leadamt='...' leadstatus='...' />)
-    //         }
-    //     });
-    // }, [])
+    useEffect(() => {
+        if (props.session === null) {
+            window.location.href = '/'
+        } else {
+            session = JSON.parse(props.session);
+            let uname = (session['emailAddress']).split('@')[0]
+            $('.username').text(uname);
+            props.calculator($('.loanAmount2'), $('.credits'))
+        }
+        $('.hide_it').hide()
+    }, [])
 
     function submitIt(leadInfo) {
         fetch(props.endpoint + '/addLead', {
