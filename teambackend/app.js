@@ -39,10 +39,10 @@ async function getUsers(emailAddress, password) {
         return isValid
     } else {
         snapshot.forEach((doc) => {
-            if (doc.data()['emailAddress'] == emailAddress) {
+            if (doc.data()['emailAddress'] === emailAddress) {
                 // Login purpose
                 if (password != null) {
-                    if (doc.data()['password'] == password) {
+                    if (doc.data()['password'] === password) {
                         // Login user
                         isValid = true
                         return true

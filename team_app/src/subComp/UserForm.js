@@ -24,7 +24,7 @@ export default function UserForm(props) {
         let confirmPassword = $('#confirmPassword').val()
 
         if ((userEmail !== '') && (userPhone !== '') && (userName !== '') && (password !== '') && (confirmPassword !== '')) {
-            if (password == confirmPassword) {
+            if (password === confirmPassword) {
                 setMsg("Processing...")
                 // Send to backend
                 fetch(props.endpoint+'/createuser', {
@@ -200,7 +200,7 @@ export default function UserForm(props) {
                                                                 </p>
                                                                 <ul></ul>
                                                             </div>
-                                                            {formSwitch == 1 ? <form className="wpcf7-form init">
+                                                            {formSwitch === 1 ? <form className="wpcf7-form init">
                                                                 <div className="comment-one__form ">
                                                                     <div className='row'>
                                                                         <div className="col-xl-6">
