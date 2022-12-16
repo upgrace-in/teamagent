@@ -18,7 +18,18 @@ export default function Dashboard(props) {
     const [leadData, setleadData] = useState('')
     const [Msg, setMsg] = useState('')
 
-    let session, leadInfo;
+    let session;
+    let leadInfo = {};
+
+    if (props.session === null) {
+        window.location.href = '/'
+    } else {
+        session = JSON.parse(props.session);
+        let uname = (session['emailAddress']).split('@')[0]
+        $('.username').text(uname);
+        props.calculator($('.loanAmount2'), $('.credits'))
+    }
+    $('.hide_it').hide()
 
     function fetchLeads() {
         fetch(props.endpoint + '/fetchLeads?emailAddress=' + session['emailAddress'], {
@@ -45,16 +56,10 @@ export default function Dashboard(props) {
     }
 
     useEffect(() => {
-        if (props.session === null) {
-            window.location.href = '/'
-        } else {
-            session = JSON.parse(props.session);
-            let uname = (session['emailAddress']).split('@')[0]
-            $('.username').text(uname);
-            props.calculator($('.loanAmount2'), $('.credits'))
-        }
-        $('.hide_it').hide()
-    }, [])
+        let uname = (session['emailAddress']).split('@')[0]
+        $('.username').text(uname);
+        props.calculator($('.loanAmount2'), $('.credits'))
+    }, [''])
 
     function submitIt(leadInfo) {
         fetch(props.endpoint + '/addLead', {
@@ -66,9 +71,9 @@ export default function Dashboard(props) {
         }).then(function (val) {
             if (val['msg']) {
                 setMsg("Awesome! You are all set. See you at closing!")
-                setTimeout(() => {
-                    window.location.reload()
-                }, 1000)
+                // setTimeout(() => {
+                //     window.location.reload()
+                // }, 1000)
             } else {
                 setMsg("Something went wrong...")
             }
@@ -80,8 +85,6 @@ export default function Dashboard(props) {
         e.preventDefault()
         setdisableBtn(true)
         setMsg('Processing...')
-
-        leadInfo = {}
 
         let fname = $('#inputfirstName').val()
         let lname = $('#inputlastName').val()
@@ -158,7 +161,8 @@ export default function Dashboard(props) {
                 throw new Error;
             }
         } catch (e) {
-            setMsg("Please enter valid data !!!")
+            console.log(e)
+            setMsg("Please enter valid data dsa!!!")
             setdisableBtn(false)
         }
     }
