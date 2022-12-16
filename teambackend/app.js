@@ -79,20 +79,14 @@ app.post('/createuser', async (req, res) => {
 
 app.post('/addLead', async (req, res) => {
     const data = req.body
+    console.log(data)
     // Matching if the user exists
     const snapshot = await User.where('emailAddress', '==', data['emailAddress']).get();
     if (snapshot.empty) {
         res.send({ msg: false })
     } else {
         // Save lead
-        User.doc(data['emailAddress']).collection('Leads')
-        .add({
-            name: req.body.name,
-            loadAmt: req.body.loadAmt,
-            inputAddress: req.body.inputAddress,
-            selectedloadOfficer: req.body.selectedloadOfficer,
-            approved: false
-        })
+        User.doc(data['emailAddress']).collection('Leads').add(data)
         res.send({ msg: true })
     }
 })

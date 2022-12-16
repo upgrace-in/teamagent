@@ -18,8 +18,7 @@ export default function Dashboard(props) {
     const [leadData, setleadData] = useState('')
     const [Msg, setMsg] = useState('')
 
-    let session;
-    let leadInfo = {};
+    let session, leadInfo;
 
     if (props.session === null) {
         window.location.href = '/'
@@ -80,7 +79,7 @@ export default function Dashboard(props) {
         setdisableBtn(true)
         setMsg('Processing...')
 
-        leadInfo.length = 0;
+        leadInfo = {}
 
         let fname = $('#inputfirstName').val()
         let lname = $('#inputlastName').val()
@@ -320,14 +319,14 @@ export default function Dashboard(props) {
                                                                                     <div className="col-xl-6">
                                                                                         <div className="comment-form__input-box">
                                                                                             <span className="wpcf7-form-control-wrap">
-                                                                                                <div onClick={() => { setclientReadyStatus(1); setclientReadyMsg(0) }} className="custom-control custom-radio custom-control-inline">
+                                                                                                <div onClick={() => { setclientReadyStatus(0); setclientReadyMsg(0) }} className="custom-control custom-radio custom-control-inline">
                                                                                                     <input type="radio" id="clientReadyStatus2" name="clientReadyStatus" className="input2 custom-control-input" />
                                                                                                     <label className="custom-control-label" htmlFor="clientReadyStatus2">Let's Talk First</label>
                                                                                                 </div>
                                                                                             </span>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div className={clientReadyStatus === 1 ? "show col-xl-12" : "hide col-xl-12"} style={{ background: '#fff', borderRadius: '10px' }}>
+                                                                                    <div className={clientReadyStatus !== -1 ? "show col-xl-12" : "hide col-xl-12"} style={{ background: '#fff', borderRadius: '10px' }}>
                                                                                         <div className="comment-form__input-box" style={{ padding: 20 + 'px' }}>
                                                                                             <p>{clientReadyMsg === 1 ? "Awesome! Please confirm your client is expecting our call. Please give us the best day and time to contact your client" : "We won't contact your client until you give us the green light. What's the best time to connect with you?"}</p>
                                                                                             <span className="wpcf7-form-control-wrap"
