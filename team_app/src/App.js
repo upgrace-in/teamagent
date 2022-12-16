@@ -22,17 +22,19 @@ function App() {
     $('.loginBtn').hide()
   }
 
-  let loadAmount = $('#loanAmount')
-  let creditDiv = $('#credits')
+  function calculator(loanAmount, creditDiv) {
+    loanAmount.on('input', () => {
+      console.log(loanAmount.val())
+      if (loanAmount.val() !== '') {
+        let credits = (parseInt(loanAmount.val()) * 0.35) / 100
+        creditDiv.html('$' + credits.toFixed(2))
+      } else {
+        creditDiv.html('$0')
+      }
+    })
+  }
 
-  loadAmount.on('input', () => {
-    if (loadAmount.val() !== '') {
-      let credits = (parseInt(loadAmount.val()) * 0.35) / 100
-      creditDiv.html('$' + credits.toFixed(2))
-    } else {
-      creditDiv.html('$0')
-    }
-  })
+  calculator($('.loanAmount'), $('.credits'))
 
   return (
     <Router>
@@ -41,7 +43,7 @@ function App() {
       <Routes>
         <Route exact path='/Logout' element={<Logout />}></Route>
         <Route exact path='/user' element={<User endpoint={ENDPOINT} session={sessionData} />}></Route>
-        <Route exact path='/dashboard' element={<Dashboard endpoint={ENDPOINT} session={sessionData} />}></Route>
+        <Route exact path='/dashboard' element={<Dashboard calculator={calculator} endpoint={ENDPOINT} session={sessionData} />}></Route>
       </Routes>
     </Router>
   );

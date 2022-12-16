@@ -22,6 +22,7 @@ export default function Dashboard(props) {
         session = JSON.parse(props.session);
         let uname = (session['emailAddress']).split('@')[0]
         $('.username').html(uname);
+        props.calculator($('.loanAmount2'), $('.credits'))
     }
     $('.hide_it').hide()
 
@@ -197,14 +198,14 @@ export default function Dashboard(props) {
                                                                                 <div className='row'>
                                                                                     <div className="col-xl-6">
                                                                                         <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                            data-name="your-phone"><input id="inputloadAmt" type="number" size="40"
-                                                                                                className="wpcf7-form-control wpcf7-text" aria-invalid="false"
+                                                                                            data-name="your-phone"><input id="inputloanAmt" type="number" size="40"
+                                                                                                className="loanAmount2 wpcf7-form-control wpcf7-text" aria-invalid="false"
                                                                                                 placeholder="Loan Amount" /></span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div className="col-xl-6">
                                                                                         <div className="comment-form__input-box creditText">
-                                                                                            Credits: <b className="calculatedCredit">$0</b>
+                                                                                            Credits: <b className="credits">$0</b>
                                                                                             <h6>Estimated Credits Apon Closing</h6>
                                                                                         </div>
 
@@ -350,7 +351,7 @@ export default function Dashboard(props) {
                                                                                 <div className="wpcf7-response-output" style={{ display: 'block', color: 'red' }}>
                                                                                     {Msg}
                                                                                 </div>
-                                                                                <div className="row mx-auto text-left">
+                                                                                <div className="row mx-auto text-left" style={{marginBottom: 20+'px'}}>
                                                                                     <div className="col-md-12">
                                                                                         <button onClick={submitLeadData} type="submit" className="tb thm-btn">Add Lead</button>
                                                                                     </div>
