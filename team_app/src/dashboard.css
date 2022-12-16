@@ -223,3 +223,9 @@ body {
 .pd-left {
     padding: 10px;
 }
+
+.shownCon{
+    padding: 20px !important; 
+    background: #fff !important;
+    border-radius: 10px !important;
+}
