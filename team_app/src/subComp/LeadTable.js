@@ -8,6 +8,7 @@ export default function LeadTable(props) {
             <td>${props.leadamt}</td>
             <td>${((parseInt(props.leadamt) * 0.35) / 100).toFixed(2)}</td>
             <td style={{ fontWeight: "700", color: props.leadstatus === 'Approved' ? 'green' : 'red' }}>{props.leadstatus}</td>
+            <td>{props.transaction}</td>
         </tr>
     )
 }

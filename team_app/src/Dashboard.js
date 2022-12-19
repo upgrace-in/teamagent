@@ -41,20 +41,19 @@ export default function Dashboard(props) {
                 let count = 0
                 val['data'].map(data => {
                     ++count
-                    leadData.push(<LeadTable count={count} leadname={data['fname']} mail={data['inputEmail']} phone={data['inputPhone']} leadamt={data['loanAmt']} leadstatus={data['offerAcceptedStatus'] === false ? "Not Yet" : "Approved"} />);
+                    leadData.push(<LeadTable count={count} transaction={'...'} leadname={data['fname']} mail={data['inputEmail']} phone={data['inputPhone']} leadamt={data['loanAmt']} leadstatus={data['offerAcceptedStatus'] === false ? "Not Yet" : "Approved"} />);
                 });
                 setleadData(leadData)
 
             } else {
                 // No Leads
-                setleadData(<LeadTable leadname='...' leadamt='...' leadstatus='...' />)
+                setleadData('')
             }
         });
     }
 
     useEffect(() => {
-        let uname = (session['emailAddress']).split('@')[0]
-        $('.username').text(uname);
+        $('.username').text(session['name']);
         props.calculator($('.loanAmount2'), $('.credits'))
 
         fetchLeads()
@@ -136,7 +135,7 @@ export default function Dashboard(props) {
                 // Checking client accepted yes or no + fields
                 if (offerAcceptedStatus === 1) {
                     if ((inputAddress != '') &&
-                        (selectedloadOfficer != '') &&
+                        (selectedloadOfficer != 0) &&
                         (inputclosingdate != '')) {
                         leadInfo.offerAcceptedStatus = {
                             "selectedloadOfficer": selectedloadOfficer,
@@ -169,7 +168,7 @@ export default function Dashboard(props) {
 
             <div className="sideCon">
                 <button className="thm-btn sp">Welcome: <span className="username"></span></button>
-                <button className="thm-btn sp"><a href="#" style={{ color: 'white' }}>Credits: $2750</a></button>
+                <button className="thm-btn sp"><a href="#" style={{ color: 'white' }}>Credits: $0</a></button>
             </div>
 
             <main>
@@ -330,8 +329,8 @@ export default function Dashboard(props) {
                                                                                             </span>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div className={clientReadyStatus !== -1 ? "show col-xl-12" : "hide col-xl-12"} style={{ background: '#fff', borderRadius: '10px' }}>
-                                                                                        <div className="comment-form__input-box" style={{ padding: 20 + 'px' }}>
+                                                                                    <div className={clientReadyStatus !== -1 ? "show col-xl-12" : "hide"} style={{ background: '#fff', borderRadius: '10px' }}>
+                                                                                        <div className="comment-form__input-box col-xl-7 mx-auto text-center" style={{ padding: 20 + 'px' }}>
                                                                                             <p>{clientReadyMsg === 1 ? "Awesome! Please confirm your client is expecting our call. Please give us the best day and time to contact your client" : "We won't contact your client until you give us the green light. What's the best time to connect with you?"}</p>
                                                                                             <span className="wpcf7-form-control-wrap"
                                                                                                 data-name="your-email">
@@ -398,7 +397,7 @@ export default function Dashboard(props) {
                                                                                             <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
                                                                                                 data-name="your-name">
                                                                                                 <select className="form-select" id="selectedloadOfficer">
-                                                                                                    <option value="0" defaultValue>Select your LEAD Officer</option>
+                                                                                                    <option value="0" defaultValue>None</option>
                                                                                                     <option value="Victor MacCliff">Victor MacCliff</option>
                                                                                                     <option value="Sam Zepeda">Sam Zepeda</option>
                                                                                                     <option value="Gabe Lozano">Gabe Lozano</option>
@@ -406,7 +405,7 @@ export default function Dashboard(props) {
                                                                                             </span>
                                                                                             </div>
                                                                                         </div>
-                                                                                        <div className="col-xl-12">
+                                                                                        <div className="col-xl-4">
                                                                                             <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
                                                                                                 data-name="your-name">
                                                                                                 <label>Expected Closing Date:</label>
@@ -475,10 +474,21 @@ export default function Dashboard(props) {
                                     <th scope="col">Loan Amount</th>
                                     <th scope="col">Credits</th>
                                     <th scope="col">Offer Accepted</th>
+                                    <th scope="col">Transaction</th>
                                 </tr>
                             </thead>
                             <tbody id="leadData">
-                                {leadData}
+                                {leadData !== '' ? leadData :
+                                    <tr>
+                                        <th scope="col">...</th>
+                                        <th scope="col">...</th>
+                                        <th scope="col">...</th>
+                                        <th scope="col">...</th>
+                                        <th scope="col">...</th>
+                                        <th scope="col">...</th>
+                                        <th scope="col">...</th>
+                                        <th scope="col">...</th>
+                                    </tr>}
                             </tbody>
                         </table>
                     </div>
