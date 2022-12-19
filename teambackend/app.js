@@ -73,7 +73,7 @@ app.post('/loginuser', async (req, res) => {
     // Matching if the user exists
     await getUsers(data['emailAddress'], data['password']).then(async (val) => {
         // Login user
-        loginSession(req, val['data'], val['response'])
+        loginSession(req, res, val['data'], val['response'])
     })
 })
 

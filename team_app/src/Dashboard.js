@@ -13,7 +13,7 @@ export default function Dashboard(props) {
     const [clientActively, setclientActively] = useState(-1)
     const [offerAcceptedStatus, setofferAcceptedStatus] = useState(-1)
 
-    const [disableBtn, setdisableBtn] = useState(false)
+    const [disableBtn, setdisableBtn] = useState(true)
 
     const [leadData, setleadData] = useState('')
     const [Msg, setMsg] = useState('')
@@ -55,7 +55,6 @@ export default function Dashboard(props) {
     useEffect(() => {
         $('.username').text(session['name']);
         props.calculator($('.loanAmount2'), $('.credits'))
-
         fetchLeads()
     }, [''])
 
@@ -425,7 +424,7 @@ export default function Dashboard(props) {
                                                                                     <div className="comment-form__input-box">
                                                                                         <span className="wpcf7-form-control-wrap">
                                                                                             <div className="custom-control custom-radio custom-control-inline">
-                                                                                                <input onClick={() => { setdisableBtn(!disableBtn); console.log(!disableBtn) }} type="checkbox" id="accept" name="accept" className="input2 custom-control-input" />
+                                                                                                <input onClick={() => {setdisableBtn(!disableBtn); console.log(disableBtn)}} type="checkbox" id="accept" name="accept" className="input2 custom-control-input" />
                                                                                                 <label className="custom-control-label">I accept to lead generation <a target="_blank" style={{ color: 'blue' }} href="https://docs.google.com/document/d/1rwrycIQmI2_m5CXppq6IVmafzJtIF3Wo/">terms & conditions</a></label>
                                                                                             </div>
                                                                                         </span>
@@ -436,7 +435,7 @@ export default function Dashboard(props) {
                                                                                 </div>
                                                                                 <div className="row mx-auto text-left" style={{ marginBottom: 20 + 'px' }}>
                                                                                     <div className="col-md-12">
-                                                                                        <button onClick={submitLeadData} type="submit" disabled={disableBtn == true ? true : false} className="tb thm-btn">Add Lead</button>
+                                                                                        <button onClick={submitLeadData} type="submit" disabled={disableBtn === true ? true : false} className="tb thm-btn">Add Lead</button>
                                                                                     </div>
                                                                                     {/* <div className="col-md-6">
                                                                                         <button type="button" onClick={() => setformState(0)} className="tb thm-btn">Go Back</button>
