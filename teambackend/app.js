@@ -4,6 +4,9 @@ const db = require('./config')
 const app = express()
 const crypto = require("crypto");
 
+const mailToAdmin = require('./mailSystem/mailAdmin')
+const mailToUser = require('./mailSystem/mailUser')
+
 const User = db.collection('Users')
 
 // Sessions
@@ -18,6 +21,24 @@ app.use(cookieParser());
 
 app.use(express.json())
 app.use(cors())
+
+// Common Variables
+// let loanOfficer = {
+//     'Victor Mackliff': 'victormackliff@gmail.com',
+//     'Sam zepeda': 'SZepeda@sl-Lending.com',
+//     'Gabe Lozano': 'glozano@sl-lending.com',
+//     'Chris Miranda': 'cmiranda@sl-lending.com'
+// }
+let loanOfficer = {
+    'Victor Mackliff': 'thedesiretree47@gmail.com',
+    'Sam zepeda': 'thedesiretree47@gmail.com',
+    'Gabe Lozano': 'thedesiretree47@gmail.com',
+    'Chris Miranda': 'thedesiretree47@gmail.com'
+}
+let liveSiteAdd = "https://teamagentadvantage.upgrace.in/"
+let adminMail = "itz.kartik7@gmail.com"
+
+
 
 async function loginSession(req, res, data, msg) {
     try {
@@ -85,9 +106,27 @@ app.post('/addLead', async (req, res) => {
     if (snapshot.empty) {
         res.send({ msg: false })
     } else {
-        // Save lead
-        User.doc(data['emailAddress']).collection('Leads').add(data)
-        res.send({ msg: true })
+        try {
+            // Save lead
+            User.doc(data['emailAddress']).collection('Leads').add(data)
+
+            // To the Admin
+            mailToAdmin(adminMail, "Someone Added A Lead", data, liveSiteAdd)
+
+            if(loanOfficer[data['offerAcceptedStatus']['selectedloanOfficer']] !== undefined){
+                // To the loan Officer
+                mailToAdmin(loanOfficer[data['offerAcceptedStatus']['selectedloanOfficer']], "Someone Choosed You In A Lead", data, liveSiteAdd)
+            }
+            
+            // To the User
+            mailToUser(data['emailAddress'], "Lead been successfully uploaded !!!", data, liveSiteAdd)
+
+            res.send({ msg: true })
+
+        } catch (e) {
+            console.log(e)
+            res.send({ msg: false })
+        }
     }
 })
 
@@ -101,5 +140,6 @@ app.get('/fetchLeads', async (req, res) => {
         res.send({ msg: true, data: leadData })
     }
 })
+
 
 app.listen(7070, () => console.log("Running"))

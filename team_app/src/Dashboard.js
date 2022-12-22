@@ -68,6 +68,7 @@ export default function Dashboard(props) {
         }).then(function (val) {
             if (val['msg']) {
                 setMsg("Awesome! You are all set. See you at closing!")
+                // Changed
                 setTimeout(() => {
                     window.location.reload()
                 }, 1000)
@@ -86,11 +87,12 @@ export default function Dashboard(props) {
         let fname = $('#inputfirstName').val()
         let lname = $('#inputlastName').val()
         let loanAmt = $('#inputloanAmt').val()
+        let credits = $('#inputCredits').text()
         let inputEmail = $('#inputEmail').val()
         let inputPhone = $('#inputPhone').val()
 
         let inputAddress = $('#inputAddress').val()
-        let selectedloadOfficer = $('#selectedloadOfficer').val()
+        let selectedloanOfficer = $('#selectedloanOfficer').val()
         let inputclosingdate = $('#inputclosingdate').val()
 
         try {
@@ -106,9 +108,11 @@ export default function Dashboard(props) {
                 leadInfo.fname = fname
                 leadInfo.lname = lname
                 leadInfo.loanAmt = loanAmt
+                leadInfo.credits = credits
                 leadInfo.inputEmail = inputEmail
                 leadInfo.inputPhone = inputPhone
                 leadInfo.emailAddress = session['emailAddress']
+                leadInfo.name = session['name']
 
                 // Checking client ready status 
                 let dateTime = $('#dateTime').val()
@@ -134,10 +138,10 @@ export default function Dashboard(props) {
                 // Checking client accepted yes or no + fields
                 if (offerAcceptedStatus === 1) {
                     if ((inputAddress != '') &&
-                        (selectedloadOfficer != 0) &&
+                        (selectedloanOfficer != 0) &&
                         (inputclosingdate != '')) {
                         leadInfo.offerAcceptedStatus = {
-                            "selectedloadOfficer": selectedloadOfficer,
+                            "selectedloanOfficer": selectedloanOfficer,
                             "inputAddress": inputAddress,
                             "inputclosingdate": inputclosingdate
                         }
@@ -157,7 +161,7 @@ export default function Dashboard(props) {
             }
         } catch (e) {
             console.log(e)
-            setMsg("Please enter valid data dsa!!!")
+            setMsg("Please enter valid data!!!")
             setdisableBtn(false)
         }
     }
@@ -278,7 +282,7 @@ export default function Dashboard(props) {
                                                                                     </div>
                                                                                     <div className="col-xl-6">
                                                                                         <div className="comment-form__input-box creditText">
-                                                                                            Credits: <b className="credits">$0</b>
+                                                                                            Credits: <b id="inputCredits" className="credits">$0</b>
                                                                                             <h6>Estimated Credits Upon Closing</h6>
                                                                                         </div>
 
@@ -329,12 +333,14 @@ export default function Dashboard(props) {
                                                                                         </div>
                                                                                     </div>
                                                                                     <div className={clientReadyStatus !== -1 ? "show col-xl-12" : "hide"} style={{ background: '#fff', borderRadius: '10px' }}>
-                                                                                        <div className="comment-form__input-box col-xl-7 mx-auto text-center" style={{ padding: 20 + 'px' }}>
+                                                                                        <div className="comment-form__input-box col-xl-12 mx-auto text-center" style={{ padding: 20 + 'px' }}>
                                                                                             <p>{clientReadyMsg === 1 ? "Awesome! Please confirm your client is expecting our call. Please give us the best day and time to contact your client" : "We won't contact your client until you give us the green light. What's the best time to connect with you?"}</p>
-                                                                                            <span className="wpcf7-form-control-wrap"
-                                                                                                data-name="your-email">
-                                                                                                <input id="dateTime" type="datetime-local" size="40" className="wpcf7-form-control wpcf7-text" />
-                                                                                            </span>
+                                                                                            <div className="col-xl-4 mx-auto text-center">
+                                                                                                <span className="wpcf7-form-control-wrap"
+                                                                                                    data-name="your-email">
+                                                                                                    <input id="dateTime" type="datetime-local" size="40" className="wpcf7-form-control wpcf7-text" />
+                                                                                                </span>
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -395,9 +401,9 @@ export default function Dashboard(props) {
                                                                                         <div className="col-xl-12">
                                                                                             <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
                                                                                                 data-name="your-name">
-                                                                                                <select className="form-select" id="selectedloadOfficer">
+                                                                                                <select className="form-select" id="selectedloanOfficer">
                                                                                                     <option value="0" defaultValue>None</option>
-                                                                                                    <option value="Victor MacCliff">Victor MacCliff</option>
+                                                                                                    <option value="Victor Mackliff">Victor Mackliff</option>
                                                                                                     <option value="Sam Zepeda">Sam Zepeda</option>
                                                                                                     <option value="Gabe Lozano">Gabe Lozano</option>
                                                                                                 </select>
@@ -407,15 +413,15 @@ export default function Dashboard(props) {
                                                                                         <div className="col-xl-4">
                                                                                             <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
                                                                                                 data-name="your-name">
-                                                                                                <label>Expected Closing Date:</label>
-                                                                                                <input id="inputclosingdate" type="date" size="40"
+                                                                                                <label>Expected Closing:</label>
+                                                                                                <input id="inputclosingdate" type="datetime-local" size="40"
                                                                                                     className="wpcf7-form-control wpcf7-text" placeholder="Expected Closing Date" /></span>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div className={offerAcceptedStatus === 0 ? "show shownCon col-xl-12" : "hide shownCon col-xl-12"}>
                                                                                         <div className="offerNotAccepted mx-auto text-center col-md-8">
-                                                                                            <p style={{ padding: 5 + 'px' }}>No problem. You can wait to get your offer accepted or add a credit card so not to delay your marketing campaign.</p>
+                                                                                            <p style={{ padding: 5 + 'px' }}>No problem. You can wait to get your offer accepted or add a credit card so not to delay your marketing campaign. After your transaction closed we will reimburse your account.</p>
                                                                                             <button onClick={submitLeadData} type="submit" className="tb thm-btn">Add Credit Card</button>
                                                                                         </div>
                                                                                     </div>
@@ -424,7 +430,7 @@ export default function Dashboard(props) {
                                                                                     <div className="comment-form__input-box">
                                                                                         <span className="wpcf7-form-control-wrap">
                                                                                             <div className="custom-control custom-radio custom-control-inline">
-                                                                                                <input onClick={() => {setdisableBtn(!disableBtn); console.log(disableBtn)}} type="checkbox" id="accept" name="accept" className="input2 custom-control-input" />
+                                                                                                <input onClick={() => { setdisableBtn(!disableBtn); console.log(disableBtn) }} type="checkbox" id="accept" name="accept" className="input2 custom-control-input" />
                                                                                                 <label className="custom-control-label">I accept to lead generation <a target="_blank" style={{ color: 'blue' }} href="https://docs.google.com/document/d/1rwrycIQmI2_m5CXppq6IVmafzJtIF3Wo/">terms & conditions</a></label>
                                                                                             </div>
                                                                                         </span>

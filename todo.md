@@ -2,12 +2,12 @@ ssh root@167.86.127.254
 wJ3aJedHbSQqc
 
 To deploy:
-
 change endpoint 
 npm run build
 kill the process
 
 lsof -i:7070
+kill -9 PID
 
 ######team.conf:
 [program:teamagent]
@@ -55,3 +55,7 @@ location ~ /\.ht {
     deny all;
 }
 }
+
+
+TODO:
+1) View & Edit Lead
