@@ -59,3 +59,4 @@ location ~ /\.ht {
 
 TODO:
 1) View & Edit Lead
+2) Signup Email Sent

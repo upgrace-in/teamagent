@@ -1,6 +1,6 @@
 const Sendmail = require('./sendMail.js')
 
-function mailToUser(toMail, subject, data, liveSiteAdd) {
+function signupMail(toMail, subject, liveSiteAdd) {
 
     html = `<!DOCTYPE html>
     <html lang="en">
@@ -22,13 +22,13 @@ function mailToUser(toMail, subject, data, liveSiteAdd) {
                     <img src="`+liveSiteAdd+`/emailTemps/greentick.png" alt="">
                 </div>
                 <p>
-                    <span class="fw-7">`+data.fname+' '+data.lname+`</span>
+                    <span class="fw-7">Thanks for signing up.</span>
                     <br/>
-                    <span>Has been successfully uploaded</span>
+                    <span>We are excited to get you going</span>
                     <br /><br />
-                    <span>If you need to edit lead info click below</span>
+                    <span>Don't forget to upload your leads</span>
                 </p>
-                <a href="`+liveSiteAdd+`/user" target="_blank" class="col-md-6 mx-auto text-center btn btn-primary">View lead</a>
+                <a href="`+liveSiteAdd+`/user" target="_blank" class="col-md-6 mx-auto text-center btn btn-primary">Upload leads now</a>
                 <div class="col mt-4">
                     <img src="`+liveSiteAdd+`/emailTemps/logoBlack.png" alt="">
                 </div>
@@ -42,4 +42,4 @@ function mailToUser(toMail, subject, data, liveSiteAdd) {
     Sendmail(toMail, subject, html)
 }
 
-module.exports = mailToUser
+module.exports = signupMail

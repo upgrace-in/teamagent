@@ -6,6 +6,7 @@ const crypto = require("crypto");
 
 const mailToAdmin = require('./mailSystem/mailAdmin')
 const mailToUser = require('./mailSystem/mailUser')
+const signupMail = require('./mailSystem/signupMail')
 
 const User = db.collection('Users')
 
@@ -82,6 +83,7 @@ app.post('/createuser', async (req, res) => {
                 // Register User
                 const docRef = User.doc(data['emailAddress']);
                 await docRef.set(data)
+                signupMail(data['emailAddress'], "Successfully Registered", liveSiteAdd)
             }
             // Login user
             loginSession(req, res, val['data'], val['response'])
