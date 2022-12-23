@@ -3,12 +3,14 @@ const Sendmail = require('./sendMail.js')
 function mailToAdmin(toMail, subject, data, liveSiteAdd) {
     if (data.clientReady !== undefined) {
         clientActivelyMsg = `<p>
-            <span>Best date and time to call is</span>
+            <span style="color: #fff">Best date and time to call is</span>
             <br />
-            <span class="fw-7">On `+ data.clientReady + `</span>
+            <span class="fw-7" style="font-weight: 700;
+            font-size: 1.5rem;">On `+ data.clientReady + `</span>
         </p>`
     } else {
-        clientActivelyMsg = `<p class="fw-7">
+        clientActivelyMsg = `<p class="fw-7" style="font-weight: 700;
+        font-size: 1.5rem; color: #fff;">
             <span id="userFname">Lorenna</span>, would like you to call her first
         </p>`
     }
@@ -19,56 +21,67 @@ function mailToAdmin(toMail, subject, data, liveSiteAdd) {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title></title>
-
-        <style>
-        body{
-            background: #825ea7;
-            color: #fff;
-        }
-        .table{
-            color: #fff;
-        }
-        .fw-7{
-            font-weight: 700;
-            font-size: 1.5rem;
-        }
-        .btn{
-            font-weight: 600;
-            color: #2a084d !important;
-        }   
-        </style>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     </head>
     
-    <body>
-        <div class="container mx-auto text-center">
-            <div class="col mt-4">
+    <body style="padding-top: 20px; padding-bottom: 30px; font-family: 'Roboto';
+    background: #825ea7 !important;
+    color: #fff !important;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;">
+        <div class="container mx-auto text-center" style="width: 80%; text-align: center; margin-right: auto;
+        margin-left: auto;">
+            <div class="col mt-4" style="margin-top: 20px;">
                 <img src="`+ liveSiteAdd + `/emailTemps/logoWhite.png" alt="">
             </div>
-            <div class="col mt-4">
+            <div class="col mt-4" style="margin-top: 20px;">
                 <img src="`+ liveSiteAdd + `/emailTemps/tick.png" alt="">
             </div>
-            <p>
-                On <span id="dateTime">Jun 30, 2022 @ 6:30 PM</span>
+            <p style="color: #fff">
+                On <span id="dateTime" style="color: #fff;">Jun 30, 2022 @ 6:30 PM</span>
                 <br />
-                <span id="userName">`+ data.name + `'s</span>
-                &lt;<span id="emailAddress">`+ data.emailAddress + `</span>&gt;
+                <span id="userName" style="color: #fff;">`+ data.name + `'s</span>
+                &lt;<span id="emailAddress" style="color: #fff;">`+ data.emailAddress + `</span>&gt;
                 registered a new lead.
             </p>
-            <table class="table table-striped">
+            <table class="table table-striped" style="color: #fff; margin-right: auto; margin-left: auto; text-align: center;">
                 <tr>
-                    <td id="leadName">`+ data.fname + ' ' + data.lname + `</td>
-                    <td id="leadEmail">`+ data.inputEmail + `</td>
-                    <td id="leadPhone">`+ data.inputPhone + `</td>
-                    <td id="loanAmount">$`+ data.loanAmt + `</td>
-                    <td id="credits">`+ data.credits + `</td>
+                    <td style="padding: 5px; background: #79559d;
+                                color: #fff;
+                                border-top: 1px solid #dee2e6;" 
+                                id="leadName">`+ data.fname + ' ' + data.lname + `</td>
+                    <td style="padding: 5px; background: #79559d;
+                                color: #fff;
+                                border-top: 1px solid #dee2e6;" 
+                                id="leadEmail">`+ data.inputEmail + `</td>
+                    <td style="padding: 5px; background: #79559d;
+                                color: #fff;
+                                border-top: 1px solid #dee2e6;" 
+                                id="leadPhone">`+ data.inputPhone + `</td>
+                    <td style="padding: 5px; background: #79559d;
+                                color: #fff;
+                                border-top: 1px solid #dee2e6;" 
+                                id="loanAmount">$`+ data.loanAmt + `</td>
+                    <td style="padding: 5px; background: #79559d;
+                                color: #fff;
+                                border-top: 1px solid #dee2e6;" 
+                                id="credits">`+ data.credits + `</td>
                 </tr>
             </table>
             <br />
             <!-- My Client is Ready for Call -->
             `+ clientActivelyMsg + `
             <br />
-            <a href="`+ liveSiteAdd + `/user" target="_blank" class="btn btn-light">View lead</a>
+            <a href="`+ liveSiteAdd + `/user" target="_blank" 
+            class="btn btn-light" 
+            style="border-radius: 10px;
+            padding: 15px;
+            background: #fff9;
+            text-decoration: none;
+            font-weight: 600;
+            color: #2a084d !important;">View lead</a>
         </div>
     </body>
     

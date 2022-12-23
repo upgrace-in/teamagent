@@ -23,7 +23,7 @@ app.use(cookieParser());
 app.use(express.json())
 app.use(cors())
 
-// Common Variables
+// Changed
 // let loanOfficer = {
 //     'Victor Mackliff': 'victormackliff@gmail.com',
 //     'Sam zepeda': 'SZepeda@sl-Lending.com',
@@ -37,7 +37,7 @@ let loanOfficer = {
     'Chris Miranda': 'thedesiretree47@gmail.com'
 }
 let liveSiteAdd = "https://teamagentadvantage.upgrace.in"
-let adminMail = "itz.kartik7@gmail.com"
+let adminMail = "thedesiretree47@gmail.com"
 
 
 

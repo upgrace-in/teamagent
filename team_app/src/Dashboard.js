@@ -25,6 +25,7 @@ export default function Dashboard(props) {
         window.location.href = '/'
     } else {
         session = JSON.parse(props.session);
+        $('.username').text(session['name']);
     }
     $('.hide_it').hide()
 
@@ -53,7 +54,6 @@ export default function Dashboard(props) {
     }
 
     useEffect(() => {
-        $('.username').text(session['name']);
         props.calculator($('.loanAmount2'), $('.credits'))
         fetchLeads()
     }, [''])
