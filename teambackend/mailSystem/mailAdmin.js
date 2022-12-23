@@ -19,10 +19,68 @@ function mailToAdmin(toMail, subject, data, liveSiteAdd) {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title></title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-            integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-        <link rel="stylesheet" href="`+liveSiteAdd+`/emailTemps/main.css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto';
+            background: #825ea7;
+            color: #fff;
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .table {
+            color: #fff;
+        }
+
+        .fw-7 {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .btn {
+            font-weight: 600;
+            color: #2a084d !important;
+        }
+
+
+        * {
+            margin: auto;
+            padding: auto;
+        }
+
+        .container {
+            width: 80%;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mx-auto {
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .mt-4 {
+            margin-top: 20px;
+        }
+
+        td {
+            background: #79559d;
+            color: #fff;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .btn {
+            border-radius: 10px;
+            padding: 15px;
+            background: #fff9;
+            text-decoration: none;
+        }
+    </style>
     </head>
     
     <body>
