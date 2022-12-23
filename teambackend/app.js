@@ -36,7 +36,7 @@ let loanOfficer = {
     'Gabe Lozano': 'thedesiretree47@gmail.com',
     'Chris Miranda': 'thedesiretree47@gmail.com'
 }
-let liveSiteAdd = "https://teamagentadvantage.upgrace.in/"
+let liveSiteAdd = "https://teamagentadvantage.upgrace.in"
 let adminMail = "itz.kartik7@gmail.com"
 
 

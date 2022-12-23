@@ -9,54 +9,69 @@ kill the process
 lsof -i:7070
 kill -9 PID
 
-######team.conf:
-[program:teamagent]
-command=/opt/teamagent/teambackend/start.sh
-autostart=true
-autorestart=true
-stderr_logfile=/opt/teamagent/start.err.log
-stdout_logfile=/opt/teamagent/start.out.log
-
-######teamagent.conf:
-server {
- listen 80;
- server_name teamagentadvantage.upgrace.in;
- return 301 https://teamagentadvantage.upgrace.in$request_uri;
-}
-
-server {
-  listen 443 ssl;
-  root /opt/teamagent/team_app/build/;
-  index index.html index.htm;
-  server_name teamagentadvantage.upgrace.in;
-  ssl_certificate /etc/letsencrypt/live/teamagentadvantage.upgrace.in/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/teamagentadvantage.upgrace.in/privkey.pem;
-location / {
-  try_files $uri /index.html;
-}
-}
-
-######teamng.conf:
-server {
-listen 443 ssl;
-index index.html index.htm;
-server_name teamapi.upgrace.in;
-ssl_certificate /etc/letsencrypt/live/teamapi.upgrace.in/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/teamapi.upgrace.in/privkey.pem;
-location / {
-  proxy_pass http://localhost:7070;
-  proxy_http_version 1.1;
-  proxy_set_header Upgrade $http_upgrade;
-  proxy_set_header Connection 'upgrade';
-  proxy_set_header Host $host;
-  proxy_cache_bypass $http_upgrade;
-}
-location ~ /\.ht {
-    deny all;
-}
-}
-
-
 TODO:
-1) View & Edit Lead
-2) Signup Email Sent
+1) Write the css ffor each tempaltes
+2) Users phone address on the talk first template
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;800&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Roboto';
+            background: #825ea7;
+            color: #fff;
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .table {
+            color: #fff;
+        }
+
+        .fw-7 {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .btn {
+            font-weight: 600;
+            color: #2a084d !important;
+        }
+
+
+        * {
+            margin: auto;
+            padding: auto;
+        }
+
+        .container {
+            width: 80%;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mx-auto {
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .mt-4 {
+            margin-top: 20px;
+        }
+
+        td {
+            background: #79559d;
+            color: #fff;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .btn {
+            border-radius: 10px;
+            padding: 15px;
+            background: #fff9;
+            text-decoration: none;
+        }
+    </style>
