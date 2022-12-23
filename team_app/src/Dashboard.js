@@ -21,11 +21,13 @@ export default function Dashboard(props) {
     let session;
     let leadInfo = {};
 
+
+    // Chekcing is the users session is their   
     if (props.session === null) {
         window.location.href = '/'
     } else {
         session = JSON.parse(props.session);
-        $('.username').text(session['name']);
+        props.checkUserExists(session)
     }
     $('.hide_it').hide()
 
@@ -113,6 +115,7 @@ export default function Dashboard(props) {
                 leadInfo.inputPhone = inputPhone
                 leadInfo.emailAddress = session['emailAddress']
                 leadInfo.name = session['name']
+                leadInfo.phoneNumber = session['phoneNumber']
 
                 // Checking client ready status 
                 let dateTime = $('#dateTime').val()
@@ -406,6 +409,8 @@ export default function Dashboard(props) {
                                                                                                     <option value="Victor Mackliff">Victor Mackliff</option>
                                                                                                     <option value="Sam Zepeda">Sam Zepeda</option>
                                                                                                     <option value="Gabe Lozano">Gabe Lozano</option>
+                                                                                                    <option value="Chris Miranda">Chris Miranda</option>
+                                                                                                    
                                                                                                 </select>
                                                                                             </span>
                                                                                             </div>

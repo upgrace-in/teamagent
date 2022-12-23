@@ -23,6 +23,24 @@ function App() {
     $('.loginBtn').hide()
   }
 
+  function checkUserExists(session) {
+    fetch(ENDPOINT + '/checkUserExists?emailAddress=' + session['emailAddress'], {
+      method: 'GET',
+      headers: { "Content-Type": "application/json" }
+    }).then(function (response) {
+      return response.json()
+    }).then(function (val) {
+      if (val['msg'] === false) {
+        // logout
+        window.location.href = '/logout'
+      } else {
+        // update the session
+        localStorage.setItem("session", JSON.stringify(val['data'][0]))
+        $('.username').text(val['data'][0]['name']);
+      }
+    });
+  }
+
   function calculator(loanAmount, creditDiv) {
     loanAmount.on('input', () => {
       if (loanAmount.val() !== '') {
@@ -43,7 +61,7 @@ function App() {
       <Routes>
         <Route exact path='/Logout' element={<Logout />}></Route>
         <Route exact path='/user' element={<User endpoint={ENDPOINT} session={sessionData} />}></Route>
-        <Route exact path='/dashboard' element={<Dashboard calculator={calculator} endpoint={ENDPOINT} session={sessionData} />}></Route>
+        <Route exact path='/dashboard' element={<Dashboard calculator={calculator} endpoint={ENDPOINT} session={sessionData} checkUserExists={checkUserExists} />}></Route>
       </Routes>
     </Router>
   );

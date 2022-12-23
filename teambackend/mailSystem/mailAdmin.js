@@ -1,6 +1,11 @@
 const Sendmail = require('./sendMail.js')
+var dateTime = require('node-datetime');
+
 
 function mailToAdmin(toMail, subject, data, liveSiteAdd) {
+    var dt = dateTime.create();
+    var realTimeDateTime = dt.format('Y-m-d H:M:S');
+
     if (data.clientReady !== undefined) {
         clientActivelyMsg = `<p>
             <span style="color: #fff">Best date and time to call is</span>
@@ -11,7 +16,9 @@ function mailToAdmin(toMail, subject, data, liveSiteAdd) {
     } else {
         clientActivelyMsg = `<p class="fw-7" style="font-weight: 700;
         font-size: 1.5rem; color: #fff;">
-            <span id="userFname">Lorenna</span>, would like you to call her first
+            <span id="userFname">`+data.name+`</span>, would like you to call her first
+            <br/>
+            <span id="userFname">`+data.phoneNumber+`</span>
         </p>`
     }
     html = `<!DOCTYPE html>
@@ -40,7 +47,7 @@ function mailToAdmin(toMail, subject, data, liveSiteAdd) {
                 <img src="`+ liveSiteAdd + `/emailTemps/tick.png" alt="">
             </div>
             <p style="color: #fff">
-                On <span id="dateTime" style="color: #fff;">Jun 30, 2022 @ 6:30 PM</span>
+                On <span id="dateTime" style="color: #fff;">`+realTimeDateTime+`</span>
                 <br />
                 <span id="userName" style="color: #fff;">`+ data.name + `'s</span>
                 &lt;<span id="emailAddress" style="color: #fff;">`+ data.emailAddress + `</span>&gt;
