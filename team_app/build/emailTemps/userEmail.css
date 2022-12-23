@@ -1,0 +1,28 @@
+body {
+    background: #e5e1e1;
+    color: rgb(80, 80, 80);
+}
+
+.fw-7 {
+    font-weight: 700;
+    font-size: 1.7rem;
+}
+
+.btn:focus,
+.btn:active {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.btn {
+    outline: none;
+    border: none;
+    background: #5f1cb7 !important;
+    font-weight: 600;
+    color: #fff !important;
+}
+
+.card {
+    border-radius: 20px;
+}
