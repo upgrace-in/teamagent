@@ -44,7 +44,7 @@ function App() {
   function calculator(loanAmount, creditDiv) {
     loanAmount.on('input', () => {
       if (loanAmount.val() !== '') {
-        let credits = (parseInt(loanAmount.val()) * 0.35) / 100
+        let credits = (parseInt(loanAmount.val()) * 0.30) / 100
         creditDiv.html('$' + credits.toFixed(2))
       } else {
         creditDiv.html('$0')

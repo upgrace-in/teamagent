@@ -13,12 +13,12 @@ function mailToAdmin(toMail, subject, data, liveSiteAdd) {
             <span class="fw-7" style="font-weight: 700;
             font-size: 1.5rem;">On `+ data.clientReady + `</span>
         </p>`
-    } else {
+    } else {    
         clientActivelyMsg = `<p class="fw-7" style="font-weight: 700;
         font-size: 1.5rem; color: #fff;">
             <span id="userFname">`+data.name+`</span>, would like you to call her first
             <br/>
-            <span id="userFname">`+data.phoneNumber+`</span>
+            <a href="tel:`+data.phoneNumber+`"><span id="userFname">`+data.phoneNumber+`</span></a>
         </p>`
     }
     html = `<!DOCTYPE html>

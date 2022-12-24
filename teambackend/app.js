@@ -24,18 +24,18 @@ app.use(express.json())
 app.use(cors())
 
 // Changed
-let loanOfficer = {
-    'Victor Mackliff': 'victormackliff@gmail.com',
-    'Sam Zepeda': 'SZepeda@sl-Lending.com',
-    'Gabe Lozano': 'glozano@sl-lending.com',
-    'Chris Miranda': 'cmiranda@sl-lending.com'
-}
 // let loanOfficer = {
-//     'Victor Mackliff': 'thedesiretree47@gmail.com',
-//     'Sam Zepeda': 'thedesiretree47@gmail.com',
-//     'Gabe Lozano': 'thedesiretree47@gmail.com',
-//     'Chris Miranda': 'thedesiretree47@gmail.com'
+//     'Victor Mackliff': 'victormackliff@gmail.com',
+//     'Sam Zepeda': 'SZepeda@sl-Lending.com',
+//     'Gabe Lozano': 'glozano@sl-lending.com',
+//     'Chris Miranda': 'cmiranda@sl-lending.com'
 // }
+let loanOfficer = {
+    'Victor Mackliff': 'thedesiretree47@gmail.com',
+    'Sam Zepeda': 'thedesiretree47@gmail.com',
+    'Gabe Lozano': 'thedesiretree47@gmail.com',
+    'Chris Miranda': 'thedesiretree47@gmail.com'
+}
 let liveSiteAdd = "https://teamagentadvantage.upgrace.in"
 let adminMail = "thedesiretree47@gmail.com"
 
