@@ -2,10 +2,16 @@ import { useState, useEffect } from "react"
 import $ from 'jquery'
 import LeadTable from './subComp/LeadTable'
 import './dashboard.css'
+import Upload from './subComp/Upload'
+import Home from './subComp/Home'
+import Account from './subComp/Account'
+import Calculator from "./subComp/Calculator"
 
 export default function Dashboard(props) {
 
-    const [formState, setformState] = useState(0)
+    const [formState, setformState] = useState('Leads')
+
+    const [leadNames, setleadNames] = useState([])
 
     const [clientReadyMsg, setclientReadyMsg] = useState(0)
 
@@ -21,7 +27,6 @@ export default function Dashboard(props) {
     let session;
     let leadInfo = {};
 
-
     // Chekcing is the users session is their   
     if (props.session === null) {
         window.location.href = '/'
@@ -31,7 +36,7 @@ export default function Dashboard(props) {
     }
     $('.hide_it').hide()
 
-    function fetchLeads() {
+    async function fetchLeads() {
         fetch(props.endpoint + '/fetchLeads?emailAddress=' + session['emailAddress'], {
             method: 'GET',
             headers: { "Content-Type": "application/json" }
@@ -41,13 +46,15 @@ export default function Dashboard(props) {
             if (val['msg']) {
                 // Fill leads
                 let leadData = []
+                let leadNames = []
                 let count = 0
                 val['data'].map(data => {
                     ++count
+                    leadNames.push('<option value="'+data["fname"]+'">'+data["fname"]+'</option>')
                     leadData.push(<LeadTable count={count} transaction={'...'} leadname={data['fname']} mail={data['inputEmail']} phone={data['inputPhone']} leadamt={data['loanAmt']} leadstatus={data['offerAcceptedStatus'] === false ? "Not Yet" : "Approved"} />);
                 });
+                setleadNames(leadNames)
                 setleadData(leadData)
-
             } else {
                 // No Leads
                 setleadData('')
@@ -178,7 +185,7 @@ export default function Dashboard(props) {
             </div>
 
             <main>
-                <div className="flex-shrink-0 p-3 bg-white" style={{ "width": 15 + "%" }}>
+                <div className="flex-shrink-0 p-3 bg-white" style={{ "width": 15 + "%", height: 100 + 'vh' }}>
                     <a href="/" className="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom"
                         style={{
                             background: '#000',
@@ -196,22 +203,22 @@ export default function Dashboard(props) {
                             </button>
                             <div className="collapse show" id="home-collapse">
                                 <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="/" className="link-dark rounded">Home</a></li>
-                                    <li><a onClick={() => setformState(0)} className="cur link-dark rounded">Your Leads</a></li>
-                                    <li><a onClick={() => setformState(1)} className="cur link-dark rounded">Add Lead</a></li>
-                                    <li><a href="#" className="link-dark rounded">Account</a></li>
-                                    <li><a href="/#calculator" className="link-dark rounded">Calculator</a></li>
+                                    <li><a onClick={() => setformState('Home')} className="cur link-dark rounded">Home</a></li>
+                                    <li><a onClick={() => setformState('Leads')} className="cur link-dark rounded">Your Leads</a></li>
+                                    <li><a onClick={() => setformState('LeadForm')} className="cur link-dark rounded">Add Lead</a></li>
+                                    <li><a onClick={() => setformState('Account')} className="cur link-dark rounded">Account</a></li>
+                                    <li><a onClick={() => setformState('Calculator')} className="cur link-dark rounded">Calculator</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li className="mb-1">
                             <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-                                data-bs-target="#dashboard-collapse" aria-expanded="true">
+                                data-bs-target="#dashboard-collapse"  aria-expanded="true">
                                 Reciepts
                             </button>
                             <div className="collapse show" id="dashboard-collapse">
                                 <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="#" className="link-dark rounded">Upload</a></li>
+                                    <li><a onClick={() => setformState('Upload')} className="cur link-dark rounded">Upload</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -231,7 +238,7 @@ export default function Dashboard(props) {
                     </ul>
                 </div>
 
-                <div className={formState === 1 ? "show padTop" : "hide"}>
+                <div className={formState === 'LeadForm' ? "show padTop" : "hide"}>
                     <div className="popup col-md-12">
                         <section className='popDiv col-md-12 elementor-section elementor-top-section elementor-element elementor-element-9c276d4 elementor-section-full_width elementor-section-height-default elementor-section-height-default'
                             data-id="9c276d4" data-element_type="section" style={{ marginTop: 0 + 'px' }}>
@@ -410,7 +417,7 @@ export default function Dashboard(props) {
                                                                                                     <option value="Sam Zepeda">Sam Zepeda</option>
                                                                                                     <option value="Gabe Lozano">Gabe Lozano</option>
                                                                                                     <option value="Chris Miranda">Chris Miranda</option>
-                                                                                                    
+
                                                                                                 </select>
                                                                                             </span>
                                                                                             </div>
@@ -471,7 +478,7 @@ export default function Dashboard(props) {
 
                 <div className="padTop">
                     {/* Leads Table */}
-                    <div id="leadTableCon" className={formState == 0 ? 'show mx-auto col-md-12' : 'hide'}>
+                    <div id="leadTableCon" className={formState == 'Leads' ? 'show mx-auto col-md-12' : 'hide'}>
                         <h1>Your Leads</h1>
                         <br />
                         <table className="table table-stripe">
@@ -502,6 +509,14 @@ export default function Dashboard(props) {
                             </tbody>
                         </table>
                     </div>
+
+                    <Upload leadNames={leadNames} formState={formState} />
+
+                    <Home formState={formState} />
+
+                    <Account formState={formState} />
+
+                    <Calculator formState={formState} calculator={props.calculator} />
                 </div>
             </main>
 
