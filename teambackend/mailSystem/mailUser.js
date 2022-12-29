@@ -39,6 +39,7 @@ function mailToUser(toMail, subject, data, liveSiteAdd) {
                 color: #fff !important;
                 border-radius: 10px;
                 padding: 15px;
+                margin-top: 10px;
                 background: #fff9;
                 text-decoration: none;">View lead</a>
                 <div class="col mt-4" style="margin-top: 30px;">

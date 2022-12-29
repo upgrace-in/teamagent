@@ -11,7 +11,8 @@ export default function Dashboard(props) {
 
     const [formState, setformState] = useState('Leads')
 
-    const [leadNames, setleadNames] = useState([])
+    // EXPORTING
+    const [leadDatas, setleadDatas] = useState()
 
     const [clientReadyMsg, setclientReadyMsg] = useState(0)
 
@@ -46,18 +47,31 @@ export default function Dashboard(props) {
             if (val['msg']) {
                 // Fill leads
                 let leadData = []
-                let leadNames = []
-                let count = 0
                 val['data'].map(data => {
-                    ++count
-                    leadNames.push('<option value="'+data["fname"]+'">'+data["fname"]+'</option>')
-                    leadData.push(<LeadTable count={count} transaction={'...'} leadname={data['fname']} mail={data['inputEmail']} phone={data['inputPhone']} leadamt={data['loanAmt']} leadstatus={data['offerAcceptedStatus'] === false ? "Not Yet" : "Approved"} />);
+                    leadData.push(<LeadTable key={data['uid']} uid={data['uid']} transaction={data['transaction']} leadname={data['fname']} mail={data['inputEmail']} phone={data['inputPhone']} leadamt={data['loanAmt']} leadstatus={data['offerAcceptedStatus'] === false ? "Not Yet" : "Approved"} />);
                 });
-                setleadNames(leadNames)
+                setleadDatas(val['data'])
                 setleadData(leadData)
             } else {
                 // No Leads
+                setleadDatas(undefined)
                 setleadData('')
+            }
+        });
+    }
+
+    async function fetchReceipts() {
+        fetch(props.endpoint + '/fetchLeads?emailAddress=' + session['emailAddress'], {
+            method: 'GET',
+            headers: { "Content-Type": "application/json" }
+        }).then(function (response) {
+            return response.json()
+        }).then(function (val) {
+            if (val['msg']) {
+                return val.data
+            } else {
+                // No Receipts
+                return null
             }
         });
     }
@@ -123,6 +137,7 @@ export default function Dashboard(props) {
                 leadInfo.emailAddress = session['emailAddress']
                 leadInfo.name = session['name']
                 leadInfo.phoneNumber = session['phoneNumber']
+                leadInfo.createdon = new Date().getFullYear()
 
                 // Checking client ready status 
                 let dateTime = $('#dateTime').val()
@@ -163,6 +178,8 @@ export default function Dashboard(props) {
                 } else {
                     throw new Error;
                 }
+
+                leadInfo.uid = Math.random().toString(36).slice(2)
 
                 submitIt(leadInfo)
 
@@ -510,9 +527,9 @@ export default function Dashboard(props) {
                         </table>
                     </div>
 
-                    <Upload leadNames={leadNames} formState={formState} />
+                    <Upload endpoint={props.endpoint} emailAddress={session['emailAddress']} leadNames={leadDatas} formState={formState} />
 
-                    <Home formState={formState} />
+                    <Home fetchReceipts={fetchReceipts} leadDatas={leadDatas} formState={formState} />
 
                     <Account formState={formState} />
 

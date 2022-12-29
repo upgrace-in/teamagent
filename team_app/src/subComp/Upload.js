@@ -1,22 +1,80 @@
 import { useEffect, useState } from "react"
+import $ from 'jquery'
+import axios from 'axios';
 
 export default function Upload(props) {
 
     const [Msg, setMsg] = useState('')
     const [disableBtn, setdisableBtn] = useState(false)
 
-    const submitLeadData = (e) => {
-        e.preventDefault()
-        setdisableBtn(true)
+    const [file, setFile] = useState();
+    const [fileName, setFileName] = useState("Browse File");
+
+    const submitIt = (receiptData) => {
+        fetch(props.endpoint + '/uploadReceipt', {
+            method: 'POST',
+            body: receiptData
+        }).then(function (response) {
+            return response.json()
+        }).then(function (val) {
+            if (val['msg']) {
+                setMsg("Receipt Uploaded !!!")
+                // Changed
+                // setTimeout(() => {
+                //     window.location.reload()
+                // }, 1000)
+            } else {
+                setMsg("Something went wrong...")
+            }
+        });
     }
 
-    const setupDrag = () => {
+    const submitReceiptData = (e) => {
+        e.preventDefault()
+
+        let receiptData = {}
+
+        setdisableBtn(true)
+        setMsg('Processing...')
+
+        let inputRecAmt = $('#inputRecAmt').val()
+        let inputtxnAdd = $('#inputtxnAdd').val()
+        let leadUID = $('#leadUID').val()
+
+        try {
+            if ((inputRecAmt !== '') && (inputtxnAdd !== '') && (leadUID !== 0)) {
+                receiptData.file = file
+                receiptData.fileName = fileName
+
+                receiptData.inputRecAmt = inputRecAmt
+                receiptData.inputtxnAdd = inputtxnAdd
+                receiptData.leadUID = leadUID
+                receiptData.emailAddress = props.emailAddress
+                receiptData.uid = Math.random().toString(36).slice(2)
+
+                console.log(receiptData)
+                submitIt(receiptData)
+            } else {
+                throw new Error;
+            }
+        } catch (e) {
+            console.log(e)
+            setMsg("Please enter valid data!!!")
+            setdisableBtn(false)
+        }
+
+    }
+
+    useEffect(() => {
+
+        let receiptfile;
+
+        // Uplaod files
         //selecting all required elements
         const dropArea = document.querySelector(".drag-area"),
             dragText = dropArea.querySelector("header"),
             button = dropArea.querySelector("button"),
             input = dropArea.querySelector("input");
-        let file; //this is a global variable and we'll use it inside multiple functions
 
         button.onclick = () => {
             input.click(); //if user click on the button then the input also clicked
@@ -24,15 +82,13 @@ export default function Upload(props) {
 
         input.addEventListener("change", function () {
             //getting user select file and [0] this means if user select multiple files then we'll select only the first one
-            file = this.files[0];
+            receiptfile = this.files[0];
             dropArea.classList.add("active");
-            showFile(); //calling function
+            showFile();
         });
 
-
-        //If user Drag File Over DropArea
         dropArea.addEventListener("dragover", (event) => {
-            event.preventDefault(); //preventing from default behaviour
+            event.preventDefault();
             dropArea.classList.add("active");
             dragText.textContent = "Release to Upload File";
         });
@@ -45,24 +101,28 @@ export default function Upload(props) {
 
         //If user drop File on DropArea
         dropArea.addEventListener("drop", (event) => {
-            event.preventDefault(); //preventing from default behaviour
-            //getting user select file and [0] this means if user select multiple files then we'll select only the first one
-            file = event.dataTransfer.files[0];
-            showFile(); //calling function
+            event.preventDefault();
+            receiptfile = event.dataTransfer.files[0];
+            showFile();
         });
 
         function showFile() {
-            let fileType = file.type; //getting selected file type
+            let fileType = receiptfile.type; //getting selected file type
             let validExtensions = ["image/jpeg", "image/jpg", "image/png"]; //adding some valid image extensions in array
             if (validExtensions.includes(fileType)) { //if user selected file is an image file
                 let fileReader = new FileReader(); //creating new FileReader object
                 fileReader.onload = () => {
-                    let fileURL = fileReader.result; //passing user file source in fileURL variable
-                    // UNCOMMENT THIS BELOW LINE. I GOT AN ERROR WHILE UPLOADING THIS POST SO I COMMENTED IT
-                    let imgTag = `<img src="${fileURL}" alt="image">`; //creating an img tag and passing user selected file source inside src attribute
-                    dropArea.innerHTML = imgTag; //adding that created img tag inside dropArea container
+                    // let fileURL = fileReader.result;
+                    // console.log(fileURL)
+                    // let imgTag = `<img src="${fileURL}" alt="image">`; 
+                    // dropArea.innerHTML = imgTag;
+                    $('.drapHeader').html('Your File :')
+                    $('.drapOR').hide()
+                    button.innerHTML = receiptfile.name
+                    setFile(receiptfile);
+                    setFileName(receiptfile.name);
                 }
-                fileReader.readAsDataURL(file);
+                fileReader.readAsDataURL(receiptfile);
             } else {
                 alert("This is not an Image File!");
                 dropArea.classList.remove("active");
@@ -70,11 +130,7 @@ export default function Upload(props) {
             }
         }
 
-    }
-
-    useEffect(() => {
-        setupDrag()
-    }, [props.leadNames])
+    }, [''])
 
     return (
         <div className={props.formState === 'Upload' ? 'show' : 'hide'}>
@@ -83,34 +139,39 @@ export default function Upload(props) {
             <div className="row" style={{ padding: 10 + 'px' }}>
                 <div className="drag-area col-md-6">
                     <div className="icon"><i className="fas fa-cloud-upload-alt"></i></div>
-                    <header>Drag & Drop to Upload File</header>
-                    <span>OR</span>
-                    <button>Browse File</button>
-                    <input type="file" hidden />
+                    <header className="drapHeader">Drag & Drop to Upload File</header>
+                    <span className="drapOR">OR</span>
+                    <button>{fileName}</button>
+                    <input id="imgTag" type="file" hidden />
                 </div>
                 <div className="col-md-6">
                     <form className="wpcf7-form init">
                         <div className="comment-one__form ">
                             <div className="col-xl-12">
-                                <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                    data-name="your-name">
-                                    <select className="form-select" id="leadName">
+                                <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap">
+                                    <select className="form-select" id="leadUID">
                                         <option value="0" defaultValue>Select Lead</option>
-                                        {props.leadNames.join('')}
+                                        {
+                                            props.leadNames !== undefined ?
+                                                props.leadNames.map(data => {
+                                                    return <option value={data.uid}>{data.fname + ' ' + data.lname + ' (' + data.uid + ')'}</option>
+                                                })
+                                                : () => { return null }
+                                        }
                                     </select>
                                 </span>
                                 </div>
                             </div>
                             <div className="col-xl-12">
                                 <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                    data-name="your-name"><input id="inputlastName" type="text" size="40"
+                                    data-name="your-name"><input id="inputtxnAdd" type="text" size="40"
                                         className="wpcf7-form-control wpcf7-text"
-                                        aria-required="true" aria-invalid="false" placeholder="Receipt Address" /></span>
+                                        aria-required="true" aria-invalid="false" placeholder="Transaction Address" /></span>
                                 </div>
                             </div>
                             <div className="col-xl-12">
                                 <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                    data-name="your-name"><input id="inputlastName" type="number" size="40"
+                                    data-name="your-name"><input id="inputRecAmt" type="number" size="40"
                                         className="wpcf7-form-control wpcf7-text"
                                         aria-required="true" aria-invalid="false" placeholder="Receipt Amount" /></span>
                                 </div>
@@ -120,7 +181,7 @@ export default function Upload(props) {
                             </div>
                             <div className="row mx-auto text-left" style={{ marginBottom: 20 + 'px' }}>
                                 <div className="col-md-12">
-                                    <button onClick={submitLeadData} type="submit" disabled={disableBtn === true ? true : false} className="tb thm-btn">Upload Receipt</button>
+                                    <button onClick={submitReceiptData} type="submit" disabled={disableBtn === true ? true : false} className="tb thm-btn">Upload Receipt</button>
                                 </div>
                             </div>
                         </div>

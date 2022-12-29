@@ -40,6 +40,7 @@ function signupMail(toMail, subject, liveSiteAdd) {
                 border-radius: 10px;
                 padding: 15px;
                 background: #fff9;
+                margin-top: 10px;
                 text-decoration: none;">Upload leads now</a>
                 <div class="col mt-4" style="margin-top: 30px;">
                     <img src="`+ liveSiteAdd + `/emailTemps/logoBlack.png" alt="">
