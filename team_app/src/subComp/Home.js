@@ -108,25 +108,25 @@ export default function Home(props) {
             <br />
             <div className="row">
                 <div className="col-md-6">
-                    <div className="conw wc" style={{ background: '#835ea8' }}>
+                    <div className="conw concw wc" style={{ background: '#835ea8' }}>
                         <h3>${avgLoanAmt}</h3>
                         <span>Average Loan Amount</span>
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <div className="conw wc" style={{ background: '#492d7e' }}>
+                    <div className="conw concw wc" style={{ background: '#492d7e' }}>
                         <h3>{totalTxn}</h3>
                         <span>Total Transactions</span>
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <div className="conw wc" style={{ background: '#cbbedd' }}>
+                    <div className="conw concw wc" style={{ background: '#cbbedd' }}>
                         <h3>${totalDebits}</h3>
                         <span>Total Debits</span>
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <div className="conw wc" style={{ background: '#a495c7' }}>
+                    <div className="conw concw wc" style={{ background: '#a495c7' }}>
                         <h3>{closedTxn}</h3>
                         <span>Closed Transactions</span>
                     </div>

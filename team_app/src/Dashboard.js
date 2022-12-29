@@ -214,7 +214,7 @@ export default function Dashboard(props) {
                         </li>
                         <li className="mb-1">
                             <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-                                data-bs-target="#dashboard-collapse"  aria-expanded="true">
+                                data-bs-target="#dashboard-collapse" aria-expanded="true">
                                 Reciepts
                             </button>
                             <div className="collapse show" id="dashboard-collapse">
@@ -239,285 +239,290 @@ export default function Dashboard(props) {
                     </ul>
                 </div>
 
-                <div className={formState === 'LeadForm' ? "show padTop" : "hide"}>
-                    <div className="popup col-md-12">
-                        <section className='popDiv col-md-12 elementor-section elementor-top-section elementor-element elementor-element-9c276d4 elementor-section-full_width elementor-section-height-default elementor-section-height-default'
-                            data-id="9c276d4" data-element_type="section" style={{ marginTop: 0 + 'px' }}>
-                            <div className="elementor-container elementor-column-gap-no">
-                                <div
-                                    className="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-a3457b0"
-                                    data-id="a3457b0" data-element_type="column">
-                                    <div className="elementor-widget-wrap elementor-element-populated">
-                                        <div
-                                            className="elementor-element elementor-element-9aa5474 elementor-widget elementor-widget-qutiiz-contact-form"
-                                            data-id="9aa5474" data-element_type="widget" data-widget_type="qutiiz-contact-form.default">
-                                            <div className="elementor-widget-container">
+                <div className="sideTop" style={{ "width": 75 + "%" }}>
 
-                                                <section className='contact-page contact-page-two cpa'>
-                                                    <div className="container">
-                                                        <div className="row">
-                                                            <div className="col-xl-12">
-                                                                <div className="contact-page__form">
-                                                                    <div role="form" className="wpcf7" id="wpcf7-f169-p592-o1" lang="en-US" dir="ltr">
-                                                                        <div className="mx-auto text-left">
-                                                                            <h1>Lead Info</h1>
-                                                                            <br />
-                                                                        </div>
-                                                                        <form className="wpcf7-form init">
-                                                                            <div className="comment-one__form ">
-                                                                                <div className='row'>
-                                                                                    <div className="col-xl-6">
-                                                                                        <div className="comment-form__input-box">
-                                                                                            <span className="wpcf7-form-control-wrap"
-                                                                                                data-name="your-name">
-                                                                                                <input id="inputfirstName" type="text" size="40"
-                                                                                                    className="wpcf7-form-control wpcf7-text"
-                                                                                                    aria-required="true" aria-invalid="false" placeholder="First Name" /></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div className="col-xl-6">
-                                                                                        <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                            data-name="your-name"><input id="inputlastName" type="text" size="40"
-                                                                                                className="wpcf7-form-control wpcf7-text"
-                                                                                                aria-required="true" aria-invalid="false" placeholder="Last Name" /></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div className='row'>
-                                                                                    <div className="col-xl-6">
-                                                                                        <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                            data-name="your-phone"><input id="inputloanAmt" type="number" size="40"
-                                                                                                className="loanAmount2 wpcf7-form-control wpcf7-text" aria-invalid="false"
-                                                                                                placeholder="Loan Amount" /></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div className="col-xl-6">
-                                                                                        <div className="comment-form__input-box creditText">
-                                                                                            Credits: <b id="inputCredits" className="credits">$0</b>
-                                                                                            <h6>Estimated Credits Upon Closing</h6>
-                                                                                        </div>
 
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div className="row">
-                                                                                    <div className="col-xl-6">
-                                                                                        <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                            data-name="your-email"><input id="inputEmail" type="email"
-                                                                                                size="40"
-                                                                                                className="wpcf7-form-control wpcf7-text"
-                                                                                                aria-required="true" aria-invalid="false"
+                    <div className={formState === 'LeadForm' ? "show padTop" : "hide"} >
+                        <div className="popup col-md-12">
+                            <section className='popDiv col-md-12 elementor-section elementor-top-section elementor-element elementor-element-9c276d4 elementor-section-full_width elementor-section-height-default elementor-section-height-default'
+                                data-id="9c276d4" data-element_type="section" style={{ marginTop: 0 + 'px' }}>
+                                <div className="elementor-container elementor-column-gap-no">
+                                    <div
+                                        className="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-a3457b0"
+                                        data-id="a3457b0" data-element_type="column">
+                                        <div className="elementor-widget-wrap elementor-element-populated">
+                                            <div
+                                                className="elementor-element elementor-element-9aa5474 elementor-widget elementor-widget-qutiiz-contact-form"
+                                                data-id="9aa5474" data-element_type="widget" data-widget_type="qutiiz-contact-form.default">
+                                                <div className="elementor-widget-container">
 
-                                                                                                placeholder="Email" /></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div className="col-xl-6">
-                                                                                        <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                            data-name="your-email"><input id="inputPhone" type="number"
-                                                                                                size="40"
-                                                                                                className="wpcf7-form-control wpcf7-text"
-                                                                                                aria-required="true" aria-invalid="false"
-
-                                                                                                placeholder="Phone" /></span>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                                <div className="row pd-left">
-                                                                                    <div className="col-xl-6">
-                                                                                        <div className="comment-form__input-box">
-                                                                                            <span className="wpcf7-form-control-wrap">
-                                                                                                <div onClick={() => { setclientReadyStatus(1); setclientReadyMsg(1) }} className="custom-control custom-radio custom-control-inline">
-                                                                                                    <input type="radio" id="clientReadyStatus" name="clientReadyStatus" className="input2 custom-control-input" />
-                                                                                                    <label className="custom-control-label" htmlFor="clientReadyStatus">My Client is Ready for a Call</label>
-                                                                                                </div>
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div className="col-xl-6">
-                                                                                        <div className="comment-form__input-box">
-                                                                                            <span className="wpcf7-form-control-wrap">
-                                                                                                <div onClick={() => { setclientReadyStatus(0); setclientReadyMsg(0) }} className="custom-control custom-radio custom-control-inline">
-                                                                                                    <input type="radio" id="clientReadyStatus2" name="clientReadyStatus" className="input2 custom-control-input" />
-                                                                                                    <label className="custom-control-label" htmlFor="clientReadyStatus2">Let's Talk First</label>
-                                                                                                </div>
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div className={clientReadyStatus !== -1 ? "show col-xl-12" : "hide"} style={{ background: '#fff', borderRadius: '10px' }}>
-                                                                                        <div className="comment-form__input-box col-xl-12 mx-auto text-center" style={{ padding: 20 + 'px' }}>
-                                                                                            <p>{clientReadyMsg === 1 ? "Awesome! Please confirm your client is expecting our call. Please give us the best day and time to contact your client" : "We won't contact your client until you give us the green light. What's the best time to connect with you?"}</p>
-                                                                                            <div className="col-xl-4 mx-auto text-center">
+                                                    <section className='contact-page contact-page-two cpa'>
+                                                        <div className="col-md-10">
+                                                            <div className="row">
+                                                                <div className="col-xl-12">
+                                                                    <div className="contact-page__form">
+                                                                        <div role="form" className="wpcf7" id="wpcf7-f169-p592-o1" lang="en-US" dir="ltr">
+                                                                            <div className="mx-auto text-left">
+                                                                                <h1>Lead Info</h1>
+                                                                                <br />
+                                                                            </div>
+                                                                            <form className="wpcf7-form init">
+                                                                                <div className="comment-one__form ">
+                                                                                    <div className='row'>
+                                                                                        <div className="col-xl-6">
+                                                                                            <div className="comment-form__input-box">
                                                                                                 <span className="wpcf7-form-control-wrap"
-                                                                                                    data-name="your-email">
-                                                                                                    <input id="dateTime" type="datetime-local" size="40" className="wpcf7-form-control wpcf7-text" />
+                                                                                                    data-name="your-name">
+                                                                                                    <input id="inputfirstName" type="text" size="40"
+                                                                                                        className="wpcf7-form-control wpcf7-text"
+                                                                                                        aria-required="true" aria-invalid="false" placeholder="First Name" /></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div className="col-xl-6">
+                                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
+                                                                                                data-name="your-name"><input id="inputlastName" type="text" size="40"
+                                                                                                    className="wpcf7-form-control wpcf7-text"
+                                                                                                    aria-required="true" aria-invalid="false" placeholder="Last Name" /></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div className='row'>
+                                                                                        <div className="col-xl-6">
+                                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
+                                                                                                data-name="your-phone"><input id="inputloanAmt" type="number" size="40"
+                                                                                                    className="loanAmount2 wpcf7-form-control wpcf7-text" aria-invalid="false"
+                                                                                                    placeholder="Loan Amount" /></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div className="col-xl-6">
+                                                                                            <div className="comment-form__input-box creditText">
+                                                                                                Credits: <b id="inputCredits" className="credits">$0</b>
+                                                                                                <h6>Estimated Credits Upon Closing</h6>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div className="row">
+                                                                                        <div className="col-xl-6">
+                                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
+                                                                                                data-name="your-email"><input id="inputEmail" type="email"
+                                                                                                    size="40"
+                                                                                                    className="wpcf7-form-control wpcf7-text"
+                                                                                                    aria-required="true" aria-invalid="false"
+
+                                                                                                    placeholder="Email" /></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div className="col-xl-6">
+                                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
+                                                                                                data-name="your-email"><input id="inputPhone" type="number"
+                                                                                                    size="40"
+                                                                                                    className="wpcf7-form-control wpcf7-text"
+                                                                                                    aria-required="true" aria-invalid="false"
+
+                                                                                                    placeholder="Phone" /></span>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                    <div className="row pd-left">
+                                                                                        <div className="col-xl-6">
+                                                                                            <div className="comment-form__input-box">
+                                                                                                <span className="wpcf7-form-control-wrap">
+                                                                                                    <div onClick={() => { setclientReadyStatus(1); setclientReadyMsg(1) }} className="custom-control custom-radio custom-control-inline">
+                                                                                                        <input type="radio" id="clientReadyStatus" name="clientReadyStatus" className="input2 custom-control-input" />
+                                                                                                        <label className="custom-control-label" htmlFor="clientReadyStatus">My Client is Ready for a Call</label>
+                                                                                                    </div>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div className="col-xl-6">
+                                                                                            <div className="comment-form__input-box">
+                                                                                                <span className="wpcf7-form-control-wrap">
+                                                                                                    <div onClick={() => { setclientReadyStatus(0); setclientReadyMsg(0) }} className="custom-control custom-radio custom-control-inline">
+                                                                                                        <input type="radio" id="clientReadyStatus2" name="clientReadyStatus" className="input2 custom-control-input" />
+                                                                                                        <label className="custom-control-label" htmlFor="clientReadyStatus2">Let's Talk First</label>
+                                                                                                    </div>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div className={clientReadyStatus !== -1 ? "show col-xl-12" : "hide"} style={{ background: '#fff', borderRadius: '10px' }}>
+                                                                                            <div className="comment-form__input-box col-xl-12 mx-auto text-center" style={{ padding: 20 + 'px' }}>
+                                                                                                <p>{clientReadyMsg === 1 ? "Awesome! Please confirm your client is expecting our call. Please give us the best day and time to contact your client" : "We won't contact your client until you give us the green light. What's the best time to connect with you?"}</p>
+                                                                                                <div className="col-xl-4 mx-auto text-center">
+                                                                                                    <span className="wpcf7-form-control-wrap"
+                                                                                                        data-name="your-email">
+                                                                                                        <input id="dateTime" type="datetime-local" size="40" className="wpcf7-form-control wpcf7-text" />
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div className="row pd-left">
+                                                                                        <label>Is your client actively looking?</label>
+                                                                                        <div className="col-xl-6">
+                                                                                            <div className="comment-form__input-box">
+                                                                                                <span className="wpcf7-form-control-wrap">
+                                                                                                    <div onClick={() => setclientActively(1)} className="custom-control custom-radio custom-control-inline">
+                                                                                                        <input type="radio" id="customRadioInline3" name="customRadioInline3" className="input2 custom-control-input" />
+                                                                                                        <label className="custom-control-label" htmlFor="customRadioInline3">Yes</label>
+                                                                                                    </div>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div className="col-xl-6">
+                                                                                            <div className="comment-form__input-box">
+                                                                                                <span className="wpcf7-form-control-wrap">
+                                                                                                    <div onClick={() => setclientActively(0)} className="custom-control custom-radio custom-control-inline">
+                                                                                                        <input type="radio" id="customRadioInline4" name="customRadioInline3" className="input2 custom-control-input" />
+                                                                                                        <label className="custom-control-label" htmlFor="customRadioInline4">No</label>
+                                                                                                    </div>
                                                                                                 </span>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                </div>
-                                                                                <div className="row pd-left">
-                                                                                    <label>Is your client actively looking?</label>
-                                                                                    <div className="col-xl-6">
-                                                                                        <div className="comment-form__input-box">
-                                                                                            <span className="wpcf7-form-control-wrap">
-                                                                                                <div onClick={() => setclientActively(1)} className="custom-control custom-radio custom-control-inline">
-                                                                                                    <input type="radio" id="customRadioInline3" name="customRadioInline3" className="input2 custom-control-input" />
-                                                                                                    <label className="custom-control-label" htmlFor="customRadioInline3">Yes</label>
-                                                                                                </div>
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div className="col-xl-6">
-                                                                                        <div className="comment-form__input-box">
-                                                                                            <span className="wpcf7-form-control-wrap">
-                                                                                                <div onClick={() => setclientActively(0)} className="custom-control custom-radio custom-control-inline">
-                                                                                                    <input type="radio" id="customRadioInline4" name="customRadioInline3" className="input2 custom-control-input" />
-                                                                                                    <label className="custom-control-label" htmlFor="customRadioInline4">No</label>
-                                                                                                </div>
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div className="row pd-left">
-                                                                                    <label>Has offer been Accepted?</label>
-                                                                                    <div className="col-xl-6">
-                                                                                        <div className="comment-form__input-box">
-                                                                                            <span className="wpcf7-form-control-wrap">
-                                                                                                <div onClick={() => setofferAcceptedStatus(1)} className="custom-control custom-radio custom-control-inline">
-                                                                                                    <input type="radio" id="customRadioInline5" name="customRadioInline5" className="input2 custom-control-input" />
-                                                                                                    <label className="custom-control-label" htmlFor="customRadioInline5">Yes</label>
-                                                                                                </div>
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div className="col-xl-6">
-                                                                                        <div className="comment-form__input-box">
-                                                                                            <span className="wpcf7-form-control-wrap">
-                                                                                                <div onClick={() => setofferAcceptedStatus(0)} className="custom-control custom-radio custom-control-inline">
-                                                                                                    <input type="radio" id="customRadioInline6" name="customRadioInline5" className="input2 custom-control-input" />
-                                                                                                    <label className="custom-control-label" htmlFor="customRadioInline6">No</label>
-                                                                                                </div>
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div className={offerAcceptedStatus === 1 ? "show shownCon col-xl-12" : "hide shownCon col-xl-12"}>
-                                                                                        <label>Great Job!!!</label>
-                                                                                        <div className="col-xl-12">
-                                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                                data-name="your-name"><input id="inputAddress" type="text" size="40"
-                                                                                                    className="wpcf7-form-control wpcf7-text"
-                                                                                                    aria-required="true" aria-invalid="false" placeholder="Address" /></span>
+                                                                                    <div className="row pd-left">
+                                                                                        <label>Has offer been Accepted?</label>
+                                                                                        <div className="col-xl-6">
+                                                                                            <div className="comment-form__input-box">
+                                                                                                <span className="wpcf7-form-control-wrap">
+                                                                                                    <div onClick={() => setofferAcceptedStatus(1)} className="custom-control custom-radio custom-control-inline">
+                                                                                                        <input type="radio" id="customRadioInline5" name="customRadioInline5" className="input2 custom-control-input" />
+                                                                                                        <label className="custom-control-label" htmlFor="customRadioInline5">Yes</label>
+                                                                                                    </div>
+                                                                                                </span>
                                                                                             </div>
                                                                                         </div>
-                                                                                        <div className="col-xl-12">
-                                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                                data-name="your-name">
-                                                                                                <select className="form-select" id="selectedloanOfficer">
-                                                                                                    <option value="0" defaultValue>None</option>
-                                                                                                    <option value="Victor Mackliff">Victor Mackliff</option>
-                                                                                                    <option value="Sam Zepeda">Sam Zepeda</option>
-                                                                                                    <option value="Gabe Lozano">Gabe Lozano</option>
-                                                                                                    <option value="Chris Miranda">Chris Miranda</option>
+                                                                                        <div className="col-xl-6">
+                                                                                            <div className="comment-form__input-box">
+                                                                                                <span className="wpcf7-form-control-wrap">
+                                                                                                    <div onClick={() => setofferAcceptedStatus(0)} className="custom-control custom-radio custom-control-inline">
+                                                                                                        <input type="radio" id="customRadioInline6" name="customRadioInline5" className="input2 custom-control-input" />
+                                                                                                        <label className="custom-control-label" htmlFor="customRadioInline6">No</label>
+                                                                                                    </div>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div className={offerAcceptedStatus === 1 ? "show shownCon col-xl-12" : "hide shownCon col-xl-12"}>
+                                                                                            <label>Great Job!!!</label>
+                                                                                            <div className="col-xl-12">
+                                                                                                <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
+                                                                                                    data-name="your-name"><input id="inputAddress" type="text" size="40"
+                                                                                                        className="wpcf7-form-control wpcf7-text"
+                                                                                                        aria-required="true" aria-invalid="false" placeholder="Address" /></span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div className="col-xl-12">
+                                                                                                <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
+                                                                                                    data-name="your-name">
+                                                                                                    <select className="form-select" id="selectedloanOfficer">
+                                                                                                        <option value="0" defaultValue>None</option>
+                                                                                                        <option value="Victor Mackliff">Victor Mackliff</option>
+                                                                                                        <option value="Sam Zepeda">Sam Zepeda</option>
+                                                                                                        <option value="Gabe Lozano">Gabe Lozano</option>
+                                                                                                        <option value="Chris Miranda">Chris Miranda</option>
 
-                                                                                                </select>
+                                                                                                    </select>
+                                                                                                </span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div className="col-xl-4">
+                                                                                                <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
+                                                                                                    data-name="your-name">
+                                                                                                    <label>Expected Closing:</label>
+                                                                                                    <input id="inputclosingdate" type="datetime-local" size="40"
+                                                                                                        className="wpcf7-form-control wpcf7-text" placeholder="Expected Closing Date" /></span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div className={offerAcceptedStatus === 0 ? "show shownCon col-xl-12" : "hide shownCon col-xl-12"}>
+                                                                                            <div className="offerNotAccepted mx-auto text-center col-md-8">
+                                                                                                <p style={{ padding: 5 + 'px' }}>No problem. You can wait to get your offer accepted or add a credit card so not to delay your marketing campaign. After your transaction closed we will reimburse your account.</p>
+                                                                                                <button onClick={submitLeadData} type="submit" className="tb thm-btn">Add Credit Card</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div className="col-xl-12 pd-left">
+                                                                                        <div className="comment-form__input-box">
+                                                                                            <span className="wpcf7-form-control-wrap">
+                                                                                                <div className="custom-control custom-radio custom-control-inline">
+                                                                                                    <input onClick={() => { setdisableBtn(!disableBtn); console.log(disableBtn) }} type="checkbox" id="accept" name="accept" className="input2 custom-control-input" />
+                                                                                                    <label className="custom-control-label">I accept to lead generation <a target="_blank" style={{ color: 'blue' }} href="https://docs.google.com/document/d/1rwrycIQmI2_m5CXppq6IVmafzJtIF3Wo/">terms & conditions</a></label>
+                                                                                                </div>
                                                                                             </span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div className="col-xl-4">
-                                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                                data-name="your-name">
-                                                                                                <label>Expected Closing:</label>
-                                                                                                <input id="inputclosingdate" type="datetime-local" size="40"
-                                                                                                    className="wpcf7-form-control wpcf7-text" placeholder="Expected Closing Date" /></span>
-                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div className={offerAcceptedStatus === 0 ? "show shownCon col-xl-12" : "hide shownCon col-xl-12"}>
-                                                                                        <div className="offerNotAccepted mx-auto text-center col-md-8">
-                                                                                            <p style={{ padding: 5 + 'px' }}>No problem. You can wait to get your offer accepted or add a credit card so not to delay your marketing campaign. After your transaction closed we will reimburse your account.</p>
-                                                                                            <button onClick={submitLeadData} type="submit" className="tb thm-btn">Add Credit Card</button>
+                                                                                    <div className="wpcf7-response-output" style={{ display: 'block', color: 'red' }}>
+                                                                                        {Msg}
+                                                                                    </div>
+                                                                                    <div className="row mx-auto text-left" style={{ marginBottom: 20 + 'px' }}>
+                                                                                        <div className="col-md-12">
+                                                                                            <button onClick={submitLeadData} type="submit" disabled={disableBtn === true ? true : false} className="tb thm-btn">Add Lead</button>
                                                                                         </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div className="col-xl-12 pd-left">
-                                                                                    <div className="comment-form__input-box">
-                                                                                        <span className="wpcf7-form-control-wrap">
-                                                                                            <div className="custom-control custom-radio custom-control-inline">
-                                                                                                <input onClick={() => { setdisableBtn(!disableBtn); console.log(disableBtn) }} type="checkbox" id="accept" name="accept" className="input2 custom-control-input" />
-                                                                                                <label className="custom-control-label">I accept to lead generation <a target="_blank" style={{ color: 'blue' }} href="https://docs.google.com/document/d/1rwrycIQmI2_m5CXppq6IVmafzJtIF3Wo/">terms & conditions</a></label>
-                                                                                            </div>
-                                                                                        </span>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div className="wpcf7-response-output" style={{ display: 'block', color: 'red' }}>
-                                                                                    {Msg}
-                                                                                </div>
-                                                                                <div className="row mx-auto text-left" style={{ marginBottom: 20 + 'px' }}>
-                                                                                    <div className="col-md-12">
-                                                                                        <button onClick={submitLeadData} type="submit" disabled={disableBtn === true ? true : false} className="tb thm-btn">Add Lead</button>
-                                                                                    </div>
-                                                                                    {/* <div className="col-md-6">
+                                                                                        {/* <div className="col-md-6">
                                                                                         <button type="button" onClick={() => setformState(0)} className="tb thm-btn">Go Back</button>
                                                                                     </div> */}
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                        </form>
+                                                                            </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </section>
+                                                    </section>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </section>
+                            </section>
+                        </div>
                     </div>
-                </div>
 
-                <div className="padTop">
-                    {/* Leads Table */}
-                    <div id="leadTableCon" className={formState == 'Leads' ? 'show mx-auto col-md-12' : 'hide'}>
-                        <h1>Your Leads</h1>
-                        <br />
-                        <table className="table table-stripe">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Lead Name</th>
-                                    <th scope="col">Lead Email</th>
-                                    <th scope="col">Lead Phone</th>
-                                    <th scope="col">Loan Amount</th>
-                                    <th scope="col">Credits</th>
-                                    <th scope="col">Offer Accepted</th>
-                                    <th scope="col">Transaction</th>
-                                </tr>
-                            </thead>
-                            <tbody id="leadData">
-                                {leadData !== '' ? leadData :
+                    <div className="padTop">
+                        {/* Leads Table */}
+                        <div id="leadTableCon" className={formState == 'Leads' ? 'show mx-auto col-md-12' : 'hide'}>
+                            <h1>Your Leads</h1>
+                            <br />
+                            <table className="table table-stripe">
+                                <thead>
                                     <tr>
-                                        <th scope="col">...</th>
-                                        <th scope="col">...</th>
-                                        <th scope="col">...</th>
-                                        <th scope="col">...</th>
-                                        <th scope="col">...</th>
-                                        <th scope="col">...</th>
-                                        <th scope="col">...</th>
-                                        <th scope="col">...</th>
-                                    </tr>}
-                            </tbody>
-                        </table>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Lead Name</th>
+                                        <th scope="col">Lead Email</th>
+                                        <th scope="col">Lead Phone</th>
+                                        <th scope="col">Loan Amount</th>
+                                        <th scope="col">Credits</th>
+                                        <th scope="col">Offer Accepted</th>
+                                        <th scope="col">Transaction</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="leadData">
+                                    {leadData !== '' ? leadData :
+                                        <tr>
+                                            <th scope="col">...</th>
+                                            <th scope="col">...</th>
+                                            <th scope="col">...</th>
+                                            <th scope="col">...</th>
+                                            <th scope="col">...</th>
+                                            <th scope="col">...</th>
+                                            <th scope="col">...</th>
+                                            <th scope="col">...</th>
+                                        </tr>}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <Upload endpoint={props.endpoint} emailAddress={session['emailAddress']} leadNames={leadDatas} formState={formState} />
+
+                        <Home endpoint={props.endpoint} leadDatas={leadDatas} formState={formState} emailAddress={session['emailAddress']} />
+
+                        <Account formState={formState} />
+
+                        <Calculator formState={formState} calculator={props.calculator} />
                     </div>
 
-                    <Upload endpoint={props.endpoint} emailAddress={session['emailAddress']} leadNames={leadDatas} formState={formState} />
-
-                    <Home endpoint={props.endpoint} leadDatas={leadDatas} formState={formState} emailAddress={session['emailAddress']} />
-
-                    <Account formState={formState} />
-
-                    <Calculator formState={formState} calculator={props.calculator} />
                 </div>
             </main>
 
