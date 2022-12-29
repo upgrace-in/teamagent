@@ -112,10 +112,6 @@ export default function Upload(props) {
             if (validExtensions.includes(fileType)) { //if user selected file is an image file
                 let fileReader = new FileReader(); //creating new FileReader object
                 fileReader.onload = () => {
-                    // let fileURL = fileReader.result;
-                    // console.log(fileURL)
-                    // let imgTag = `<img src="${fileURL}" alt="image">`; 
-                    // dropArea.innerHTML = imgTag;
                     $('.drapHeader').html('Your File :')
                     $('.drapOR').hide()
                     button.innerHTML = receiptfile.name

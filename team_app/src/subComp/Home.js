@@ -39,6 +39,29 @@ export default function Home(props) {
 
     // }, [ctx])
 
+    
+
+    async function fetchReceipts() {
+        fetch(props.endpoint + '/fetchLeads?emailAddress=' + props.emailAddress, {
+            method: 'GET',
+            headers: { "Content-Type": "application/json" }
+        }).then(function (response) {
+            return response.json()
+        }).then(function (val) {
+            if (val['msg']) {
+                // totalDebits: total debits are all receipts they upload
+                let totalDebits = 0;
+                val.data.map(data => {
+                    totalDebits = totalDebits + parseInt(data.inputRecAmt)
+                });
+                settotalDebits(totalDebits)
+            } else {
+                // No Receipts
+                settotalDebits(0)
+            }
+        });
+    }
+
     useEffect(() => {
         /*
         Home: 
@@ -55,7 +78,7 @@ export default function Home(props) {
             let closedTxn = 0
             let avgLoanAmt = 0
             props.leadDatas.map(data => {
-                
+
                 // totalTxn: total transactions by year. 
                 if (parseInt(data.createdon) === new Date().getFullYear()) {
                     if (data.transaction === 'CLOSED') {
@@ -71,16 +94,12 @@ export default function Home(props) {
                     avgLoanAmt = avgLoanAmt + parseInt(data.loanAmt)
                 }
             });
-            console.log(totaltxn, avgLoanAmt, avgcount, closedTxn)
             setavgLoanAmt(avgLoanAmt / avgcount)
             settotalTxn(totaltxn)
             setclosedTxn(closedTxn)
         }
 
-        // totalDebits: total debits are all receipts they upload
-        const receipts = props.fetchReceipts().then((val) => {
-            console.log(val)
-        })
+        fetchReceipts()
     }, [props.leadDatas])
 
     return (

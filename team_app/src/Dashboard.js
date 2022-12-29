@@ -60,22 +60,6 @@ export default function Dashboard(props) {
         });
     }
 
-    async function fetchReceipts() {
-        fetch(props.endpoint + '/fetchLeads?emailAddress=' + session['emailAddress'], {
-            method: 'GET',
-            headers: { "Content-Type": "application/json" }
-        }).then(function (response) {
-            return response.json()
-        }).then(function (val) {
-            if (val['msg']) {
-                return val.data
-            } else {
-                // No Receipts
-                return null
-            }
-        });
-    }
-
     useEffect(() => {
         props.calculator($('.loanAmount2'), $('.credits'))
         fetchLeads()
@@ -529,7 +513,7 @@ export default function Dashboard(props) {
 
                     <Upload endpoint={props.endpoint} emailAddress={session['emailAddress']} leadNames={leadDatas} formState={formState} />
 
-                    <Home fetchReceipts={fetchReceipts} leadDatas={leadDatas} formState={formState} />
+                    <Home endpoint={props.endpoint} leadDatas={leadDatas} formState={formState} emailAddress={session['emailAddress']} />
 
                     <Account formState={formState} />
 
