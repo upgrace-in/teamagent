@@ -90,17 +90,9 @@ app.post('/createuser', async (req, res) => {
         .then(async (val) => {
             if (val['response'] === false) {
                 // Register User
-                // const docRef = User.doc(data['emailAddress']);
-                // await docRef.set(data)
-                // signupMail(data['emailAddress'], "Successfully Registered", liveSiteAdd)
-                // loginSession(req, res, data, val['response'])
                 registerOrUpdate("Successfully Registered", liveSiteAdd, req, res, data, val['response'])
             } else {
                 // Update the data 
-                // const docRef = User.doc(data['emailAddress']);
-                // await docRef.set(data)
-                // signupMail(data['emailAddress'], "Your account information has been updated successfully !!!", liveSiteAdd)
-                // loginSession(req, res, val['data'], val['response'])
                 registerOrUpdate("Your account information has been updated successfully !!!", liveSiteAdd, req, res, data, val['response'])
             }
         })
@@ -146,7 +138,6 @@ app.post('/addLead', async (req, res) => {
 
 app.get('/fetchLeads', async (req, res) => {
     const data = req.query
-    // const snapshot = await Lead.doc(data['emailAddress']).collection('Leads').get()
     const snapshot = await Lead.where('emailAddress', '==', data['emailAddress']).get();
     if (snapshot.empty) {
         res.send({ msg: false })
@@ -174,7 +165,6 @@ app.post('/uploadReceipt', async (req, res) => {
         console.log(data)
         // Save receipt
         await Receipt.doc(receipt.uid).set(data)
-        // User.doc(data['emailAddress']).collection('Receipts').add(data)
 
         res.send({ msg: true })
 

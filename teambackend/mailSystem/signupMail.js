@@ -32,6 +32,7 @@ function signupMail(toMail, subject, liveSiteAdd) {
                     <br /><br />
                     <span>Don't forget to upload your leads</span>
                 </p>
+                <br/>
                 <a href="`+ liveSiteAdd + `/user" target="_blank" className="col-md-6 mx-auto text-center btn btn-primary" style="outline: none;
                 border: none;
                 background: #5f1cb7 !important;
