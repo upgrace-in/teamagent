@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import { useState } from 'react';
+import Register from './Register';
 
 export default function UserForm(props) {
 
@@ -9,61 +10,8 @@ export default function UserForm(props) {
 
     const loginUser = (session) => {
         // create session and push to dashboard
-        localStorage.setItem("session", JSON.stringify(session))
+        localStorage.setItem("session", JSON.stringify(session['userdata']))
         window.location.href = '/dashboard'
-    }
-
-    const registerForm = (e) => {
-        e.preventDefault()
-        let userEmail = $('#useremail').val()
-        let userPhone = $('#userphone').val()
-        let userName = $('#username').val()
-        let password = $('#password').val()
-        let confirmPassword = $('#confirmPassword').val()
-
-        if ((userEmail !== '') && (userPhone !== '') && (userName !== '') && (password !== '') && (confirmPassword !== '')) {
-            if (password === confirmPassword) {
-                setMsg("Processing...")
-                // Send to backend
-                fetch(props.endpoint+'/createuser', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        "name": userName,
-                        "phoneNumber": userPhone,
-                        "emailAddress": userEmail,
-                        "password": password
-                    }),
-                    headers: { "Content-Type": "application/json" }
-                }).then(function (response) {
-                    return response.json()
-                }).then(function (val) {
-                    if (val['msg']) {
-                        setMsg("User Already Exists Logging in...")
-                        // user exists logged him in
-                        loginUser(val['session'])
-                    } else {
-                        // if val is false thier may be two cases
-                        if (val['session'] != null) {
-                            setMsg("User Registered Logging in...")
-                            // user registered logged him in
-                            loginUser(val['session'])
-                        } else {
-                            setMsg("Something went wrong !!!")
-                        }
-                    }
-                    // localStorage.setItem("session", JSON.stringify(val['session']))
-                    // localStorage.removeItem("session")
-                    // JSON.parse(localStorage.getItem("session")
-                });
-
-
-            } else {
-                setMsg("Password unmatched !!!")
-            }
-
-        } else {
-            setMsg("Please enter valid data !!!")
-        }
     }
 
     const loginForm = (e) => {
@@ -73,7 +21,7 @@ export default function UserForm(props) {
 
         if ((userEmail !== '') && (password !== '')) {
             // Send to backend and wait for approval and create session
-            fetch(props.endpoint+'/loginuser', {
+            fetch(props.endpoint + '/loginuser', {
                 method: 'POST',
                 body: JSON.stringify({
                     "emailAddress": userEmail,
@@ -198,61 +146,8 @@ export default function UserForm(props) {
                                                                 </p>
                                                                 <ul></ul>
                                                             </div>
-                                                            {formSwitch === true ? <form className="wpcf7-form init">
-                                                                <div className="comment-one__form ">
-                                                                    <div className='row'>
-                                                                        <div className="col-xl-6">
-                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                data-name="your-name"><input id="username" type="text" name="your-name" size="40"
-                                                                                    className="wpcf7-form-control wpcf7-text"
-                                                                                    aria-required="true" aria-invalid="false" placeholder="Your Name" /></span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="col-xl-6">
-                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                data-name="your-phone"><input id="userphone" type="number" name="your-phone" size="40"
-                                                                                    className="wpcf7-form-control wpcf7-text" aria-invalid="false"
-                                                                                    placeholder="Phone number" /></span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="col-xl-12">
-                                                                        <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                            data-name="your-email"><input id="useremail" type="email" name="your-email"
-                                                                                size="40"
-                                                                                className="wpcf7-form-control wpcf7-text"
-                                                                                aria-required="true" aria-invalid="false"
-                                                                                placeholder="Email Address" /></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className='row'>
-                                                                        <div className="col-xl-6">
-                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                data-name="your-name"><input id="password" type="password" size="40"
-                                                                                    className="wpcf7-form-control wpcf7-text"
-                                                                                    aria-required="true" aria-invalid="false" placeholder="Password" /></span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="col-xl-6">
-                                                                            <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                                                                data-name="your-phone"><input id="confirmPassword" type="password" size="40"
-                                                                                    className="wpcf7-form-control wpcf7-text" aria-invalid="false"
-                                                                                    placeholder="Confirm Password" /></span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="wpcf7-response-output" style={{ display: 'block' }}>
-                                                                        {Msg}
-                                                                    </div>
-                                                                    <div className="row">
-                                                                        <button onClick={registerForm} type="submit" className="thm-btn comment-form__btn">Register Now</button>
-                                                                    </div>
-                                                                    <div className="row text-center mx-auto mt-4">
-                                                                        <a className='cr' onClick={() => { setformSwitch(() => !formSwitch); setMsg('') }}>Login Here</a>
-                                                                    </div>
-                                                                </div>
-
-                                                            </form> :
+                                                            {formSwitch === true ?
+                                                                <Register endpoint={props.endpoint} Msg={Msg} setMsg={setMsg} formSwitch={formSwitch} setformSwitch={setformSwitch} loginUser={loginUser} /> :
                                                                 <form className="wpcf7-form init">
                                                                     <div className="comment-one__form ">
                                                                         <div className="col-xl-12">

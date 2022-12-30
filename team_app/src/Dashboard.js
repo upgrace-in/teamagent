@@ -24,7 +24,7 @@ export default function Dashboard(props) {
 
     const [leadData, setleadData] = useState('')
     const [Msg, setMsg] = useState('')
-
+    
     let session;
     let leadInfo = {};
 
@@ -32,8 +32,8 @@ export default function Dashboard(props) {
     if (props.session === null) {
         window.location.href = '/'
     } else {
-        session = JSON.parse(props.session);
-        props.checkUserExists(session)
+        session = props.session
+        props.checkUserExists(props.session)
     }
     $('.hide_it').hide()
 
@@ -518,7 +518,7 @@ export default function Dashboard(props) {
 
                         <Home endpoint={props.endpoint} leadDatas={leadDatas} formState={formState} emailAddress={session['emailAddress']} />
 
-                        <Account formState={formState} />
+                        <Account endpoint={props.endpoint} formState={formState} />
 
                         <Calculator formState={formState} calculator={props.calculator} />
                     </div>

@@ -16,23 +16,23 @@ function signupMail(toMail, subject, liveSiteAdd) {
     <body style="padding: 20px; font-family: 'Roboto';
     background: #e5e1e1;
     color: rgb(80, 80, 80);">
-        <div class="container mx-auto text-center" style="margin-right: auto; margin-left: auto; text-align: center;">
-            <div class="card col-md-4 mx-auto text-center mt-4" style="width: 350px; margin-right: auto; margin-left: auto; text-align: center;
+        <div className="container mx-auto text-center" style="margin-right: auto; margin-left: auto; text-align: center;">
+            <div className="card col-md-4 mx-auto text-center mt-4" style="width: 350px; margin-right: auto; margin-left: auto; text-align: center;
             padding: 5px !important;
             background: #fff !important;
             border-radius: 20px;
             margin-top: 10px;">
-                <div class="col mt-4" style="margin-top: 30px;">
+                <div className="col mt-4" style="margin-top: 30px;">
                     <img src="`+ liveSiteAdd + `/emailTemps/greentick.png" alt="">
                 </div>
                 <p>
-                    <span class="fw-7" style="font-weight: 700;">Thanks for signing up.</span>
+                    <span className="fw-7" style="font-weight: 700;">Thanks for signing up.</span>
                     <br/>
                     <span>We are excited to get you going</span>
                     <br /><br />
                     <span>Don't forget to upload your leads</span>
                 </p>
-                <a href="`+ liveSiteAdd + `/user" target="_blank" class="col-md-6 mx-auto text-center btn btn-primary" style="outline: none;
+                <a href="`+ liveSiteAdd + `/user" target="_blank" className="col-md-6 mx-auto text-center btn btn-primary" style="outline: none;
                 border: none;
                 background: #5f1cb7 !important;
                 font-weight: 600;
@@ -42,7 +42,7 @@ function signupMail(toMail, subject, liveSiteAdd) {
                 background: #fff9;
                 margin-top: 10px;
                 text-decoration: none;">Upload leads now</a>
-                <div class="col mt-4" style="margin-top: 30px;">
+                <div className="col mt-4" style="margin-top: 30px;">
                     <img src="`+ liveSiteAdd + `/emailTemps/logoBlack.png" alt="">
                 </div>
                 <br/><br/>

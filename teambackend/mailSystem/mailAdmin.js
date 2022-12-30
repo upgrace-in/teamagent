@@ -10,11 +10,11 @@ function mailToAdmin(toMail, subject, data, liveSiteAdd) {
         clientActivelyMsg = `<p>
             <span style="color: #fff">Best date and time to call is</span>
             <br />
-            <span class="fw-7" style="font-weight: 700;
+            <span className="fw-7" style="font-weight: 700;
             font-size: 1.5rem;">On `+ data.clientReady + `</span>
         </p>`
     } else {    
-        clientActivelyMsg = `<p class="fw-7" style="font-weight: 700;
+        clientActivelyMsg = `<p className="fw-7" style="font-weight: 700;
         font-size: 1.5rem; color: #fff;">
             <span id="userFname">`+data.name+`</span>, would like you to call her first
             <br/>
@@ -38,12 +38,12 @@ function mailToAdmin(toMail, subject, data, liveSiteAdd) {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;">
-        <div class="container mx-auto text-center" style="width: 80%; text-align: center; margin-right: auto;
+        <div className="container mx-auto text-center" style="width: 80%; text-align: center; margin-right: auto;
         margin-left: auto;">
-            <div class="col mt-4" style="margin-top: 20px;">
+            <div className="col mt-4" style="margin-top: 20px;">
                 <img src="`+ liveSiteAdd + `/emailTemps/logoWhite.png" alt="">
             </div>
-            <div class="col mt-4" style="margin-top: 20px;">
+            <div className="col mt-4" style="margin-top: 20px;">
                 <img src="`+ liveSiteAdd + `/emailTemps/tick.png" alt="">
             </div>
             <p style="color: #fff">
@@ -53,7 +53,7 @@ function mailToAdmin(toMail, subject, data, liveSiteAdd) {
                 &lt;<span id="emailAddress" style="color: #fff;">`+ data.emailAddress + `</span>&gt;
                 registered a new lead.
             </p>
-            <table class="table table-striped" style="color: #fff; margin-right: auto; margin-left: auto; text-align: center;">
+            <table className="table table-striped" style="color: #fff; margin-right: auto; margin-left: auto; text-align: center;">
                 <tr>
                     <td style="padding: 5px; background: #79559d;
                                 color: #fff;
@@ -82,7 +82,7 @@ function mailToAdmin(toMail, subject, data, liveSiteAdd) {
             `+ clientActivelyMsg + `
             <br />
             <a href="`+ liveSiteAdd + `/user" target="_blank" 
-            class="btn btn-light" 
+            className="btn btn-light" 
             style="border-radius: 10px;
             padding: 15px;
             background: #fff9;

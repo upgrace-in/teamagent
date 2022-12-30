@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 
 export default function Account(props) {
 
-
     useEffect(() => {
     }, [])
 
@@ -15,7 +14,7 @@ export default function Account(props) {
                     <div className="accCON">
                         <div className="row">
                             <div className="conw col-md-3">
-                                <i class="fas fa-user"></i>
+                                <i className="fas fa-user"></i>
                             </div>
                             <div className="conw col-md-9">
                                 <h3>My Account</h3>
@@ -28,7 +27,7 @@ export default function Account(props) {
                     <div className="accCON">
                         <div className="row">
                             <div className="conw col-md-3">
-                            <i class="fas fa-house-user"></i>
+                                <i className="fas fa-house-user"></i>
                             </div>
                             <div className="conw col-md-9">
                                 <h3>Billing Address</h3>
@@ -38,6 +37,7 @@ export default function Account(props) {
                     </div>
                 </div>
             </div>
+            {/* <Register endpoint={props.endpoint} Msg={Msg} setMsg={setMsg} formSwitch={formSwitch} setformSwitch={setformSwitch} loginUser={loginUser} /> */}
         </div>
     )
 }

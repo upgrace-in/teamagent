@@ -47,11 +47,10 @@ async function loginSession(req, res, data, msg) {
     try {
         // If res doesn't provide emailAddress & name then throw error
         session = req.session;
-        session.emailAddress = data['emailAddress'];
-        session.name = data['name'];
-        session.phoneNumber = data['phoneNumber']
+        session.userdata = data;
+        // session.name = data['name'];
+        // session.phoneNumber = data['phoneNumber']
         // Session admin
-        session.admin = false;
         res.send({ session: session, msg: msg })
     } catch (e) {
         res.send({ session: null, msg: false })

@@ -39,7 +39,7 @@ export default function Home(props) {
 
     // }, [ctx])
 
-    
+
 
     async function fetchReceipts() {
         fetch(props.endpoint + '/fetchLeads?emailAddress=' + props.emailAddress, {
@@ -93,13 +93,16 @@ export default function Home(props) {
                     avgcount++
                     avgLoanAmt = avgLoanAmt + parseInt(data.loanAmt)
                 }
+
             });
-            setavgLoanAmt(avgLoanAmt / avgcount)
+            if (avgLoanAmt !== 0)
+                setavgLoanAmt(avgLoanAmt / avgcount)
+
             settotalTxn(totaltxn)
             setclosedTxn(closedTxn)
         }
 
-        fetchReceipts()
+        // fetchReceipts()
     }, [props.leadDatas])
 
     return (
