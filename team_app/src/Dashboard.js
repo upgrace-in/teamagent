@@ -479,7 +479,7 @@ export default function Dashboard(props) {
                             </section>
                         </div>
                     </div>
-
+ 
                     <div className="padTop">
                         {/* Leads Table */}
                         <div id="leadTableCon" className={formState == 'Leads' ? 'show mx-auto col-md-12' : 'hide'}>
@@ -518,7 +518,7 @@ export default function Dashboard(props) {
 
                         <Home endpoint={props.endpoint} leadDatas={leadDatas} formState={formState} emailAddress={session['emailAddress']} />
 
-                        <Account endpoint={props.endpoint} formState={formState} />
+                        <Account session={props.session} endpoint={props.endpoint} formState={formState} />
 
                         <Calculator formState={formState} calculator={props.calculator} />
                     </div>

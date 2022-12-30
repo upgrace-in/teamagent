@@ -48,9 +48,6 @@ async function loginSession(req, res, data, msg) {
         // If res doesn't provide emailAddress & name then throw error
         session = req.session;
         session.userdata = data;
-        // session.name = data['name'];
-        // session.phoneNumber = data['phoneNumber']
-        // Session admin
         res.send({ session: session, msg: msg })
     } catch (e) {
         res.send({ session: null, msg: false })
@@ -76,6 +73,16 @@ async function getUsers(emailAddress, password) {
     }
 }
 
+async function registerOrUpdate(subject, liveSiteAdd, req, res, data, response_status) {
+    try {
+        await User.doc(data['emailAddress']).set(data)
+    } catch (e) {
+        res.send({ session: null, msg: false })
+    }
+    signupMail(data['emailAddress'], subject, liveSiteAdd)
+    loginSession(req, res, data, response_status)
+}
+
 app.post('/createuser', async (req, res) => {
     const data = req.body
     // Matching if the emailAddress exists
@@ -83,13 +90,18 @@ app.post('/createuser', async (req, res) => {
         .then(async (val) => {
             if (val['response'] === false) {
                 // Register User
-                const docRef = User.doc(data['emailAddress']);
-                await docRef.set(data)
-                signupMail(data['emailAddress'], "Successfully Registered", liveSiteAdd)
-                loginSession(req, res, data, val['response'])
+                // const docRef = User.doc(data['emailAddress']);
+                // await docRef.set(data)
+                // signupMail(data['emailAddress'], "Successfully Registered", liveSiteAdd)
+                // loginSession(req, res, data, val['response'])
+                registerOrUpdate("Successfully Registered", liveSiteAdd, req, res, data, val['response'])
             } else {
-                // Login user
-                loginSession(req, res, val['data'], val['response'])
+                // Update the data 
+                // const docRef = User.doc(data['emailAddress']);
+                // await docRef.set(data)
+                // signupMail(data['emailAddress'], "Your account information has been updated successfully !!!", liveSiteAdd)
+                // loginSession(req, res, val['data'], val['response'])
+                registerOrUpdate("Your account information has been updated successfully !!!", liveSiteAdd, req, res, data, val['response'])
             }
         })
 })

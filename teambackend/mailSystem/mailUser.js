@@ -32,6 +32,7 @@ function mailToUser(toMail, subject, data, liveSiteAdd) {
                     <br /><br />
                     <span>If you need to edit lead info click below</span>
                 </p>
+                <br/>
                 <a href="`+ liveSiteAdd + `/user" target="_blank" className="col-md-6 mx-auto text-center btn btn-primary" style="outline: none;
                 border: none;
                 background: #5f1cb7 !important;

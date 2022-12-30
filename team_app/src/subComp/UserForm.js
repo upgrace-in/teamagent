@@ -147,7 +147,7 @@ export default function UserForm(props) {
                                                                 <ul></ul>
                                                             </div>
                                                             {formSwitch === true ?
-                                                                <Register endpoint={props.endpoint} Msg={Msg} setMsg={setMsg} formSwitch={formSwitch} setformSwitch={setformSwitch} loginUser={loginUser} /> :
+                                                                <Register session={""} endpoint={props.endpoint} Msg={Msg} setMsg={setMsg} formSwitch={formSwitch} setformSwitch={setformSwitch} loginUser={loginUser} /> :
                                                                 <form className="wpcf7-form init">
                                                                     <div className="comment-one__form ">
                                                                         <div className="col-xl-12">

@@ -1,6 +1,16 @@
 import { useEffect, useState } from "react"
+import Register from './Register'
 
 export default function Account(props) {
+
+    const [Msg, setMsg] = useState('')
+    const [formSwitch, setformSwitch] = useState(-1)
+
+    function loginUser(session) {
+        console.log(session)
+        localStorage.setItem("session", JSON.stringify(session))
+        window.location.href = '/dashboard'
+    }
 
     useEffect(() => {
     }, [])
@@ -37,7 +47,7 @@ export default function Account(props) {
                     </div>
                 </div>
             </div>
-            {/* <Register endpoint={props.endpoint} Msg={Msg} setMsg={setMsg} formSwitch={formSwitch} setformSwitch={setformSwitch} loginUser={loginUser} /> */}
+            <Register session={props.session} endpoint={props.endpoint} Msg={Msg} setMsg={setMsg} formSwitch={formSwitch} setformSwitch={setformSwitch} loginUser={loginUser} />
         </div>
     )
 }

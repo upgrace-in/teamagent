@@ -14,7 +14,7 @@ export default function Register(props) {
             if (password === confirmPassword) {
                 props.setMsg("Processing...")
                 // Send to backend
-                fetch(props.endpoint+'/createuser', {
+                fetch(props.endpoint + '/createuser', {
                     method: 'POST',
                     body: JSON.stringify({
                         "name": userName,
@@ -26,23 +26,31 @@ export default function Register(props) {
                 }).then(function (response) {
                     return response.json()
                 }).then(function (val) {
-                    if (val['msg']) {
-                        props.setMsg("User Already Exists Logging in...")
-                        // user exists logged him in
-                        props.loginUser(val['session'])
-                    } else {
-                        // if val is false thier may be two cases
-                        if (val['session'] != null) {
-                            props.setMsg("User Registered Logging in...")
-                            // user registered logged him in
+                    if (props.formSwitch !== -1) {
+                        if (val['msg']) {
+                            props.setMsg("User Already Exists Logging in...")
+                            // user exists logged him in
                             props.loginUser(val['session'])
+                        } else {
+                            // if val is false thier may be two cases
+                            if (val['session'] != null) {
+                                props.setMsg("User Registered Logging in...")
+                                // user registered logged him in
+                                props.loginUser(val['session'])
+                            } else {
+                                props.setMsg("Something went wrong !!!")
+                            }
+                        }
+                    } else {
+                        if (val['msg']) {
+                            props.setMsg("User Info Updated Successfully !!!")
                         } else {
                             props.setMsg("Something went wrong !!!")
                         }
+                        setTimeout(() => {
+                            props.setformSwitch(0)
+                        }, 1000)
                     }
-                    // localStorage.setItem("session", JSON.stringify(val['session']))
-                    // localStorage.removeItem("session")
-                    // JSON.parse(localStorage.getItem("session")
                 });
 
 
@@ -61,14 +69,14 @@ export default function Register(props) {
                 <div className='row'>
                     <div className="col-xl-6">
                         <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                            data-name="your-name"><input id="username" type="text" name="your-name" size="40"
+                            data-name="your-name"><input id="username" defaultValue={props.session.name} type="text" name="your-name" size="40"
                                 className="wpcf7-form-control wpcf7-text"
                                 aria-required="true" aria-invalid="false" placeholder="Your Name" /></span>
                         </div>
                     </div>
                     <div className="col-xl-6">
                         <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                            data-name="your-phone"><input id="userphone" type="number" name="your-phone" size="40"
+                            data-name="your-phone"><input id="userphone" defaultValue={props.session.phoneNumber} type="number" name="your-phone" size="40"
                                 className="wpcf7-form-control wpcf7-text" aria-invalid="false"
                                 placeholder="Phone number" /></span>
                         </div>
@@ -76,7 +84,7 @@ export default function Register(props) {
                 </div>
                 <div className="col-xl-12">
                     <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                        data-name="your-email"><input id="useremail" type="email" name="your-email"
+                        data-name="your-email"><input id="useremail" defaultValue={props.session.emailAddress} type="email" name="your-email"
                             size="40"
                             className="wpcf7-form-control wpcf7-text"
                             aria-required="true" aria-invalid="false"
@@ -86,26 +94,26 @@ export default function Register(props) {
                 <div className='row'>
                     <div className="col-xl-6">
                         <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                            data-name="your-name"><input id="password" type="password" size="40"
+                            data-name="your-name"><input id="password" defaultValue={props.session.password} type="password" size="40"
                                 className="wpcf7-form-control wpcf7-text"
                                 aria-required="true" aria-invalid="false" placeholder="Password" /></span>
                         </div>
                     </div>
                     <div className="col-xl-6">
                         <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                            data-name="your-phone"><input id="confirmPassword" type="password" size="40"
+                            data-name="your-phone"><input id="confirmPassword" defaultValue={props.session.password} type="password" size="40"
                                 className="wpcf7-form-control wpcf7-text" aria-invalid="false"
                                 placeholder="Confirm Password" /></span>
                         </div>
                     </div>
                 </div>
-                <div className="wpcf7-response-output" style={{ display: 'block' }}>
+                <div className="wpcf7-response-output" style={{ display: 'block', color:'red' }}>
                     {props.Msg}
                 </div>
                 <div className="row">
                     <button onClick={registerForm} type="submit" className="thm-btn comment-form__btn">Register Now</button>
                 </div>
-                <div className="row text-center mx-auto mt-4">
+                <div className={props.formSwitch === -1 ? "hide" : "row text-center mx-auto mt-4"}>
                     <a className='cr' onClick={() => { props.setformSwitch(() => !props.formSwitch); props.setMsg('') }}>Login Here</a>
                 </div>
             </div>
