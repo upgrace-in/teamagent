@@ -1,33 +1,46 @@
 /* Account */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,500;0,700;1,300;1,400;1,500&display=swap');
 
-.conw{
-    font-family: 'roboto' !important;
-    padding: 10px;
+.accCON {
+    border-radius: 10px;
     background: white;
+    padding: 10px;
+    margin: 10px;
+    height: 120px;
+}
+
+.conw {
+    padding: 10px;
     cursor: pointer;
 }
-.concw{
+
+.concw {
+    background: white;
     margin: 10px;
     text-align: center;
 }
-.conw > .fas{
+
+.conw>.fas {
     font-size: 2.5rem;
-    padding: 15px;
+    padding: 15px 20px !important;
 }
-.conw > p{
+
+.conw>p {
     margin: 0 !important;
     line-height: 1.2rem;
 }
-.conw > h3{
+
+.conw>h3 {
     margin-bottom: 0.5rem;
 }
-.wc{
+
+.wc {
     cursor: auto;
     color: white;
     padding: 40px 0px;
 }
 
-.wc > h3{
+.wc>h3 {
     color: white;
 }
 

@@ -239,7 +239,7 @@ export default function Dashboard(props) {
                     </ul>
                 </div>
 
-                <div className="sideTop" style={{ "width": 75 + "%" }}>
+                <div className="sideTop" style={{ "width": 100 + "%" }}>
 
 
                     <div className={formState === 'LeadForm' ? "show padTop" : "hide"} >

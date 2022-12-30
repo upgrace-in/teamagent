@@ -13,6 +13,12 @@ TODO:
 <!-- 3) Pass it and depict -->
 <!-- 4) Create collection with the user and upload it -->
 <!-- 5) Home Countings -->
+
 6) Account working (edit names something)
-7) Edit & Delete function
 8) Image upload
+
+
+
+
+
+9)  Edit & Delete function (Only for amdin)

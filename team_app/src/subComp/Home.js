@@ -103,7 +103,7 @@ export default function Home(props) {
     }, [props.leadDatas])
 
     return (
-        <div className={props.formState === 'Home' ? 'show' : 'hide'}>
+        <div className={props.formState === 'Home' ? 'col-md-8 show' : 'hide'}>
             <h1>Home</h1>
             <br />
             <div className="row">
