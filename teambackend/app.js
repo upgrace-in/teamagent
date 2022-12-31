@@ -1,9 +1,13 @@
 const express = require('express')
 const cors = require('cors')
-const db = require('./config')
+const { db } = require('./config')
 const app = express()
+const fs = require('fs')
 const crypto = require("crypto");
 
+// Multer
+const multer = require('multer')
+const upload = multer({ dest: 'images/' })
 
 const mailToAdmin = require('./mailSystem/mailAdmin')
 const mailToUser = require('./mailSystem/mailUser')
@@ -101,6 +105,7 @@ app.post('/createuser', async (req, res) => {
 
 app.post('/loginuser', async (req, res) => {
     const data = req.body
+
     // Matching if the user exists
     await getUsers(data['emailAddress'], data['password']).then(async (val) => {
         // Login user
@@ -159,20 +164,26 @@ app.get('/checkUserExists', async (req, res) => {
 })
 
 //Receipt
-app.post('/uploadReceipt', async (req, res) => {
-    const data = req.body
+app.post('/uploadReceipt', upload.single("img"), async (req, res) => {
     try {
-        console.log(data)
-        // Save receipt
-        await Receipt.doc(receipt.uid).set(data)
-
+        const data = req.body
+        const imagePath = req.file.path
+        // Save this data to a database properly
+        await Receipt.doc(data.uid).set({...data, imageFile: imagePath})
         res.send({ msg: true })
-
     } catch (e) {
         console.log(e)
-
         res.send({ msg: false })
     }
+})
+
+app.get('/images/:imageName', (req, res) => {
+    // do a bunch of if statements to make sure the user is 
+    // authorized to view this image, then
+
+    const imageName = req.params.imageName
+    const readStream = fs.createReadStream(`images/${imageName}`)
+    readStream.pipe(res)
 })
 
 app.get('/fetchReceipts', async (req, res) => {
