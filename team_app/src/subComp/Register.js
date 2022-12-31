@@ -84,10 +84,9 @@ export default function Register(props) {
                 </div>
                 <div className="col-xl-12">
                     <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                        data-name="your-email"><input id="useremail" disabled={props.formSwitch === -1 ? "true" : "false"}
+                        data-name="your-email"><input id="useremail" className={props.formSwitch === -1 ? "hide" : "wpcf7-form-control wpcf7-text show"}
                             defaultValue={props.session.emailAddress} type="email" name="your-email"
                             size="40"
-                            className="wpcf7-form-control wpcf7-text"
                             aria-required="true" aria-invalid="false"
                             placeholder="Email Address" /></span>
                     </div>

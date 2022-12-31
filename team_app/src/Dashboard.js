@@ -33,7 +33,6 @@ export default function Dashboard(props) {
         window.location.href = '/'
     } else {
         session = props.session
-        props.checkUserExists(props.session)
     }
     $('.hide_it').hide()
 
@@ -63,6 +62,9 @@ export default function Dashboard(props) {
     useEffect(() => {
         props.calculator($('.loanAmount2'), $('.credits'))
         fetchLeads()
+        setTimeout(() => {
+            props.checkUserExists(props.session)
+        }, 1000)
     }, [''])
 
     function submitIt(leadInfo) {
@@ -115,10 +117,11 @@ export default function Dashboard(props) {
                 leadInfo.fname = fname
                 leadInfo.lname = lname
                 leadInfo.loanAmt = loanAmt
-                leadInfo.credits = credits
+                leadInfo.credits = credits.split('$')[1]
                 leadInfo.inputEmail = inputEmail
                 leadInfo.inputPhone = inputPhone
                 leadInfo.emailAddress = session['emailAddress']
+                leadInfo.password = session['password']
                 leadInfo.name = session['name']
                 leadInfo.phoneNumber = session['phoneNumber']
                 leadInfo.createdon = new Date().getFullYear()
@@ -182,7 +185,7 @@ export default function Dashboard(props) {
 
             <div className="sideCon">
                 <button className="thm-btn sp">Welcome: <span className="username"></span></button>
-                <button className="thm-btn sp"><a href="#" style={{ color: 'white' }}>Credits: $0</a></button>
+                <button className="thm-btn sp"><a href="#" style={{ color: 'white' }}>Credits: $<span className="credits_div">0</span></a></button>
             </div>
 
             <main>
@@ -299,7 +302,6 @@ export default function Dashboard(props) {
                                                                                                 Credits: <b id="inputCredits" className="credits">$0</b>
                                                                                                 <h6>Estimated Credits Upon Closing</h6>
                                                                                             </div>
-
                                                                                         </div>
                                                                                     </div>
                                                                                     <div className="row">
@@ -514,7 +516,7 @@ export default function Dashboard(props) {
                             </table>
                         </div>
 
-                        <Upload endpoint={props.endpoint} emailAddress={session['emailAddress']} leadNames={leadDatas} formState={formState} />
+                        <Upload endpoint={props.endpoint} emailAddress={session['emailAddress']} password={session['password']} credits={session['credits']} leadNames={leadDatas} formState={formState} />
 
                         <Home endpoint={props.endpoint} leadDatas={leadDatas} formState={formState} emailAddress={session['emailAddress']} />
 

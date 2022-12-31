@@ -16,7 +16,6 @@ function App() {
   let sessionData = JSON.parse(localStorage.getItem('session'))
   if (sessionData != null) {
     // Clear the clicks
-
     $('.loggedIn').attr('href', '/dashboard')
     $('.loggedIn > p').html("Dashboard")
 
@@ -36,6 +35,7 @@ function App() {
       } else {
         // update the session
         localStorage.setItem("session", JSON.stringify(val['data'][0]))
+        $('.credits_div').text(val['data'][0]['credits']);
         $('.username').text(val['data'][0]['name']);
       }
     });

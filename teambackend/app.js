@@ -79,6 +79,7 @@ async function getUsers(emailAddress, password) {
 
 async function registerOrUpdate(subject, liveSiteAdd, req, res, data, response_status) {
     try {
+        console.log(data);
         await User.doc(data['emailAddress']).set(data)
     } catch (e) {
         res.send({ session: null, msg: false })
@@ -94,7 +95,7 @@ app.post('/createuser', async (req, res) => {
         .then(async (val) => {
             if (val['response'] === false) {
                 // Register User
-                registerOrUpdate("Successfully Registered", liveSiteAdd, req, res, {...data, credits: 0}, val['response'])
+                registerOrUpdate("Successfully Registered", liveSiteAdd, req, res, { ...data, credits: 0 }, val['response'])
             } else {
                 // Update the data 
                 registerOrUpdate("Your account information has been updated successfully !!!", liveSiteAdd, req, res, data, val['response'])
@@ -118,8 +119,11 @@ app.post('/addLead', async (req, res) => {
     const data = req.body
     try {
         // Save lead
-        // User.doc(data['emailAddress']).collection('Leads').add(data)
-        await Lead.doc(data.uid).set({ ...data, transaction: "OPEN" })
+        await getUsers(data['emailAddress'], data['password'])
+            .then(async (val) => {
+                User.doc(data['emailAddress']).update({ credits: parseFloat(val.data.credits) + parseFloat(data.credits) })
+                await Lead.doc(data.uid).set({ ...data, transaction: "OPEN" })
+            });
 
         // Changed
         // // To the Admin
@@ -169,7 +173,11 @@ app.post('/uploadReceipt', upload.single("img"), async (req, res) => {
         const data = req.body
         const imagePath = req.file.path
         // Save this data to a database properly
-        await Receipt.doc(data.uid).set({...data, imageFile: imagePath})
+        await getUsers(data['emailAddress'], data['password'])
+            .then(async (val) => {
+                User.doc(data['emailAddress']).update({ credits: parseFloat(val.data.credits) - parseFloat(data.inputRecAmt) })
+                await Receipt.doc(data.uid).set({ ...data, imageFile: imagePath })
+            });
         res.send({ msg: true })
     } catch (e) {
         console.log(e)

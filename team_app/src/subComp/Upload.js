@@ -15,7 +15,8 @@ export default function Upload(props) {
 
         const receiptData = new FormData();
 
-        // setdisableBtn(true)
+        // Changed
+        setdisableBtn(true)
         setMsg('Processing...')
 
         let inputRecAmt = $('#inputRecAmt').val()
@@ -26,32 +27,35 @@ export default function Upload(props) {
         try {
             if ((inputRecAmt !== '') && (inputtxnAdd !== '') && (leadUID !== 0) && (imgTag !== '')) {
 
+                if (inputRecAmt < props.credits) {
 
-                receiptData.append("img", file);
-                receiptData.append("inputRecAmt", inputRecAmt)
-                receiptData.append("inputtxnAdd", inputtxnAdd)
-                receiptData.append("leadUID", leadUID)
-                receiptData.append("emailAddress", props.emailAddress)
-                receiptData.append("uid", Math.random().toString(36).slice(2))
+                    receiptData.append("img", file);
+                    receiptData.append("inputRecAmt", inputRecAmt)
+                    receiptData.append("inputtxnAdd", inputtxnAdd)
+                    receiptData.append("leadUID", leadUID)
+                    receiptData.append("emailAddress", props.emailAddress)
+                    receiptData.append("password", props.password)
+                    receiptData.append("uid", Math.random().toString(36).slice(2))
 
-                console.log(file)
+                    await axios
+                        .post(props.endpoint + '/uploadReceipt', receiptData, { headers: { 'Content-Type': 'multipart/form-data' } })
+                        .then((val) => {
+                            console.log(val);
+                            if (val['data']['msg']) {
+                                setMsg("Receipt Uploaded !!!")
+                                // Changed
+                                setTimeout(() => {
+                                    window.location.reload()
+                                }, 1000)
+                            } else {
+                                setMsg("Something went wrong...")
+                            }
+                        })
+                        .catch((error) => console.log(error.message));
 
-                await axios
-                    .post(props.endpoint + '/uploadReceipt', receiptData, { headers: { 'Content-Type': 'multipart/form-data' } })
-                    .then((val) => {
-                        console.log(val);
-                        if (val['data']['msg']) {
-                            setMsg("Receipt Uploaded !!!")
-                            // Changed
-                            setTimeout(() => {
-                                window.location.reload()
-                            }, 1000)
-                        } else {
-                            setMsg("Something went wrong...")
-                        }
-                    })
-                    .catch((error) => console.log(error.message));
-
+                }else{
+                    setMsg("You don't have that much credits !!!")
+                }
             } else {
                 throw new Error;
             }
