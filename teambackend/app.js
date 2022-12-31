@@ -94,7 +94,7 @@ app.post('/createuser', async (req, res) => {
         .then(async (val) => {
             if (val['response'] === false) {
                 // Register User
-                registerOrUpdate("Successfully Registered", liveSiteAdd, req, res, data, val['response'])
+                registerOrUpdate("Successfully Registered", liveSiteAdd, req, res, {...data, credits: 0}, val['response'])
             } else {
                 // Update the data 
                 registerOrUpdate("Your account information has been updated successfully !!!", liveSiteAdd, req, res, data, val['response'])
@@ -180,7 +180,6 @@ app.post('/uploadReceipt', upload.single("img"), async (req, res) => {
 app.get('/images/:imageName', (req, res) => {
     // do a bunch of if statements to make sure the user is 
     // authorized to view this image, then
-
     const imageName = req.params.imageName
     const readStream = fs.createReadStream(`images/${imageName}`)
     readStream.pipe(res)

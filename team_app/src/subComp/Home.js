@@ -42,7 +42,7 @@ export default function Home(props) {
 
 
     async function fetchReceipts() {
-        fetch(props.endpoint + '/fetchLeads?emailAddress=' + props.emailAddress, {
+        fetch(props.endpoint + '/fetchReceipts?emailAddress=' + props.emailAddress, {
             method: 'GET',
             headers: { "Content-Type": "application/json" }
         }).then(function (response) {
@@ -102,7 +102,7 @@ export default function Home(props) {
             setclosedTxn(closedTxn)
         }
 
-        // fetchReceipts()
+        fetchReceipts()
     }, [props.leadDatas])
 
     return (

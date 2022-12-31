@@ -8,6 +8,7 @@ export default function Upload(props) {
     const [disableBtn, setdisableBtn] = useState(false)
 
     const [file, setFile] = useState();
+    const [fileName, setFileName] = useState("Browse File");
 
     const submitReceiptData = async (e) => {
         e.preventDefault()
@@ -33,10 +34,13 @@ export default function Upload(props) {
                 receiptData.append("emailAddress", props.emailAddress)
                 receiptData.append("uid", Math.random().toString(36).slice(2))
 
+                console.log(file)
+
                 await axios
                     .post(props.endpoint + '/uploadReceipt', receiptData, { headers: { 'Content-Type': 'multipart/form-data' } })
                     .then((val) => {
-                        if (val['msg']) {
+                        console.log(val);
+                        if (val['data']['msg']) {
                             setMsg("Receipt Uploaded !!!")
                             // Changed
                             setTimeout(() => {
@@ -61,19 +65,83 @@ export default function Upload(props) {
 
     const handleChange = (e) => {
         setFile(e.target.files[0]);
+        setFileName(e.target.files[0].name)
     }
+
+    useEffect(() => {
+        let receiptfile;
+
+        // Uplaod files
+        //selecting all required elements
+        const dropArea = document.querySelector(".drag-area"),
+            dragText = dropArea.querySelector("header"),
+            button = dropArea.querySelector("button"),
+            input = dropArea.querySelector("input");
+
+        button.onclick = () => {
+            input.click(); //if user click on the button then the input also clicked
+        }
+
+        input.addEventListener("change", function () {
+            //getting user select file and [0] this means if user select multiple files then we'll select only the first one
+            receiptfile = this.files[0];
+            dropArea.classList.add("active");
+            showFile();
+        });
+
+        dropArea.addEventListener("dragover", (event) => {
+            event.preventDefault();
+            dropArea.classList.add("active");
+            dragText.textContent = "Release to Upload File";
+        });
+
+        //If user leave dragged File from DropArea
+        dropArea.addEventListener("dragleave", () => {
+            dropArea.classList.remove("active");
+            dragText.textContent = "Drag & Drop to Upload File";
+        });
+
+        //If user drop File on DropArea
+        dropArea.addEventListener("drop", (event) => {
+            event.preventDefault();
+            receiptfile = event.dataTransfer.files[0];
+            showFile();
+        });
+
+        function showFile() {
+            let fileType = receiptfile.type; //getting selected file type
+            let validExtensions = ["image/jpeg", "image/jpg", "image/png"]; //adding some valid image extensions in array
+            if (validExtensions.includes(fileType)) { //if user selected file is an image file
+                let fileReader = new FileReader(); //creating new FileReader object
+                fileReader.onload = () => {
+                    $('.drapHeader').html('Your File :')
+                    $('.drapOR').hide()
+                    button.innerHTML = receiptfile.name
+                    setFile(receiptfile);
+                    setFileName(receiptfile.name);
+                }
+                fileReader.readAsDataURL(receiptfile);
+            } else {
+                alert("This is not an Image File!");
+                dropArea.classList.remove("active");
+                dragText.textContent = "Drag & Drop to Upload File";
+            }
+        }
+
+    }, [''])
 
     return (
         <div className={props.formState === 'Upload' ? 'show' : 'hide'}>
             <h1>Upload Receipts</h1>
             <br />
             <div className="row" style={{ padding: 10 + 'px' }}>
-                {/* <div className="drag-area col-md-6">
+                <div className="drag-area col-md-6">
                     <div className="icon"><i className="fas fa-cloud-upload-alt"></i></div>
                     <header className="drapHeader">Drag & Drop to Upload File</header>
                     <span className="drapOR">OR</span>
-                    <input onChange={handleChange} id="imgTag" type="file"/>
-                </div> */}
+                    <button>{fileName}</button>
+                    <input onChange={handleChange} id="imgTag" type="file" hidden />
+                </div>
                 <div className="col-md-6">
                     <form className="wpcf7-form init">
                         <div className="comment-one__form ">
@@ -92,13 +160,6 @@ export default function Upload(props) {
                                 </span>
                                 </div>
 
-                            </div>
-                            <div className="col-xl-12">
-                                <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                                    data-name="your-name">
-                                    <input onChange={handleChange} id="imgTag" type="file" />
-                                </span>
-                                </div>
                             </div>
                             <div className="col-xl-12">
                                 <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"

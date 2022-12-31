@@ -84,7 +84,8 @@ export default function Register(props) {
                 </div>
                 <div className="col-xl-12">
                     <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
-                        data-name="your-email"><input id="useremail" defaultValue={props.session.emailAddress} type="email" name="your-email"
+                        data-name="your-email"><input id="useremail" disabled={props.formSwitch === -1 ? "true" : "false"}
+                            defaultValue={props.session.emailAddress} type="email" name="your-email"
                             size="40"
                             className="wpcf7-form-control wpcf7-text"
                             aria-required="true" aria-invalid="false"
@@ -107,11 +108,11 @@ export default function Register(props) {
                         </div>
                     </div>
                 </div>
-                <div className="wpcf7-response-output" style={{ display: 'block', color:'red' }}>
+                <div className="wpcf7-response-output" style={{ display: 'block', color: 'red' }}>
                     {props.Msg}
                 </div>
                 <div className="row">
-                    <button onClick={registerForm} type="submit" className="thm-btn comment-form__btn">Register Now</button>
+                    <button onClick={registerForm} type="submit" className="thm-btn comment-form__btn">{props.formSwitch === -1 ? "Update Now" : "Register Now"}</button>
                 </div>
                 <div className={props.formSwitch === -1 ? "hide" : "row text-center mx-auto mt-4"}>
                     <a className='cr' onClick={() => { props.setformSwitch(() => !props.formSwitch); props.setMsg('') }}>Login Here</a>
