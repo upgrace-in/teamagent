@@ -28,14 +28,14 @@ export default function Account(props) {
                                     <i className="fas fa-user"></i>
                                 </div>
                                 <div className="conw col-md-9">
-                                    <h3>My Account</h3>
+                                    <h3>Contact Info</h3>
                                     <p>Edit your name or change your password</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="col-md-4">
-                        <div onClick={() => alert("Coming Soon !!!")} className="accCON">
+                        <div className="accCON blocked">
                             <div className="row">
                                 <div className="conw col-md-3">
                                     <i className="fas fa-house-user"></i>

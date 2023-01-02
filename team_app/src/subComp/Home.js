@@ -106,30 +106,30 @@ export default function Home(props) {
     }, [props.leadDatas])
 
     return (
-        <div className={props.formState === 'Home' ? 'col-md-8 show' : 'hide'}>
+        <div className={props.formState === 'Home' ? 'col-md-9 show' : 'hide'}>
             <h1>Home</h1>
             <br />
             <div className="row">
                 <div className="col-md-6">
-                    <div className="conw concw wc" style={{ background: '#835ea8' }}>
-                        <h3>${avgLoanAmt}</h3>
+                    <div className="conw concw wc fst" style={{ background: '#835ea8' }}>
+                        <h1>${avgLoanAmt}</h1>
                         <span>Average Loan Amount</span>
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <div className="conw concw wc" style={{ background: '#492d7e' }}>
-                        <h3>{totalTxn}</h3>
+                    <div className="conw concw wc snd" style={{ background: '#492d7e' }}>
+                        <h1>{totalTxn}</h1>
                         <span>Total Transactions</span>
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <div className="conw concw wc" style={{ background: '#cbbedd' }}>
+                    <div className="conw concw wc trd" style={{ background: '#cbbedd' }}>
                         <h3>${totalDebits}</h3>
                         <span>Total Debits</span>
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <div className="conw concw wc" style={{ background: '#a495c7' }}>
+                    <div className="conw concw wc fth" style={{ background: '#a495c7' }}>
                         <h3>{closedTxn}</h3>
                         <span>Closed Transactions</span>
                     </div>

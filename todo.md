@@ -8,4 +8,5 @@ lsof -i:7070
 kill -9 PID
 
 TODO:
+Work on the chart
 Admin Work
