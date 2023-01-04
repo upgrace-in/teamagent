@@ -124,7 +124,7 @@ export default function Dashboard(props) {
                 leadInfo.password = session['password']
                 leadInfo.name = session['name']
                 leadInfo.phoneNumber = session['phoneNumber']
-                leadInfo.createdon = new Date().getFullYear()
+                leadInfo.createdon = new Date()
 
                 // Checking client ready status 
                 let dateTime = $('#dateTime').val()

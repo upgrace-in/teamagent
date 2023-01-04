@@ -7,38 +7,47 @@ export default function Home(props) {
     const [totalTxn, settotalTxn] = useState(0)
     const [totalDebits, settotalDebits] = useState(0)
     const [closedTxn, setclosedTxn] = useState(0)
+    const ctx = document.getElementById('myChart');
 
-    // const ctx = document.getElementById('myChart');
+    function renderChart(months, totalTxn, ctx) {
 
-    // useEffect(() => {
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: months,
+                datasets: [{
+                    label: 'Total Transactions',
+                    data: totalTxn,
+                    borderWidth: 2,
+                    borderColor: 'red',
+                    backgroundColor: 'white',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                animations: {
+                    radius: {
+                        duration: 400,
+                        easing: 'linear',
+                        loop: (context) => context.active
+                    }
+                },
+                hoverRadius: 12,
+                hoverBackgroundColor: 'yellow',
+                interaction: {
+                    mode: 'nearest',
+                    intersect: false,
+                    axis: 'x'
+                },
+                plugins: {
+                    tooltip: {
+                        enabled: false
+                    }
+                }
+            },
+        });
 
-    //     new Chart(ctx, {
-    //         type: 'line',
-    //         data: {
-    //             labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY'],
-    //             datasets: [{
-    //                 label: '# of Transactions',
-    //                 data: [12, 19, 3, 5, 2],
-    //                 borderWidth: 1,
-    //                 backgroundColor: "rgb(73, 45, 126)"
-    //             }]
-    //         },
-    //         options: {
-    //             responsive: true,
-    //             plugins: {
-    //                 legend: {
-    //                     position: 'top',
-    //                 },
-    //                 title: {
-    //                     display: true,
-    //                     text: 'SALES PROGRESS'
-    //                 }
-    //             }
-    //         },
-    //     });
-
-    // }, [ctx])
-
+    }
 
 
     async function fetchReceipts() {
@@ -77,10 +86,34 @@ export default function Home(props) {
             let avgcount = 0
             let closedTxn = 0
             let avgLoanAmt = 0
+            let totalTransactions = {}
+            let dict_of_months = {
+                1: 'JAN',
+                2: 'FEB',
+                3: 'MAR',
+                4: 'APR',
+                5: 'MAY',
+                6: 'JUN',
+                7: 'JUL',
+                8: 'AUG',
+                9: 'SEP',
+                10: 'OCT',
+                11: 'NOV',
+                12: 'DEC'
+            }
             props.leadDatas.map(data => {
 
+                // Need to fetch the total transactions as per the month
+                let leads_month = parseInt(new Date(data.createdon).getMonth())
+                let current_month = dict_of_months[leads_month + 1]
+
+                if (totalTransactions[current_month] !== undefined)
+                    totalTransactions[current_month] = totalTransactions[current_month] + 1
+                else
+                    totalTransactions[current_month] = 1
+
                 // totalTxn: total transactions by year. 
-                if (parseInt(data.createdon) === new Date().getFullYear()) {
+                if (parseInt(new Date(data.createdon).getFullYear()) === new Date().getFullYear()) {
                     if (data.transaction === 'CLOSED') {
                         // closedTxn: closed transactions are yearly closed
                         closedTxn++
@@ -95,6 +128,9 @@ export default function Home(props) {
                 }
 
             });
+
+            renderChart(Object.keys(totalTransactions), Object.values(totalTransactions), ctx)
+
             if (avgLoanAmt !== 0)
                 setavgLoanAmt(avgLoanAmt / avgcount)
 

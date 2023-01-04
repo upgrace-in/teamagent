@@ -55,6 +55,7 @@
 }
 
 .wc {
+    border-radius: 15px;
     cursor: auto;
     color: white;
     padding: 40px 0px;
