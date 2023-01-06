@@ -27,20 +27,14 @@ export default function Register(props) {
                     return response.json()
                 }).then(function (val) {
                     if (props.formSwitch !== -1) {
-                        if (val['msg']) {
-                            props.setMsg("User Already Exists Logging in...")
-                            // user exists logged him in
+                        // Registering
+                        props.setMsg(val.msg)
+                        // Now we need to just check if the session is empty or not
+                        if (val['session'] !== null) {
+                            // user register logged him in
                             props.loginUser(val['session'])
-                        } else {
-                            // if val is false thier may be two cases
-                            if (val['session'] != null) {
-                                props.setMsg("User Registered Logging in...")
-                                // user registered logged him in
-                                props.loginUser(val['session'])
-                            } else {
-                                props.setMsg("Something went wrong !!!")
-                            }
                         }
+                        // else the user exists let him login
                     } else {
                         if (val['msg']) {
                             props.setMsg("User Info Updated Successfully !!!")

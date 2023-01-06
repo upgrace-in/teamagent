@@ -50,30 +50,27 @@ let adminMail = "thedesiretree47@gmail.com"
 async function loginSession(req, res, data, msg) {
     try {
         // If res doesn't provide emailAddress & name then throw error
-        session = req.session;
-        session.userdata = data;
+        let session
+        if(data === null)
+            session = null
+        else
+            session = req.session;
+            session.userdata = data;
         res.send({ session: session, msg: msg })
     } catch (e) {
-        res.send({ session: null, msg: false })
+        res.send({ session: data, msg: msg })
     }
 }
 
 
-async function getUsers(emailAddress, password) {
+async function getUsers(emailAddress) {
     const snapshot = await User.where('emailAddress', '==', emailAddress).get();
     if (snapshot.empty) {
         // If user doesn't exists
         return { response: false, data: {} }
     } else {
-        // Email matched...Login Now
-        let fData = snapshot.docs[0].data()
-        if (fData['password'] === password) {
-            // Login user
-            return { response: true, data: fData }
-        } else {
-            // Password unmatched !!!
-            return { response: false, data: {} }
-        }
+        // User exists
+        return { response: true, data: snapshot.docs[0].data() }
     }
 }
 
@@ -91,17 +88,37 @@ async function registerOrUpdate(subject, liveSiteAdd, req, res, data, response_s
 app.post('/createuser', async (req, res) => {
     const data = req.body
     // Matching if the emailAddress exists
-    await getUsers(data['emailAddress'], data['password'])
+    await getUsers(data['emailAddress'])
         .then(async (val) => {
             if (val['response'] === false) {
                 // Register User
-                registerOrUpdate("Successfully Registered", liveSiteAdd, req, res, { ...data, credits: 0 }, val['response'])
+                await User.doc(data['emailAddress']).set({ ...data, credits: 0 })
+                signupMail(data['emailAddress'], "Successfully Registered", liveSiteAdd)
+                loginSession(req, res, data, "Successfully Registered !!!")
             } else {
-                // Update the data 
-                registerOrUpdate("Your account information has been updated successfully !!!", liveSiteAdd, req, res, data, val['response'])
+                // Response should be Try to login 
+                loginSession(req, res, null, "User exists try to login...")
             }
         })
 })
+
+// app.post('/updateuser', async (req, res) => {
+//     const data = req.body
+//     // Matching if the emailAddress exists
+//     await getUsers(data['emailAddress'])
+//         .then(async (val) => {
+//             if (val['response'] === false) {
+//                 // Register User
+//                 // registerOrUpdate("Successfully Registered", liveSiteAdd, req, res, { ...data, credits: 0 }, val['response'])
+//                 await User.doc(data['emailAddress']).set({ ...data, credits: 0 })
+//                 signupMail(data['emailAddress'], "Successfully Registered", liveSiteAdd)
+//                 loginSession(req, res, data, "Successfully Registered !!!")
+//             } else {
+//                 // Response should be Try to login 
+//                 loginSession(req, res, null, "User exists try to login...")
+//             }
+//         })
+// })
 
 
 app.post('/loginuser', async (req, res) => {
@@ -110,7 +127,15 @@ app.post('/loginuser', async (req, res) => {
     // Matching if the user exists
     await getUsers(data['emailAddress'], data['password']).then(async (val) => {
         // Login user
-        loginSession(req, res, val['data'], val['response'])
+        if (val['response'] === true) {
+            // User exists Check the password
+            if(data['password'] === val.data.password)
+                loginSession(req, res, val['data'], 'Logging in...')
+            else
+                loginSession(req, res, null, 'Password unmatched !!!')
+        }else{
+            loginSession(req, res, null, "User doesn't exists !!!")
+        }
     })
 })
 

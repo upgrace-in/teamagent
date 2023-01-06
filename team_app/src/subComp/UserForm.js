@@ -31,17 +31,9 @@ export default function UserForm(props) {
             }).then(function (response) {
                 return response.json()
             }).then(function (val) {
-                if (val['msg']) {
-                    setMsg("Logging in...")
-                    // logged him in
+                setMsg(val.msg)
+                if (val.session.userdata !== null) {
                     loginUser(val['session'])
-                } else {
-                    // if val is false thier may be two cases
-                    if (val['session'] != null) {
-                        setMsg("Invalid Credentials !!!")
-                    } else {
-                        setMsg("Something went wrong !!!")
-                    }
                 }
             });
         } else {
