@@ -51,11 +51,11 @@ async function loginSession(req, res, data, msg) {
     try {
         // If res doesn't provide emailAddress & name then throw error
         let session
-        if(data === null)
+        if (data === null)
             session = null
         else
             session = req.session;
-            session.userdata = data;
+        session.userdata = data;
         res.send({ session: session, msg: msg })
     } catch (e) {
         res.send({ session: data, msg: msg })
@@ -76,13 +76,12 @@ async function getUsers(emailAddress) {
 
 async function registerOrUpdate(subject, liveSiteAdd, req, res, data, response_status) {
     try {
-        console.log(data);
         await User.doc(data['emailAddress']).set(data)
+        signupMail(data['emailAddress'], subject, liveSiteAdd)
+        loginSession(req, res, data, response_status)
     } catch (e) {
-        res.send({ session: null, msg: false })
+        res.send({ session: null, msg: "Something went wrong !!!" })
     }
-    signupMail(data['emailAddress'], subject, liveSiteAdd)
-    loginSession(req, res, data, response_status)
 }
 
 app.post('/createuser', async (req, res) => {
@@ -96,44 +95,28 @@ app.post('/createuser', async (req, res) => {
                 signupMail(data['emailAddress'], "Successfully Registered", liveSiteAdd)
                 loginSession(req, res, data, "Successfully Registered !!!")
             } else {
-                // Response should be Try to login 
-                loginSession(req, res, null, "User exists try to login...")
+                // check if its a update request
+                if(data.update_it === true)
+                    registerOrUpdate("Your account information has been updated successfully !!!", liveSiteAdd, req, res, { ...data, credits: 0 }, "Updated Successfully !!!")
+                else
+                    // Response should be Try to login 
+                    loginSession(req, res, null, "User exists try to login...")
             }
         })
 })
 
-// app.post('/updateuser', async (req, res) => {
-//     const data = req.body
-//     // Matching if the emailAddress exists
-//     await getUsers(data['emailAddress'])
-//         .then(async (val) => {
-//             if (val['response'] === false) {
-//                 // Register User
-//                 // registerOrUpdate("Successfully Registered", liveSiteAdd, req, res, { ...data, credits: 0 }, val['response'])
-//                 await User.doc(data['emailAddress']).set({ ...data, credits: 0 })
-//                 signupMail(data['emailAddress'], "Successfully Registered", liveSiteAdd)
-//                 loginSession(req, res, data, "Successfully Registered !!!")
-//             } else {
-//                 // Response should be Try to login 
-//                 loginSession(req, res, null, "User exists try to login...")
-//             }
-//         })
-// })
-
-
 app.post('/loginuser', async (req, res) => {
     const data = req.body
-
     // Matching if the user exists
     await getUsers(data['emailAddress'], data['password']).then(async (val) => {
         // Login user
         if (val['response'] === true) {
             // User exists Check the password
-            if(data['password'] === val.data.password)
+            if (data['password'] === val.data.password)
                 loginSession(req, res, val['data'], 'Logging in...')
             else
                 loginSession(req, res, null, 'Password unmatched !!!')
-        }else{
+        } else {
             loginSession(req, res, null, "User doesn't exists !!!")
         }
     })
@@ -151,16 +134,16 @@ app.post('/addLead', async (req, res) => {
             });
 
         // Changed
-        // // To the Admin
-        // mailToAdmin(adminMail, "Someone Added A Lead", data, liveSiteAdd)
+        // To the Admin
+        mailToAdmin(adminMail, "Someone Added A Lead", data, liveSiteAdd)
 
-        // if (loanOfficer[data['offerAcceptedStatus']['selectedloanOfficer']] !== undefined) {
-        //     // To the loan Officer
-        //     mailToAdmin(loanOfficer[data['offerAcceptedStatus']['selectedloanOfficer']], "Someone Choosed You In A Lead", data, liveSiteAdd)
-        // }
+        if (loanOfficer[data['offerAcceptedStatus']['selectedloanOfficer']] !== undefined) {
+            // To the loan Officer
+            mailToAdmin(loanOfficer[data['offerAcceptedStatus']['selectedloanOfficer']], "Someone Choosed You In A Lead", data, liveSiteAdd)
+        }
 
-        // // To the User
-        // mailToUser(data['emailAddress'], "Lead been successfully uploaded !!!", data, liveSiteAdd)
+        // To the User
+        mailToUser(data['emailAddress'], "Lead been successfully uploaded !!!", data, liveSiteAdd)
 
         res.send({ msg: true })
 

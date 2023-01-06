@@ -7,8 +7,7 @@ export default function Account(props) {
     const [formSwitch, setformSwitch] = useState(0)
 
     function loginUser(session) {
-        console.log(session)
-        localStorage.setItem("session", JSON.stringify(session))
+        localStorage.setItem("session", JSON.stringify(session['userdata']))
         window.location.href = '/dashboard'
     }
 

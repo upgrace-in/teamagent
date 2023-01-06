@@ -9,19 +9,24 @@ export default function Register(props) {
         let userName = $('#username').val()
         let password = $('#password').val()
         let confirmPassword = $('#confirmPassword').val()
-
         if ((userEmail !== '') && (userPhone !== '') && (userName !== '') && (password !== '') && (confirmPassword !== '')) {
             if (password === confirmPassword) {
                 props.setMsg("Processing...")
+                let body = {
+                    "name": userName,
+                    "phoneNumber": userPhone,
+                    "emailAddress": userEmail,
+                    "password": password
+                }
+                if (props.formSwitch === -1)
+                    body['update_it'] = true
+                else
+                    body['update_it'] = false
+
                 // Send to backend
                 fetch(props.endpoint + '/createuser', {
                     method: 'POST',
-                    body: JSON.stringify({
-                        "name": userName,
-                        "phoneNumber": userPhone,
-                        "emailAddress": userEmail,
-                        "password": password
-                    }),
+                    body: JSON.stringify(body),
                     headers: { "Content-Type": "application/json" }
                 }).then(function (response) {
                     return response.json()
@@ -36,14 +41,9 @@ export default function Register(props) {
                         }
                         // else the user exists let him login
                     } else {
-                        if (val['msg']) {
-                            props.setMsg("User Info Updated Successfully !!!")
-                        } else {
-                            props.setMsg("Something went wrong !!!")
-                        }
-                        setTimeout(() => {
-                            props.setformSwitch(0)
-                        }, 1000)
+                        props.setMsg(val.msg)
+                        if (val.session !== null)
+                            props.loginUser(val['session'])
                     }
                 });
 
