@@ -11,8 +11,8 @@ TODO:
 
 Admin:
 1) Search bar in lead table & receipt
-2) Delete function with the data
-3) A function to update the credits of the user as per the receipt amoutn changed + add a log
+2) A function to update the credits of the user as per the receipt amount changed + add a log
+3) Click to view should popup a con with all details
 4) View logs to the users
 
 

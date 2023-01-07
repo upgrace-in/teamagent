@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import $ from 'jquery'
-import LeadTable from '../subComp/LeadTable'
+import Container from './Container'
 import '../dashboard.css'
 import Receipts from "./Receipts"
 import Leads from "./Leads"
@@ -9,11 +9,13 @@ export default function Dashboard(props) {
 
     const [formState, setformState] = useState('Leads')
 
-    const [disableBtn, setdisableBtn] = useState(true)
+    const [disableBtn, setdisableBtn] = useState(false)
+
+    const [receiptData, setreceiptData] = useState([])
+    const [openContainer, setopenContainer] = useState(false)
 
     const [leadData, setleadData] = useState('')
     const [receiptsData, setreceiptsData] = useState('')
-    const [Msg, setMsg] = useState('')
 
     let session;
 
@@ -36,16 +38,16 @@ export default function Dashboard(props) {
                 // Fill leads
                 let leadData = []
                 val['data'].map(data => {
-                    leadData.push(<Leads 
-                        useremailAddress={data.emailAddress} 
-                        deleteLead={deleteLead} 
-                        key={data['uid']} 
-                        uid={data['uid']} 
-                        transaction={data['transaction']} 
-                        leadname={data['fname']} 
-                        leadmail={data['inputEmail']} 
-                        phone={data['inputPhone']} 
-                        leadamt={data['loanAmt']} 
+                    leadData.push(<Leads
+                        useremailAddress={data.emailAddress}
+                        deleteLead={deleteLead}
+                        key={data['uid']}
+                        uid={data['uid']}
+                        transaction={data['transaction']}
+                        leadname={data['fname']}
+                        leadmail={data['inputEmail']}
+                        phone={data['inputPhone']}
+                        leadamt={data['loanAmt']}
                         leadstatus={data['offerAcceptedStatus'] === false ? "Not Yet" : "Approved"} />);
                 });
                 setleadData(leadData)
@@ -54,6 +56,34 @@ export default function Dashboard(props) {
                 setleadData('')
             }
         });
+    }
+
+    async function updateCredits(uid, inputRecAmt, emailAddress) {
+
+        setdisableBtn(true)
+
+        fetch(props.endpoint + '/updateCredits', {
+            method: 'POST',
+            body: JSON.stringify({ uid, inputRecAmt, emailAddress }),
+            headers: { "Content-Type": "application/json" }
+        }).then(function (response) {
+            return response.json()
+        }).then(async function (val) {
+            console.log(val);
+            if (val['msg']) {
+                alert("Credit Updated !!!")
+                await fetchReceipts()
+            } else {
+                alert("Something went wrong !!!")
+            }
+            setdisableBtn(false)
+        });
+
+    };
+
+    function setData(props) {
+        // View container
+        setreceiptData(<Container disableBtn={disableBtn} setopenContainer={setopenContainer} updateCredits={updateCredits} endpoint={props.endpoint} uid={props.uid} leadUID={props.leadUID} emailAddress={props.emailAddress} imageFile={props.imageFile} inputRecAmt={props.inputRecAmt} inputtxnAdd={props.inputtxnAdd} />)
     }
 
     async function deleteLead(uid, emailAddress, leadMailAddress) {
@@ -86,7 +116,7 @@ export default function Dashboard(props) {
                 // Fill leads
                 let receiptsData = []
                 val['data'].map(data => {
-                    receiptsData.push(<Receipts endpoint={props.endpoint} key={data['uid']} uid={data['uid']} leadUID={data['leadUID']} emailAddress={data['emailAddress']} imageFile={data['imageFile']} inputRecAmt={data['inputRecAmt']} inputtxnAdd={data.inputtxnAdd} />);
+                    receiptsData.push(<Receipts setopenContainer={setopenContainer} setData={setData} endpoint={props.endpoint} key={data['uid']} uid={data['uid']} leadUID={data['leadUID']} emailAddress={data['emailAddress']} imageFile={data['imageFile']} inputRecAmt={data['inputRecAmt']} inputtxnAdd={data.inputtxnAdd} />);
                 });
                 setreceiptsData(receiptsData)
             } else {
@@ -110,6 +140,11 @@ export default function Dashboard(props) {
 
             <div className="sideCon">
                 <button className="thm-btn sp">Welcome: <span className="username"></span></button>
+            </div>
+
+            <div className={openContainer ? "show" : "hide"} id="overlay"></div>
+            <div className={openContainer ? "show positionAbs" : "hide"}>
+                {receiptData}
             </div>
 
             <main>

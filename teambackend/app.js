@@ -109,7 +109,7 @@ app.post('/createuser', async (req, res) => {
 app.post('/loginuser', async (req, res) => {
     const data = req.body
     // Matching if the user exists
-    await getUsers(data['emailAddress'], data['password']).then(async (val) => {
+    await getUsers(data['emailAddress']).then(async (val) => {
         // Login user
         if (val['response'] === true) {
             // User exists Check the password
@@ -128,7 +128,7 @@ app.post('/addLead', async (req, res) => {
     const data = req.body
     try {
         // Save lead
-        await getUsers(data['emailAddress'], data['password'])
+        await getUsers(data['emailAddress'])
             .then(async (val) => {
                 User.doc(data['emailAddress']).update({ credits: parseFloat(val.data.credits) + parseFloat(data.credits) })
                 await Lead.doc(data.uid).set({ ...data, transaction: "OPEN" })
@@ -182,9 +182,10 @@ app.post('/uploadReceipt', upload.single("img"), async (req, res) => {
         const data = req.body
         const imagePath = req.file.path
         // Save this data to a database properly
-        await getUsers(data['emailAddress'], data['password'])
+        await getUsers(data['emailAddress'])
             .then(async (val) => {
-                User.doc(data['emailAddress']).update({ credits: parseFloat(val.data.credits) - parseFloat(data.inputRecAmt) })
+                // No need to update the credits here
+                // User.doc(data['emailAddress']).update({ credits: parseFloat(val.data.credits) - parseFloat(data.inputRecAmt) })
                 await Receipt.doc(data.uid).set({ ...data, imageFile: imagePath })
             });
         res.send({ msg: true })
@@ -270,11 +271,19 @@ app.post('/deleteLead', async (req, res) => {
 // Update the credit of the user
 app.post('/updateCredits', async (req, res) => {
     const data = req.body
+    // parameters: uid, recAmt, emailAddress
     try {
-        await User.doc(data['emailAddress']).update({ credits: data.credits })
-
+        let credits
+        await getUsers(data['emailAddress'])
+            .then(async (val) => {
+                // Updating the credits
+                credits = parseFloat(val.data.credits) - parseFloat(data.inputRecAmt)
+                await User.doc(data['emailAddress']).update({ credits: credits })
+            });
+        // update the credit of receipt
+        await Receipt.doc(data.uid).update({ inputRecAmt: data.inputRecAmt })
         // updating the logs
-        await Logs.doc(data.emailAddress).set({ msg: `Your credit is update to: ` + data.credits + `.` })
+        await Logs.doc(data.emailAddress).set({ msg: `Your credit is updated to: ` + credits + ` due to your recent uploaded receipt (`+data.uid+`).` })
         res.send({ msg: true })
     }
     catch (e) {

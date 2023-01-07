@@ -23,10 +23,9 @@ export default function Upload(props) {
         let inputtxnAdd = $('#inputtxnAdd').val()
         let leadUID = $('#leadUID').val()
         let imgTag = $('#imgTag').val()
-
+        console.log(leadUID);
         try {
-            if ((inputRecAmt !== '') && (inputtxnAdd !== '') && (leadUID !== 0) && (imgTag !== '')) {
-
+            if ((inputRecAmt !== '') && (inputtxnAdd !== '') && (leadUID !== '0') && (imgTag !== '')) {
                 if (inputRecAmt < props.credits) {
 
                     receiptData.append("img", file);
@@ -52,7 +51,6 @@ export default function Upload(props) {
                             }
                         })
                         .catch((error) => console.log(error.message));
-
                 }else{
                     setMsg("You don't have that much credits !!!")
                 }
@@ -61,7 +59,7 @@ export default function Upload(props) {
             }
         } catch (e) {
             console.log(e)
-            setMsg("Please enter valid data!!!")
+            setMsg("Please enter valid data !!!")
             setdisableBtn(false)
         }
 
