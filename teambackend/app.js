@@ -16,6 +16,7 @@ const signupMail = require('./mailSystem/signupMail')
 const User = db.collection('Users')
 const Lead = db.collection('Leads')
 const Receipt = db.collection('Receipts')
+const Logs = db.collection('Logs')
 
 // Sessions
 const cookieParser = require("cookie-parser");
@@ -96,7 +97,7 @@ app.post('/createuser', async (req, res) => {
                 loginSession(req, res, data, "Successfully Registered !!!")
             } else {
                 // check if its a update request
-                if(data.update_it === true)
+                if (data.update_it === true)
                     registerOrUpdate("Your account information has been updated successfully !!!", liveSiteAdd, req, res, { ...data, credits: 0 }, "Updated Successfully !!!")
                 else
                     // Response should be Try to login 
@@ -210,6 +211,71 @@ app.get('/fetchReceipts', async (req, res) => {
         } else {
             res.send({ msg: true, data: snapshot.docs.map(doc => doc.data()) })
         }
+    }
+    catch (e) {
+        console.log(e)
+        res.send({ msg: false })
+    }
+})
+
+// Admin Console or Loan Officer
+// Fetch all leads
+app.get('/fetch_All_Leads', async (req, res) => {
+    try {
+        const snapshot = await Lead.get();
+        if (snapshot.empty) {
+            res.send({ msg: false })
+        } else {
+            res.send({ msg: true, data: snapshot.docs.map(doc => doc.data()) })
+        }
+    }
+    catch (e) {
+        console.log(e)
+        res.send({ msg: false })
+    }
+})
+
+// Fetch all receipt
+app.get('/fetch_All_Receipts', async (req, res) => {
+    try {
+        const snapshot = await Receipt.get();
+        if (snapshot.empty) {
+            res.send({ msg: false })
+        } else {
+            res.send({ msg: true, data: snapshot.docs.map(doc => doc.data()) })
+        }
+    }
+    catch (e) {
+        console.log(e)
+        res.send({ msg: false })
+    }
+})
+
+// Delete any Lead
+app.post('/deleteLead', async (req, res) => {
+    const data = req.body
+    try {
+        // Deleting the lead
+        await Lead.doc(data['uid']).delete();
+        // Update the log
+        await Logs.doc(data.emailAddress).set({ msg: `Your lead: ` + data.uid + ` name: ` + data.fname + ` has been deleted by us.` })
+        res.send({ msg: true })
+    }
+    catch (e) {
+        console.log(e)
+        res.send({ msg: false })
+    }
+})
+
+// Update the credit of the user
+app.post('/updateCredits', async (req, res) => {
+    const data = req.body
+    try {
+        await User.doc(data['emailAddress']).update({ credits: data.credits })
+
+        // updating the logs
+        await Logs.doc(data.emailAddress).set({ msg: `Your credit is update to: ` + data.credits + `.` })
+        res.send({ msg: true })
     }
     catch (e) {
         console.log(e)
