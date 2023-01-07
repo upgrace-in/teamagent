@@ -8,12 +8,11 @@ lsof -i:7070
 kill -9 PID
 
 TODO:
-Admin: View Delete for all leads (create logs to user)
-        Different place to check the receipts and edit the user’s credit from their 
 
-1) Two fetch function for leads & receipts (Search bar in lead table & receipt)
+Admin:
+1) Search bar in lead table & receipt
 2) Delete function with the data
-3) A function to update the credits of the user
+3) A function to update the credits of the user as per the receipt amoutn changed + add a log
 4) View logs to the users
 
 

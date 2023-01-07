@@ -3,6 +3,7 @@ import $ from 'jquery'
 import LeadTable from '../subComp/LeadTable'
 import '../dashboard.css'
 import Receipts from "./Receipts"
+import Leads from "./Leads"
 
 export default function Dashboard(props) {
 
@@ -35,12 +36,40 @@ export default function Dashboard(props) {
                 // Fill leads
                 let leadData = []
                 val['data'].map(data => {
-                    leadData.push(<LeadTable key={data['uid']} uid={data['uid']} transaction={data['transaction']} leadname={data['fname']} mail={data['inputEmail']} phone={data['inputPhone']} leadamt={data['loanAmt']} leadstatus={data['offerAcceptedStatus'] === false ? "Not Yet" : "Approved"} />);
+                    leadData.push(<Leads 
+                        useremailAddress={data.emailAddress} 
+                        deleteLead={deleteLead} 
+                        key={data['uid']} 
+                        uid={data['uid']} 
+                        transaction={data['transaction']} 
+                        leadname={data['fname']} 
+                        leadmail={data['inputEmail']} 
+                        phone={data['inputPhone']} 
+                        leadamt={data['loanAmt']} 
+                        leadstatus={data['offerAcceptedStatus'] === false ? "Not Yet" : "Approved"} />);
                 });
                 setleadData(leadData)
             } else {
                 // No Leads
                 setleadData('')
+            }
+        });
+    }
+
+    async function deleteLead(uid, emailAddress, leadMailAddress) {
+        fetch(props.endpoint + '/deleteLead', {
+            method: 'POST',
+            body: JSON.stringify({ uid, emailAddress, leadMailAddress }),
+            headers: { "Content-Type": "application/json" }
+        }).then(function (response) {
+            return response.json()
+        }).then(function (val) {
+            console.log(val);
+            if (val['msg']) {
+                alert("Lead Deleted !!!")
+                fetchLeads()
+            } else {
+                alert("Something went wrong !!!")
             }
         });
     }
@@ -139,6 +168,7 @@ export default function Dashboard(props) {
                                         <th scope="col">Credits</th>
                                         <th scope="col">Offer Accepted</th>
                                         <th scope="col">Transaction</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="leadData">

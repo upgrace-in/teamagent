@@ -258,7 +258,7 @@ app.post('/deleteLead', async (req, res) => {
         // Deleting the lead
         await Lead.doc(data['uid']).delete();
         // Update the log
-        await Logs.doc(data.emailAddress).set({ msg: `Your lead: ` + data.uid + ` name: ` + data.fname + ` has been deleted by us.` })
+        await Logs.doc(data.emailAddress).set({ msg: `Your lead: ` + data.uid + ` name: ` + data.leadMailAddress + ` has been deleted by us.` })
         res.send({ msg: true })
     }
     catch (e) {
