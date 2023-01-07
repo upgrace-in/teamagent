@@ -1,6 +1,7 @@
 import Logout from "./Logout";
 import User from "./User";
 import Dashboard from "./Dashboard";
+import Console from "./console/Console";
 import $ from 'jquery';
 import { useEffect } from 'react';
 import {
@@ -62,6 +63,7 @@ function App() {
         <Route exact path='/Logout' element={<Logout />}></Route>
         <Route exact path='/user' element={<User endpoint={ENDPOINT} session={sessionData} />}></Route>
         <Route exact path='/dashboard' element={<Dashboard calculator={calculator} endpoint={ENDPOINT} session={sessionData} checkUserExists={checkUserExists} />}></Route>
+        <Route exact path='/console' element={<Console endpoint={ENDPOINT} session={sessionData} checkUserExists={checkUserExists} />}></Route>
       </Routes>
     </Router>
   );

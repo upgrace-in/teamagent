@@ -9,9 +9,12 @@ export default function UserForm(props) {
     const [formSwitch, setformSwitch] = useState(false);
 
     const loginUser = (session) => {
-        // create session and push to dashboard
+        // create session
         localStorage.setItem("session", JSON.stringify(session['userdata']))
-        window.location.href = '/dashboard'
+        if(session.userdata.is_admin === true)
+            window.location.href = '/console'
+        else
+            window.location.href = '/dashboard'
     }
 
     const loginForm = (e) => {

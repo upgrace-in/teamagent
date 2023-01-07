@@ -220,7 +220,7 @@ app.get('/fetchReceipts', async (req, res) => {
 
 // Admin Console or Loan Officer
 // Fetch all leads
-app.get('/fetch_All_Leads', async (req, res) => {
+app.get('/fetchAllLeads', async (req, res) => {
     try {
         const snapshot = await Lead.get();
         if (snapshot.empty) {
@@ -236,7 +236,7 @@ app.get('/fetch_All_Leads', async (req, res) => {
 })
 
 // Fetch all receipt
-app.get('/fetch_All_Receipts', async (req, res) => {
+app.get('/fetchAllReceipts', async (req, res) => {
     try {
         const snapshot = await Receipt.get();
         if (snapshot.empty) {
