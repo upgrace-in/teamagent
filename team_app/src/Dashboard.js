@@ -24,7 +24,7 @@ export default function Dashboard(props) {
 
     const [leadData, setleadData] = useState('')
     const [Msg, setMsg] = useState('')
-    
+
     let session;
     let leadInfo = {};
 
@@ -418,11 +418,11 @@ export default function Dashboard(props) {
                                                                                                 <div className="comment-form__input-box"><span className="wpcf7-form-control-wrap"
                                                                                                     data-name="your-name">
                                                                                                     <select className="form-select" id="selectedloanOfficer">
-                                                                                                        <option value="0" defaultValue>None</option>
-                                                                                                        <option value="Victor Mackliff">Victor Mackliff</option>
-                                                                                                        <option value="Sam Zepeda">Sam Zepeda</option>
-                                                                                                        <option value="Gabe Lozano">Gabe Lozano</option>
-                                                                                                        <option value="Chris Miranda">Chris Miranda</option>
+                                                                                                        <option value="0" defaultValue>Choose Lender</option>
+                                                                                                        <option value="victormackliff@gmail.com">Victor Mackliff</option>
+                                                                                                        <option value="SZepeda@sl-Lending.com">Sam Zepeda</option>
+                                                                                                        <option value="glozano@sl-lending.com">Gabe Lozano</option>
+                                                                                                        <option value="cmiranda@sl-lending.com">Chris Miranda</option>
 
                                                                                                     </select>
                                                                                                 </span>

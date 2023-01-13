@@ -17,13 +17,17 @@ export default function Dashboard(props) {
     const [leadData, setleadData] = useState('')
     const [receiptsData, setreceiptsData] = useState('')
 
-    let session;
+    let session, is_loanOfficer;
 
     // Chekcing is the users session is their   
     if (props.session === null) {
         window.location.href = '/'
     } else {
         session = props.session
+        if (session.is_loanOfficer !== undefined)
+            is_loanOfficer = true
+        else
+            is_loanOfficer = false
     }
     $('.hide_it').hide()
 
@@ -39,6 +43,39 @@ export default function Dashboard(props) {
                 let leadData = []
                 val['data'].map(data => {
                     leadData.push(<Leads
+                        is_loanOfficer={is_loanOfficer}
+                        useremailAddress={data.emailAddress}
+                        deleteLead={deleteLead}
+                        key={data['uid']}
+                        uid={data['uid']}
+                        transaction={data['transaction']}
+                        leadname={data['fname']}
+                        leadmail={data['inputEmail']}
+                        phone={data['inputPhone']}
+                        leadamt={data['loanAmt']}
+                        leadstatus={data['offerAcceptedStatus'] === false ? "Not Yet" : "Approved"} />);
+                });
+                setleadData(leadData)
+            } else {
+                // No Leads
+                setleadData('')
+            }
+        });
+    }
+
+    async function fetchLoanLeads(loanOfficer) {
+        fetch(props.endpoint + '/fetchLoanLeads?loanOfficer=' + loanOfficer, {
+            method: 'GET',
+            headers: { "Content-Type": "application/json" }
+        }).then(function (response) {
+            return response.json()
+        }).then(function (val) {
+            if (val['msg']) {
+                // Fill leads
+                let leadData = []
+                val['data'].map(data => {
+                    leadData.push(<Leads
+                        is_loanOfficer={is_loanOfficer}
                         useremailAddress={data.emailAddress}
                         deleteLead={deleteLead}
                         key={data['uid']}
@@ -127,8 +164,13 @@ export default function Dashboard(props) {
     }
 
     useEffect(() => {
-        fetchLeads()
-        fetchReceipts()
+
+        if (!is_loanOfficer) {
+            fetchLeads()
+            fetchReceipts()
+        } else {
+            fetchLoanLeads(props.session.emailAddress)
+        }
         setTimeout(() => {
             props.checkUserExists(props.session)
         }, 1000)
@@ -167,7 +209,8 @@ export default function Dashboard(props) {
                             <div className="collapse show" id="home-collapse">
                                 <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                     <li><a onClick={() => setformState('Leads')} className="cur link-dark rounded">Leads</a></li>
-                                    <li><a onClick={() => setformState('Receipts')} className="cur link-dark rounded">Receipts</a></li>
+                                    {is_loanOfficer !== true ? <li><a onClick={() => setformState('Receipts')} className="cur link-dark rounded">Receipts</a></li> : ""}
+
                                 </ul>
                             </div>
                         </li>
@@ -203,7 +246,8 @@ export default function Dashboard(props) {
                                         <th scope="col">Credits</th>
                                         <th scope="col">Offer Accepted</th>
                                         <th scope="col">Transaction</th>
-                                        <th scope="col">Action</th>
+                                        {is_loanOfficer !== true ? <th scope="col">Action</th> : ""}
+
                                     </tr>
                                 </thead>
                                 <tbody id="leadData">

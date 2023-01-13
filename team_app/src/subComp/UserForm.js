@@ -11,7 +11,7 @@ export default function UserForm(props) {
     const loginUser = (session) => {
         // create session
         localStorage.setItem("session", JSON.stringify(session['userdata']))
-        if(session.userdata.is_admin === true)
+        if((session.userdata.is_admin === true) || (session.userdata.is_loanOfficer === true))
             window.location.href = '/console'
         else
             window.location.href = '/dashboard'

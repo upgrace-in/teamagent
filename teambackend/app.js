@@ -138,9 +138,9 @@ app.post('/addLead', async (req, res) => {
         // To the Admin
         mailToAdmin(adminMail, "Someone Added A Lead", data, liveSiteAdd)
 
-        if (loanOfficer[data['offerAcceptedStatus']['selectedloanOfficer']] !== undefined) {
+        if (data['offerAcceptedStatus']['selectedloanOfficer'] !== undefined) {
             // To the loan Officer
-            mailToAdmin(loanOfficer[data['offerAcceptedStatus']['selectedloanOfficer']], "Someone Choosed You In A Lead", data, liveSiteAdd)
+            mailToAdmin(data['offerAcceptedStatus']['selectedloanOfficer'], "Someone Choosed You In A Lead", data, liveSiteAdd)
         }
 
         // To the User
@@ -283,8 +283,25 @@ app.post('/updateCredits', async (req, res) => {
         // update the credit of receipt
         await Receipt.doc(data.uid).update({ inputRecAmt: data.inputRecAmt })
         // updating the logs
-        await Logs.doc(data.emailAddress).set({ msg: `Your credit is updated to: ` + credits + ` due to your recent uploaded receipt (`+data.uid+`).` })
+        await Logs.doc(data.emailAddress).set({ msg: `Your credit is updated to: ` + credits + ` due to your recent uploaded receipt (` + data.uid + `).` })
         res.send({ msg: true })
+    }
+    catch (e) {
+        console.log(e)
+        res.send({ msg: false })
+    }
+})
+
+// Fetching loan officers lead
+app.get('/fetchLoanLeads', async (req, res) => {
+    const data = req.query
+    try {   
+        const snapshot = await Lead.where('offerAcceptedStatus.selectedloanOfficer', '==', data.loanOfficer).get();
+        if (snapshot.empty) {
+            res.send({ msg: false })
+        } else {
+            res.send({ msg: true, data: snapshot.docs.map(doc => doc.data()) })
+        }
     }
     catch (e) {
         console.log(e)
